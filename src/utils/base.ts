@@ -1,5 +1,27 @@
-import { Mod, Requirement, Defense, Weapon } from './itemInterfaces';
 import Item from './item';
+import Mod from './mod';
+
+export interface Requirement {
+  level: number;
+  str: string;
+  dex: string;
+  int: string;
+}
+
+export interface Defense {
+  block: number;
+  armor: number;
+  evasion: number;
+  energyShield: number;
+}
+
+export interface Weapon {
+  damageMin: number;
+  damageMax: number;
+  speed: number;
+  crit: number;
+  range: number;
+}
 
 export default class Base {
   id: string;
@@ -21,7 +43,7 @@ export default class Base {
     this.type = base.type;
     this.category = base.category;
     this.dropLevel = base.dropLevel;
-    this.implicit = base.implicit; // TODO: COPY
+    this.implicit = new Mod(base.implicit);
     this.tags = base.tags;
     this.artPath = base.artPath;
     this.maxSockets = base.maxSockets;

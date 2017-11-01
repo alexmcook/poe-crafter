@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Mod, GenerationType, Domain } from './itemInterfaces';
+import Mod, { GenerationType, Domain } from './mod';
 
 /* Filter mods to include only mods with a shared tag that have a spawnWeight greater than value */
 export function filterSpawnWeightTagsMatch(mods: {}, tags: string[]): Mod[] {
@@ -25,6 +25,7 @@ export function filterSpawnWeightAnyIsZero(mods: {}, tags: string[]): Mod[] {
         return true;
       }
     });
+    return bool;
   });
 }
 

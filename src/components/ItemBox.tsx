@@ -14,8 +14,8 @@ class ItemBox extends React.Component<ItemBoxProps> {
     const style: {} = {
       fontFamily: 'Fontin-SmallCaps',
       position: 'absolute',
-      top: 100 + 'px', // this.props.y
-      transform: 'translateY(-100%)',
+      // top: 100 + 'px', // this.props.y
+      // transform: 'translateY(-100%)',
       backgroundColor: 'rgba(0, 0, 0, 0.85)',
       textAlign: 'center',
       fontSize: '10.875pt',
@@ -26,8 +26,8 @@ class ItemBox extends React.Component<ItemBoxProps> {
     let stats: JSX.Element[] = [];
     if (this.props.item.mods.length > 0) {
       let descriptions = poe.getDescriptions(this.props.item.mods);
-      _.map(descriptions, description => {
-        stats.push(<Stat text={description} />);
+      _.map(descriptions, (description, index) => {
+        stats.push(<Stat key={index} text={description} />);
       });
     }
 

@@ -1,4 +1,4 @@
-import { Mod } from '../utils/itemInterfaces';
+import Mod from '../utils/mod';
 
 declare module 'mods.json' {
   export interface modsJSON {
