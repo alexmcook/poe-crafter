@@ -14,7 +14,8 @@ export default (state: Item = initialState, action: Action) => {
     case 'CHAOS':
       return new Item(chaos(state));
     case 'REMOVE':
-      return new Item(state.removeMod());
+      state = new Item(state);
+      return state.reset();
     default:
       return state;
   }
