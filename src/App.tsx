@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ItemContainer from './containers/ItemContainer';
-import Buttons from './containers/Buttons';
+import ButtonContainer from './containers/ButtonContainer';
 import './css/style.css';
 
 class App extends React.Component {
@@ -8,23 +8,7 @@ class App extends React.Component {
     return (
       <div>
         <ItemContainer />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <Buttons />
+        <ButtonContainer />
       </div>
     );
   }

@@ -66,17 +66,19 @@ export default class Item extends Base {
   }
 
   rerollImplicit() {
-    _.each(this.implicit.stats, stat => {
-      if (stat.valueMax - stat.valueMin === 0) {
-        stat.value = stat.valueMax;
-      } else {
-        let rnd = randomRange(stat.valueMin, stat.valueMax + 1);
-        while (rnd === stat.value) {
-          rnd = randomRange(stat.valueMin, stat.valueMax + 1);
+    if (this.implicit !== null) {
+      _.each(this.implicit.stats, stat => {
+        if (stat.valueMax - stat.valueMin === 0) {
+          stat.value = stat.valueMax;
+        } else {
+          let rnd = randomRange(stat.valueMin, stat.valueMax + 1);
+          while (rnd === stat.value) {
+            rnd = randomRange(stat.valueMin, stat.valueMax + 1);
+          }
+          stat.value = rnd;
         }
-        stat.value = rnd;
-      }
-    });
+      });
+    }
   }
 
   getMod() {
@@ -122,8 +124,14 @@ export default class Item extends Base {
     updatedModPool = _item.filterDomain(updatedModPool, this.category);
     updatedModPool = _item.filterGroup(updatedModPool, this.mods);
     let maxCount = 3;
-    if (this.type === 'Jewel') {
-      maxCount = 2;
+    if (this.rarity === Rarity.RARE) {
+      if (this.type === 'Jewel') {
+        maxCount = 2;
+      }
+    } else if (this.rarity === Rarity.MAGIC) {
+      maxCount = 1;
+    } else if (this.rarity === Rarity.NORMAL) {
+      maxCount = 0;
     }
     if (this.prefixCount >= maxCount) {
       updatedModPool = _item.filterPrefix(updatedModPool);

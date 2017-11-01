@@ -29,21 +29,21 @@ export default class Base {
   type: string;
   category: string;
   dropLevel: number;
-  implicit: Mod;
+  implicit: Mod | null;
   tags: string[];
   artPath: string;
   maxSockets: number;
   verticalSockets: boolean;
   requirement: Requirement;
-  defense: Defense;
-  weapon: Weapon;
+  defense: Defense | null;
+  weapon: Weapon | null;
   constructor(base: Base | Item) {
     this.id = base.id;
     this.name = base.name;
     this.type = base.type;
     this.category = base.category;
     this.dropLevel = base.dropLevel;
-    this.implicit = new Mod(base.implicit);
+    this.implicit = base.implicit === null ? null : new Mod(base.implicit);
     this.tags = base.tags;
     this.artPath = base.artPath;
     this.maxSockets = base.maxSockets;
