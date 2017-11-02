@@ -200,6 +200,9 @@ export function eternal(item: Item): Item {
   return item;
 }
 
-export function imprint(item: Item): Item {
+export function imprint(item: Item, itemImprint: Item | undefined): Item {
+  if (itemImprint) {
+    return itemImprint;
+  }
   return item;
 }

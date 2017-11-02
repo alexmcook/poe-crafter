@@ -4,49 +4,50 @@ import * as basesJSON from '../data/bases.json';
 import * as currency from '../utils/currency';
 
 export interface ItemState {
-  item: Item;
+  currentItem: Item;
+  imprint?: Item;
 }
 
-const initialState = new Item(basesJSON[333]);
+const initialState = { currentItem: new Item(basesJSON[333]) };
 
-export default (state: Item = initialState, action: Action) => {
+export default (state: ItemState = initialState, action: Action) => {
   switch (action.type) {
     case 'WHETSTONE':
-      return currency.whetstone(state);
+      return { ...state, currentItem: currency.whetstone(state.currentItem) };
     case 'ARMORSCRAP':
-      return currency.armorScrap(state);
+      return { ...state, currentItem: currency.armorScrap(state.currentItem) };
     case 'TRANSMUTE':
-      return currency.transmute(state);
+      return { ...state, currentItem: currency.transmute(state.currentItem) };
     case 'ALTERATION':
-      return currency.alteration(state);
+      return { ...state, currentItem: currency.alteration(state.currentItem) };
     case 'ANNULMENT':
-      return currency.annulment(state);
+      return { ...state, currentItem: currency.annulment(state.currentItem) };
     case 'EXALTED':
-      return currency.exalted(state);
+      return { ...state, currentItem: currency.exalted(state.currentItem) };
     case 'REGAL':
-      return currency.regal(state);
+      return { ...state, currentItem: currency.regal(state.currentItem) };
     case 'ALCHEMY':
-      return currency.alchemy(state);
+      return { ...state, currentItem: currency.alchemy(state.currentItem) };
     case 'CHAOS':
-      return currency.chaos(state);
+      return { ...state, currentItem: currency.chaos(state.currentItem) };
     case 'BLESSED':
-      return currency.blessed(state);
+      return { ...state, currentItem: currency.blessed(state.currentItem) };
     case 'AUGMENT':
-      return currency.augment(state);
+      return { ...state, currentItem: currency.augment(state.currentItem) };
     case 'DIVINE':
-      return currency.divine(state);
+      return { ...state, currentItem: currency.divine(state.currentItem) };
     case 'JEWELLER':
-      return currency.jeweller(state);
+      return { ...state, currentItem: currency.jeweller(state.currentItem) };
     case 'FUSING':
-      return currency.fusing(state);
+      return { ...state, currentItem: currency.fusing(state.currentItem) };
     case 'CHROMATIC':
-      return currency.chromatic(state);
+      return { ...state, currentItem: currency.chromatic(state.currentItem) };
     case 'SCOURING':
-      return currency.scouring(state);
+      return { ...state, currentItem: currency.scouring(state.currentItem) };
     case 'ETERNAL':
-      return currency.eternal(state);
+      return { ...state, imprint: currency.eternal(state.currentItem) };
     case 'IMPRINT':
-      return currency.imprint(state);
+      return { ...state, currentItem: currency.imprint(state.currentItem, state.imprint), imprint: undefined };
     default:
       return state;
   }

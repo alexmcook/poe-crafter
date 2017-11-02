@@ -43,6 +43,8 @@ class ButtonGroup extends React.Component<ButtonGroupProps> {
         <button onClick={this.props.exalted}>Exalted</button>
         <button onClick={this.props.divine}>Divine</button>
         <button onClick={this.props.blessed}>Blessed</button>
+        <button onClick={this.props.eternal}>Eternal</button>
+        <button onClick={this.props.imprint}>Imprint</button>
       </div>
     );
   }

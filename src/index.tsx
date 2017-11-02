@@ -6,14 +6,7 @@ import App from './App';
 import reducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
-import Item from './utils/item';
-import * as bases from './data/bases.json';
-
-let item = new Item(bases[10]);
-
-const initialState = { item: item };
-
-const store = createStore(reducer, initialState);
+const store = createStore(reducer);
 
 ReactDOM.render(
   <Provider store={store}>

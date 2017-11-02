@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { ItemState } from '../reducers/itemReducer';
+import { State } from '../reducers';
 import ItemBox from '../components/ItemBox';
 
-const mapStateToProps = (state: ItemState) => ({
-  item: state.item
+const mapStateToProps = (state: State) => ({
+  item: state.item.currentItem
 });
 
 const mapDispatchToProps = {};
