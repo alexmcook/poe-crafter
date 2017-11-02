@@ -9,8 +9,8 @@ interface TitleProps {
 class Title extends React.Component<TitleProps> {
   render() {
     let title2;
-    if (this.props.itemName) {
-      title2 = <div className="text--title">{this.props.itemName}</div>;
+    if (this.props.rarity === 'rare') {
+      title2 = <div className="text--title-2">{this.props.baseName}</div>;
     }
     return (
       <div
@@ -20,7 +20,7 @@ class Title extends React.Component<TitleProps> {
       >
         <div className={'title-bar-left--' + this.props.rarity} />
         <div className={'title-bar-right--' + this.props.rarity} />
-        <div className="text--title">{this.props.baseName}</div>
+        <div className="text--title">{this.props.itemName}</div>
         {title2}
       </div>
     );

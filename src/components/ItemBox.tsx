@@ -34,7 +34,7 @@ class ItemBox extends React.Component<ItemBoxProps> {
     return (
       <div style={style}>
         <Title
-          itemName={this.props.item.itemName}
+          itemName={this.props.item.getName()}
           baseName={this.props.item.name}
           rarity={this.props.item.rarity}
         />

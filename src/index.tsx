@@ -9,7 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 import Item from './utils/item';
 import * as basesJSON from './data/bases.json';
 
-const initialState = { item: new Item(basesJSON[333]) };
+const initialState = { item: new Item(basesJSON[10]) };
 
 const store = createStore(reducer, initialState);
 

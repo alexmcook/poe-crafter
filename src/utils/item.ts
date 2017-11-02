@@ -3,6 +3,7 @@ import Base from './base';
 import Mod, { GenerationType } from './mod';
 import { randomRange } from './random';
 import * as _item from './itemFunctions';
+import names from '../data/names.js';
 import * as modsJSON from '../data/mods.json';
 let mods: Mod[] = <Mod[]> modsJSON;
 
@@ -39,6 +40,7 @@ export default class Item extends Base {
       this.prefixCount = item.prefixCount;
       this.suffixCount = item.suffixCount;
     } else {
+      this.itemName = this.generateName();
       this.itemLevel = 100;
       this.requiredLevel = item.requirement.level;
       this.quality = 0;
@@ -52,13 +54,96 @@ export default class Item extends Base {
     }
   }
 
+  getName() {
+    if (this.rarity === Rarity.RARE) {
+      return this.itemName;
+    } else if (this.rarity === Rarity.MAGIC) {
+      let prefix = _.filter(this.mods, mod => {
+        return mod.generationType === GenerationType.PREFIX;
+      });
+      let prefixName: string = '';
+      if (prefix.length > 0) {
+        prefixName = prefix[0].name;
+      }
+      let suffix = _.filter(this.mods, mod => {
+        return mod.generationType === GenerationType.SUFFIX;
+      });
+      let suffixName: string = '';
+      if (suffix.length > 0) {
+        suffixName = suffix[0].name;
+      }
+      return prefixName + ' ' + this.name + ' ' + suffixName;
+    } else {
+      return this.name;
+    }
+  }
+
+  generateName(): string {
+    let suffixes: string[] = [];    
+    if (this.category.includes('Weapon')) {
+      if (this.type.includes('Axe')) {
+        suffixes = names.axeSuffixes;
+      } else if (this.type.includes('Mace')) {
+        suffixes = names.maceSuffixes;
+      } else if (this.type.includes('Sword')) {
+        suffixes = names.swordSuffixes;
+      } else if (this.type === 'Sceptre') {
+        suffixes = names.sceptreSuffixes;
+      } else if (this.type === 'Staff') {
+        suffixes = names.staffSuffixes;
+      } else if (this.type === 'Dagger') {
+        suffixes = names.daggerSuffixes;
+      } else if (this.type === 'Claw') {
+        suffixes = names.clawSuffixes;
+      } else if (this.type === 'Bow') {
+        suffixes = names.bowSuffixes;
+      } else if (this.type === 'Wand') {
+        suffixes = names.wandSuffixes;
+      }
+    } else if (this.category === 'Jewellery') {
+      if (this.type === 'Amulet') {
+        suffixes = names.amuletSuffixes;
+      } else if (this.type === 'Ring') {
+        suffixes = names.ringSuffixes;
+      } else if (this.type === 'Belt') {
+        suffixes = names.beltSuffixes;
+      }
+    } else if (this.category === 'Armor') {
+      if (this.type === 'Body Armour') {
+        suffixes = names.bodyArmourSuffixes;
+      } else if (this.type === 'Helmet') {
+        suffixes = names.helmetSuffixes;
+      } else if (this.type === 'Gloves') {
+        suffixes = names.glovesSuffixes;
+      } else if (this.type === 'Boots') {
+        suffixes = names.bootsSuffixes;
+      }
+    } else if (this.category === 'Off-hand') {
+      if (this.type === 'Quiver') {
+        suffixes = names.quiverSuffixes;
+      } else if (this.type === 'Shield' && this.name.includes('Spirit Shield')) {
+        suffixes = names.spiritShieldSuffixes;
+      } else if (this.type === 'Shield') {
+        suffixes = names.otherShieldSuffixes;
+      } else if (this.type === 'Quiver') {
+        suffixes = names.quiverSuffixes;
+      }
+    } else if (this.category === 'Other' || this.category === 'Fishing Rod') {
+      suffixes = names.jewelSuffixes;
+    } else {
+      throw new Error('Unknown base: ' + this.category + ' ' + this.type);
+    }
+
+    return names.prefixes[randomRange(0, names.prefixes.length)] + ' ' + suffixes[randomRange(0, suffixes.length)];
+  }
+
   reset() {
     let n = this.mods.length;
     for (let i = 0; i < n; i++) {
       this.removeMod(this.mods[n - i - 1]);
     }
-  }  
-  
+  }
+
   reroll() {
     _.each(this.mods, mod => {
       initMod(mod);
@@ -82,7 +167,73 @@ export default class Item extends Base {
   }
 
   getMod() {
-    return this.currentModPool[randomRange(0, this.currentModPool.length)];
+    let itemTags = this.currentTags;
+    let weightTotal = 0;
+    _.each(this.currentModPool, mod => {
+      let weight = _.find(mod.spawnWeights, spawnWeight => {
+        return spawnWeight.valueOf() > 0;
+      });
+      let modifier = 1;
+      let values: number[] = _.reduce(
+        mod.generationWeights,
+        (result: number[], value, key) => {
+          if (_.includes(itemTags, key)) {
+            result.push(value);
+          }
+          return result;
+        },
+        []
+      );
+      let max: number | undefined = _.max(values);
+      if (max) {
+        modifier *= max / 100;
+      }
+      if (weight) {
+        weightTotal += weight * modifier;
+      } else {
+        throw new Error('No weight found for ' + mod.id);
+      }
+    });
+
+    let selected: Mod | undefined;
+    let variate = Math.random() * weightTotal;
+    let cumulative = 0;
+    _.each(this.currentModPool, mod => {
+      let weight = _.find(mod.spawnWeights, spawnWeight => {
+        return spawnWeight.valueOf() > 0;
+      });
+      let modifier = 1;
+      let values: number[] = _.reduce(
+        mod.generationWeights,
+        (result: number[], value, key) => {
+          if (_.includes(itemTags, key)) {
+            result.push(value);
+          }
+          return result;
+        },
+        []
+      );
+      let max: number | undefined = _.max(values);
+      if (max) {
+        modifier *= max / 100;
+      }
+      if (weight) {
+        cumulative += weight * modifier;
+      } else {
+        throw new Error('No weight found for ' + mod.id);
+      }
+      if (variate <= cumulative) {
+        selected = mod;
+        return false;
+      }
+      return true;
+    });
+
+    if (selected) {
+      return selected;
+    } else {
+      throw new Error('No mod found');
+    }
   }
 
   addMod(mod: Mod) {
@@ -118,8 +269,14 @@ export default class Item extends Base {
 
   updateModPool() {
     let updatedModPool = this.modPool;
-    updatedModPool = _item.filterSpawnWeightTagsMatch(updatedModPool, this.tags);
-    updatedModPool = _item.filterSpawnWeightAnyIsZero(updatedModPool, this.tags);
+    updatedModPool = _item.filterSpawnWeightTagsMatch(
+      updatedModPool,
+      this.tags
+    );
+    updatedModPool = _item.filterSpawnWeightAnyIsZero(
+      updatedModPool,
+      this.tags
+    );
     updatedModPool = _item.filterGenerationType(updatedModPool);
     updatedModPool = _item.filterDomain(updatedModPool, this.category);
     updatedModPool = _item.filterGroup(updatedModPool, this.mods);

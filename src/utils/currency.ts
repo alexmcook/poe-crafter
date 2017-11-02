@@ -86,6 +86,7 @@ export function regal(item: Item): Item {
   if (item.rarity === Rarity.MAGIC) {
     item = new Item(item);
     item.rarity = Rarity.RARE;
+    item.itemName = item.generateName();
     item.updateModPool();
     item.addMod(item.getMod());
   }
@@ -96,6 +97,7 @@ export function alchemy(item: Item): Item {
   if (item.rarity === Rarity.NORMAL) {
     item = new Item(item);
     item.rarity = Rarity.RARE;
+    item.itemName = item.generateName();
     item.updateModPool();
     if (item.type === 'Jewel') {
       for (let i = 0; i < 3; i++) {
@@ -122,6 +124,7 @@ export function alchemy(item: Item): Item {
 export function chaos(item: Item): Item {
   if (item.rarity === Rarity.RARE) {
     item = new Item(item);
+    item.itemName = item.generateName();
     item.reset();
     if (item.type === 'Jewel') {
       for (let i = 0; i < 3; i++) {
