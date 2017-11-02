@@ -19,7 +19,10 @@ export function whetstone(item: Item): Item {
 }
 
 export function armorScrap(item: Item): Item {
-  if (item.quality < 20 && (item.category.includes('Armor') || item.type.includes('Shield'))) {
+  if (
+    item.quality < 20 &&
+    (item.category.includes('Armor') || item.type.includes('Shield'))
+  ) {
     item = new Item(item);
     if (item.rarity === Rarity.NORMAL) {
       item.quality += 5;

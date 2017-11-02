@@ -52,7 +52,7 @@ export function filterDomain(mods: Mod[], category: string): Mod[] {
 
 export function filterGroup(mods: Mod[], currentMods: Mod[]): Mod[] {
   return _.filter(mods, mod => {
-    return !_.some(currentMods, (itemMod) => {
+    return !_.some(currentMods, itemMod => {
       return itemMod.group === mod.group;
     });
   });

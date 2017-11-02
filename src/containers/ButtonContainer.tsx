@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import * as currency from '../actions';
 import ButtonGroup from '../components/ButtonGroup';
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   whetstone: currency.whetstone,
@@ -26,9 +25,8 @@ const mapDispatchToProps = {
   imprint: currency.imprint
 };
 
-const ButtonContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ButtonGroup);
+const ButtonContainer = connect(mapStateToProps, mapDispatchToProps)(
+  ButtonGroup
+);
 
 export default ButtonContainer;

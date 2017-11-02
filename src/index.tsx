@@ -7,9 +7,11 @@ import reducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
 import Item from './utils/item';
-import * as basesJSON from './data/bases.json';
+import * as bases from './data/bases.json';
 
-const initialState = { item: new Item(basesJSON[10]) };
+let item = new Item(bases[10]);
+
+const initialState = { item: item };
 
 const store = createStore(reducer, initialState);
 

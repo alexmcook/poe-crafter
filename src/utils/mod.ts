@@ -14,7 +14,7 @@ export enum Domain {
   MASTER,
   JEWEL,
   ATLAS,
-  LEAGUESTONE,
+  LEAGUESTONE
 }
 
 export enum GenerationType {
@@ -28,7 +28,7 @@ export enum GenerationType {
   TEMPEST,
   TALISMAN,
   ENCHANTMENT,
-  ESSENCE,
+  ESSENCE
 }
 
 interface SpawnWeight {

@@ -21,28 +21,17 @@ interface ButtonGroupProps {
   imprint: () => { type: string };
 }
 
+const style: {} = {
+  position: 'absolute',
+  bottom: 200
+};
+
 class ButtonGroup extends React.Component<ButtonGroupProps> {
   render() {
     return (
-      <div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div style={style}>
+        <button onClick={this.props.whetstone}>Whetstone</button>
+        <button onClick={this.props.armorScrap}>ArmorScrap</button>
         <button onClick={this.props.alchemy}>Alchemy</button>
         <button onClick={this.props.scouring}>Scouring</button>
         <button onClick={this.props.transmute}>Transmute</button>

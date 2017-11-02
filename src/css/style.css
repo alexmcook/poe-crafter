@@ -65,13 +65,15 @@
 }
 
 .title-bar--normal {
-  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderWhiteMiddle.png?scale=1) top left repeat-x;
+  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderWhiteMiddle.png?scale=1)
+    top left repeat-x;
   height: 33px;
   position: relative;
 }
 
 .title-bar-left--normal {
-  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderWhiteLeft.png?scale=1) top left no-repeat;
+  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderWhiteLeft.png?scale=1)
+    top left no-repeat;
   left: 0;
   height: 33px;
   width: 29px;
@@ -94,13 +96,15 @@
 }
 
 .title-bar--magic {
-  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderMagicMiddle.png?scale=1) top left repeat-x;
+  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderMagicMiddle.png?scale=1)
+    top left repeat-x;
   height: 33px;
   position: relative;
 }
 
 .title-bar-left--magic {
-  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderMagicLeft.png?scale=1) top left no-repeat;
+  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderMagicLeft.png?scale=1)
+    top left no-repeat;
   left: 0;
   height: 33px;
   width: 29px;
@@ -123,13 +127,15 @@
 }
 
 .title-bar--rare {
-  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderRareMiddle.png?scale=1) top left repeat-x;
+  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderRareMiddle.png?scale=1)
+    top left repeat-x;
   height: 54px;
   position: relative;
 }
 
 .title-bar-left--rare {
-  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderRareLeft.png?scale=1) top left no-repeat;
+  background: url(https://web.poecdn.com/image/Art/2DArt/UIImages/InGame/ItemsHeaderRareLeft.png?scale=1)
+    top left no-repeat;
   left: 0;
   height: 54px;
   width: 44px;
@@ -167,7 +173,7 @@
 }
 
 .rect-capture:hover {
-  fill: #041E04
+  fill: #041e04;
 }
 
 .currency-text {
