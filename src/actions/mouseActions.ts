@@ -6,3 +6,11 @@ export const mouseMove = (e: { clientX: number, clientY: number }) => ({
 export const mouseLeave = () => ({
   type: 'MOUSE_LEAVE'
 });
+
+export const itemRectMouseEnter = () => ({
+  type: 'ITEM_RECT_MOUSE_ENTER'
+});
+
+export const itemRectMouseLeave = () => ({
+  type: 'ITEM_RECT_MOUSE_LEAVE'
+});

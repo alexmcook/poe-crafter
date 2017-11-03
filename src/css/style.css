@@ -43,37 +43,18 @@
   font-style: italic;
 }
 
-@media screen and (min-width: 1600px) {
-  .text--title {
-    line-height: 31px;
-    font-size: 14.25pt;
-    padding-left: 45px;
-    padding-right: 45px;
-  }
-
-  .text--title-2 {
-    line-height: 16px;
-    font-size: 14.25pt;
-    padding-left: 45px;
-    padding-right: 45px;
-  }
+.text--title {
+  line-height: 31px;
+  font-size: 14.25pt;
+  padding-left: 45px;
+  padding-right: 45px;
 }
 
-
-@media screen and (max-width: 1600px) {
-  .text--title {
-    line-height: 31px;
-    font-size: 14.25pt;
-    padding-left: 45px;
-    padding-right: 45px;
-  }
-
-  .text--title-2 {
-    line-height: 16px;
-    font-size: 14.25pt;
-    padding-left: 45px;
-    padding-right: 45px;
-  }
+.text--title-2 {
+  line-height: 16px;
+  font-size: 14.25pt;
+  padding-left: 45px;
+  padding-right: 45px;
 }
 
 .item-stats {
@@ -185,6 +166,7 @@
   background-color: rgba(0, 0, 0, 0.85);
   text-align: center;
   font-size: 10.875pt;
+  white-space: nowrap;
   z-index: 2;
 }
 

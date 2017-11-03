@@ -17,6 +17,8 @@ interface CurrencyTabProps {
     e: React.MouseEvent<SVGSVGElement>
   ) => { type: string; payload: { x: number; y: number } };
   mouseLeave: () => { type: string };
+  itemRectMouseEnter: () => { type: string };
+  itemRectMouseLeave: () => { type: string };
   setCurrencyTab: (
     currencyTab: SVGSVGElement
   ) => { type: string; payload: SVGSVGElement };
@@ -184,6 +186,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               height={340}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={this.props.itemClick}
+              onMouseEnter={this.props.itemRectMouseEnter}
+              onMouseLeave={this.props.itemRectMouseLeave}
               setItemRect={this.props.setItemRect}
             />
           </svg>

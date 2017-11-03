@@ -9,6 +9,8 @@ interface ItemRectProps {
   onClick: (
     e: React.MouseEvent<SVGRectElement>
   ) => { type: string; payload: boolean };
+  onMouseEnter: () => { type: string };
+  onMouseLeave: () => { type: string };
   setItemRect: (
     rect: SVGRectElement
   ) => { type: string; payload: SVGRectElement };
@@ -58,8 +60,8 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
           fill="#04041E"
           width={this.props.width}
           height={this.props.height}
-          onMouseEnter={() => null}
-          onMouseLeave={() => null}
+          onMouseEnter={() => this.props.onMouseEnter()}
+          onMouseLeave={() => this.props.onMouseLeave()}
         />
         <image
           className="no-pointer-events"

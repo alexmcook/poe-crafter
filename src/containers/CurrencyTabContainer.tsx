@@ -16,6 +16,8 @@ const mapDispatchToProps = {
   itemClick: currency.itemClick,
   mouseMove: mouse.mouseMove,
   mouseLeave: mouse.mouseLeave,
+  itemRectMouseEnter: mouse.itemRectMouseEnter,
+  itemRectMouseLeave: mouse.itemRectMouseLeave,
   setCurrencyTab: refs.setCurrencyTab,
   setItemRect: refs.setItemRect
 };

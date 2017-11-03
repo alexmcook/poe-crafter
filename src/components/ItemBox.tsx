@@ -14,23 +14,23 @@ interface ItemBoxProps {
   item: Item;
   currencyTabRef: SVGSVGElement;
   itemRectRef: SVGRectElement;
+  display: boolean;
 }
 
 interface ItemBoxState {
   y: number;
-  set: boolean;
 }
 
 class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
   private itemBox: HTMLDivElement;
   constructor(props: ItemBoxProps) {
     super(props);
-    this.state = { y: 0, set: false };
+    this.state = { y: 0 };
   }
 
-  getBoxPosition(nextProps?: ItemBoxProps) {
+  getBoxPosition(nextProps?: ItemBoxProps): number {
     if ((!this.props.itemRectRef || !this.props.currencyTabRef) && !nextProps) {
-      return;
+      return 0;
     }
     let currencyTabRef = nextProps
       ? nextProps.currencyTabRef
@@ -43,32 +43,31 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
     let height = this.itemBox.getBoundingClientRect().height;
 
     if (itemRectY < height) {
-      this.setState({ y: height - currencyTabY, set: true });
+      return height - currencyTabY;
     } else {
-      this.setState({ y: itemRectY - currencyTabY, set: true });
+      return itemRectY - currencyTabY;
     }
   }
 
-  componentWillReceiveProps(nextProps: ItemBoxProps) {
-    if (!this.props.itemRectRef || !this.props.currencyTabRef) {
-      if (nextProps.itemRectRef && nextProps.currencyTabRef) {
-        this.getBoxPosition(nextProps);
-      }
+  componentDidUpdate() {
+    if (this.getBoxPosition() !== this.state.y) {
+      this.setState({ y: this.getBoxPosition() });
     }
   }
 
   componentDidMount() {
-    window.addEventListener('resize', () => this.getBoxPosition());
-    this.getBoxPosition();
+    window.addEventListener('resize', () => this.setState({ y: this.getBoxPosition() }));
+    this.setState({ y: this.getBoxPosition() });
   }
 
-  componentDidUnmount() {
-    window.removeEventListener('resize', () => this.getBoxPosition());
+  componentWillUnmount() {
+    window.removeEventListener('resize', () => this.setState({ y: this.getBoxPosition() }));
   }
 
   render() {
     const style: {} = {
-      top: this.state.y + 'px'
+      top: this.state.y + 'px',
+      visibility: this.props.display ? 'visible' : 'hidden'
     };
 
     let header: JSX.Element[] = [],
