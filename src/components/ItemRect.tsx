@@ -6,7 +6,12 @@ interface ItemRectProps {
   y: number;
   width: number;
   height: number;
-  onClick: (e: React.MouseEvent<SVGRectElement>) => { type: string; payload: boolean; };
+  onClick: (
+    e: React.MouseEvent<SVGRectElement>
+  ) => { type: string; payload: boolean };
+  setItemRect: (
+    rect: SVGRectElement
+  ) => { type: string; payload: SVGRectElement };
 }
 
 interface ItemRectState {
@@ -34,14 +39,19 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
       }
     });
   }
-  
+
   render() {
     const { x, y } = this.state.dimensions;
     return (
       <svg>
         <rect
+          ref={ref => {
+            if (ref !== null) {
+              this.props.setItemRect(ref);
+            }
+          }}
           className="rect-capture"
-          onClick={(e) => this.props.onClick(e)}
+          onClick={e => this.props.onClick(e)}
           x={this.props.x}
           y={this.props.y}
           opacity="0.7"
@@ -56,7 +66,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
           xlinkHref={this.props.xlinkHref}
           x={x}
           y={y}
-          onLoad={(e) => this.onLoad(e.target as SVGImageElement)}
+          onLoad={e => this.onLoad(e.target as SVGImageElement)}
         />
       </svg>
     );

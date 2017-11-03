@@ -3,7 +3,9 @@ import { State } from '../reducers';
 import ItemBox from '../components/ItemBox';
 
 const mapStateToProps = (state: State) => ({
-  item: state.item.currentItem
+  item: state.item.currentItem,
+  currencyTabRef: state.refs.currencyTab,
+  itemRectRef: state.refs.itemRect
 });
 
 const mapDispatchToProps = {};

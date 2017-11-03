@@ -10,9 +10,19 @@ interface CurrencyTabProps {
   selected: string | undefined;
   itemArt: string;
   orbClick: (orb: string) => { type: string; payload: string };
-  itemClick: (e: React.MouseEvent<SVGRectElement>) => { type: string; payload: boolean };
-  mouseMove: (e: React.MouseEvent<SVGSVGElement>) => { type: string; payload: { x: number, y: number} };
-  mouseLeave: () => { type: string; };
+  itemClick: (
+    e: React.MouseEvent<SVGRectElement>
+  ) => { type: string; payload: boolean };
+  mouseMove: (
+    e: React.MouseEvent<SVGSVGElement>
+  ) => { type: string; payload: { x: number; y: number } };
+  mouseLeave: () => { type: string };
+  setCurrencyTab: (
+    currencyTab: SVGSVGElement
+  ) => { type: string; payload: SVGSVGElement };
+  setItemRect: (
+    rect: SVGRectElement
+  ) => { type: string; payload: SVGRectElement };
 }
 
 interface CurrencyTabState {
@@ -29,14 +39,16 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
   render() {
     return (
       <Grid.Row centered={true}>
+        <ItemContainer />
         <Grid.Column computer={6} tablet={10} mobile={12}>
-          <ItemContainer />
           <svg
             className="game-tab"
             viewBox="0 0 1282 1282"
             preserveAspectRatio="xMinYMin meet"
-            onMouseMove={(e: React.MouseEvent<SVGSVGElement>) => this.props.mouseMove(e)}
+            onMouseMove={(e: React.MouseEvent<SVGSVGElement>) =>
+              this.props.mouseMove(e)}
             onMouseLeave={() => this.props.mouseLeave()}
+            ref={ref => (ref !== null ? this.props.setCurrencyTab(ref) : null)}
           >
             <image xlinkHref={background} height="1282" width="1282" />
             <TabRect
@@ -172,6 +184,7 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               height={340}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={this.props.itemClick}
+              setItemRect={this.props.setItemRect}
             />
           </svg>
         </Grid.Column>

@@ -12,21 +12,63 @@ import * as poe from 'poe-mod-descriptions';
 
 interface ItemBoxProps {
   item: Item;
+  currencyTabRef: SVGSVGElement;
+  itemRectRef: SVGRectElement;
 }
 
-class ItemBox extends React.Component<ItemBoxProps> {
+interface ItemBoxState {
+  y: number;
+  set: boolean;
+}
+
+class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
+  private itemBox: HTMLDivElement;
+  constructor(props: ItemBoxProps) {
+    super(props);
+    this.state = { y: 0, set: false };
+  }
+
+  getBoxPosition(nextProps?: ItemBoxProps) {
+    if ((!this.props.itemRectRef || !this.props.currencyTabRef) && !nextProps) {
+      return;
+    }
+    let currencyTabRef = nextProps
+      ? nextProps.currencyTabRef
+      : this.props.currencyTabRef;
+    let itemRectRef = nextProps
+      ? nextProps.itemRectRef
+      : this.props.itemRectRef;
+    let currencyTabY: number = currencyTabRef.getBoundingClientRect().top;
+    let itemRectY: number = itemRectRef.getBoundingClientRect().top;
+    let height = this.itemBox.getBoundingClientRect().height;
+
+    if (itemRectY < height) {
+      this.setState({ y: height - currencyTabY, set: true });
+    } else {
+      this.setState({ y: itemRectY - currencyTabY, set: true });
+    }
+  }
+
+  componentWillReceiveProps(nextProps: ItemBoxProps) {
+    if (!this.props.itemRectRef || !this.props.currencyTabRef) {
+      if (nextProps.itemRectRef && nextProps.currencyTabRef) {
+        this.getBoxPosition(nextProps);
+      }
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', () => this.getBoxPosition());
+    this.getBoxPosition();
+  }
+
+  componentDidUnmount() {
+    window.removeEventListener('resize', () => this.getBoxPosition());
+  }
+
   render() {
     const style: {} = {
-      fontFamily: 'Fontin-SmallCaps',
-      position: 'relative',
-      left: '-50%',
-      top: 306 + 'px', // this.props.y
-      transform: 'translateY(-100%)',
-      backgroundColor: 'rgba(0, 0, 0, 0.85)',
-      textAlign: 'center',
-      fontSize: '10.875pt',
-      letterSpacing: '0.1px',
-      zIndex: '2'
+      top: this.state.y + 'px'
     };
 
     let header: JSX.Element[] = [],
@@ -120,8 +162,8 @@ class ItemBox extends React.Component<ItemBoxProps> {
       elements.push(stats);
     }
 
-    function createSeparator(key: number, rarity: string) { 
-      return <Separator key={'separator' + key} rarity={rarity} />; 
+    function createSeparator(key: number, rarity: string) {
+      return <Separator key={'separator' + key} rarity={rarity} />;
     }
 
     if (elements.length > 1) {
@@ -141,10 +183,16 @@ class ItemBox extends React.Component<ItemBoxProps> {
     }
 
     return (
-      <Grid.Row cenetered={true} className="no-pointer-events">
+      <Grid.Row className="no-pointer-events">
         <Grid.Column>
-          <div style={{position: 'absolute', left: '50%'}}>
-            <div style={style}>
+          <div style={{ position: 'absolute', left: '50%' }}>
+            <div
+              className="item-box"
+              style={style}
+              ref={ref => {
+                this.itemBox = ref as HTMLDivElement;
+              }}
+            >
               <Title
                 itemName={this.props.item.getName()}
                 baseName={this.props.item.name}

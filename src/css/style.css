@@ -43,18 +43,37 @@
   font-style: italic;
 }
 
-.text--title {
-  line-height: 31px;
-  font-size: 14.25pt;
-  padding-left: 45px;
-  padding-right: 45px;
+@media screen and (min-width: 1600px) {
+  .text--title {
+    line-height: 31px;
+    font-size: 14.25pt;
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .text--title-2 {
+    line-height: 16px;
+    font-size: 14.25pt;
+    padding-left: 45px;
+    padding-right: 45px;
+  }
 }
 
-.text--title-2 {
-  line-height: 16px;
-  font-size: 14.25pt;
-  padding-left: 45px;
-  padding-right: 45px;
+
+@media screen and (max-width: 1600px) {
+  .text--title {
+    line-height: 31px;
+    font-size: 14.25pt;
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .text--title-2 {
+    line-height: 16px;
+    font-size: 14.25pt;
+    padding-left: 45px;
+    padding-right: 45px;
+  }
 }
 
 .item-stats {
@@ -156,6 +175,17 @@
   width: 200px;
   height: 8px;
   padding: 1px;
+}
+
+.item-box {
+  font-family: 'Fontin-SmallCaps';
+  position: relative;
+  left: -50%;
+  transform: translateY(-100%);
+  background-color: rgba(0, 0, 0, 0.85);
+  text-align: center;
+  font-size: 10.875pt;
+  z-index: 2;
 }
 
 .game-tab {
