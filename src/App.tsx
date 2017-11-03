@@ -1,15 +1,18 @@
 import * as React from 'react';
-import ItemContainer from './containers/ItemContainer';
-import ButtonContainer from './containers/ButtonContainer';
+import { Grid } from 'semantic-ui-react';
+import BaseSelectorContainer from './containers/BaseSelectorContainer';
+import CurrencyTabContainer from './containers/CurrencyTabContainer';
+import CurrencyCursorContainer from './containers/CurrencyCursorContainer';
 import './css/style.css';
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <ItemContainer />
-        <ButtonContainer />
-      </div>
+      <Grid columns={16}>
+        <CurrencyCursorContainer />
+        <BaseSelectorContainer />
+        <CurrencyTabContainer />
+      </Grid>
     );
   }
 }

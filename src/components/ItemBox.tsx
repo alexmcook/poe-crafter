@@ -6,6 +6,7 @@ import Requirements from './Requirements';
 import Stat from './Stat';
 import Separator from './Separator';
 import Item from '../utils/item';
+import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
 
@@ -17,9 +18,10 @@ class ItemBox extends React.Component<ItemBoxProps> {
   render() {
     const style: {} = {
       fontFamily: 'Fontin-SmallCaps',
-      position: 'absolute',
-      // top: 100 + 'px', // this.props.y
-      // transform: 'translateY(-100%)',
+      position: 'relative',
+      left: '-50%',
+      top: 306 + 'px', // this.props.y
+      transform: 'translateY(-100%)',
       backgroundColor: 'rgba(0, 0, 0, 0.85)',
       textAlign: 'center',
       fontSize: '10.875pt',
@@ -94,6 +96,7 @@ class ItemBox extends React.Component<ItemBoxProps> {
         <Requirements
           key="requirement"
           requirement={this.props.item.requirement}
+          level={this.props.item.calcLevel()}
         />
       );
       elements.push(requirements);
@@ -138,14 +141,20 @@ class ItemBox extends React.Component<ItemBoxProps> {
     }
 
     return (
-      <div style={style}>
-        <Title
-          itemName={this.props.item.getName()}
-          baseName={this.props.item.name}
-          rarity={this.props.item.rarity}
-        />
-        <div className="item-stats">{output}</div>
-      </div>
+      <Grid.Row cenetered={true} className="no-pointer-events">
+        <Grid.Column>
+          <div style={{position: 'absolute', left: '50%'}}>
+            <div style={style}>
+              <Title
+                itemName={this.props.item.getName()}
+                baseName={this.props.item.name}
+                rarity={this.props.item.rarity}
+              />
+              <div className="item-stats">{output}</div>
+            </div>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
     );
   }
 }

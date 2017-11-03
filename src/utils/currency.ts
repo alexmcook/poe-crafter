@@ -1,8 +1,10 @@
 import Item, { Rarity } from './item';
 import { randomRange } from './random';
 
-export function whetstone(item: Item): Item {
+export function whetstone(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.quality < 20 && item.category.includes('Weapon')) {
+    result = true;
     item = new Item(item);
     if (item.rarity === Rarity.NORMAL) {
       item.quality += 5;
@@ -15,14 +17,16 @@ export function whetstone(item: Item): Item {
       item.quality = 20;
     }
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function armorScrap(item: Item): Item {
+export function armorScrap(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (
     item.quality < 20 &&
     (item.category.includes('Armor') || item.type.includes('Shield'))
   ) {
+    result = true;
     item = new Item(item);
     if (item.rarity === Rarity.NORMAL) {
       item.quality += 5;
@@ -35,11 +39,13 @@ export function armorScrap(item: Item): Item {
       item.quality = 20;
     }
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function transmute(item: Item): Item {
+export function transmute(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.rarity === Rarity.NORMAL) {
+    result = true;
     item = new Item(item);
     item.rarity = Rarity.MAGIC;
     item.updateModPool();
@@ -48,11 +54,13 @@ export function transmute(item: Item): Item {
       item.addMod(item.getMod());
     }
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function alteration(item: Item): Item {
+export function alteration(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.rarity === Rarity.MAGIC) {
+    result = true;
     item = new Item(item);
     item.reset();
     item.addMod(item.getMod());
@@ -60,44 +68,52 @@ export function alteration(item: Item): Item {
       item.addMod(item.getMod());
     }
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function annulment(item: Item): Item {
+export function annulment(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.mods.length > 0) {
+    result = true;
     item = new Item(item);
     item.removeMod(item.mods[randomRange(0, item.mods.length)]);
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function exalted(item: Item): Item {
+export function exalted(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.rarity === Rarity.RARE) {
     let maxCount = 6;
     if (item.type === 'Jewel') {
       maxCount = 4;
     }
     if (item.mods.length < maxCount) {
+      result = true;
       item = new Item(item);
       item.addMod(item.getMod());
     }
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function regal(item: Item): Item {
+export function regal(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.rarity === Rarity.MAGIC) {
+    result = true;
     item = new Item(item);
     item.rarity = Rarity.RARE;
     item.itemName = item.generateName();
     item.updateModPool();
     item.addMod(item.getMod());
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function alchemy(item: Item): Item {
+export function alchemy(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.rarity === Rarity.NORMAL) {
+    result = true;
     item = new Item(item);
     item.rarity = Rarity.RARE;
     item.itemName = item.generateName();
@@ -121,11 +137,13 @@ export function alchemy(item: Item): Item {
       }
     }
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function chaos(item: Item): Item {
+export function chaos(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.rarity === Rarity.RARE) {
+    result = true;
     item = new Item(item);
     item.itemName = item.generateName();
     item.reset();
@@ -148,61 +166,77 @@ export function chaos(item: Item): Item {
       }
     }
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function blessed(item: Item): Item {
+export function blessed(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.implicit !== null) {
+    result = true;
     item = new Item(item);
     item.rerollImplicit();
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function augment(item: Item): Item {
+export function augment(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.rarity === Rarity.MAGIC && item.mods.length < 2) {
+    result = true;
     item = new Item(item);
     item.addMod(item.getMod());
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function divine(item: Item): Item {
+export function divine(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.mods.length > 0) {
+    result = true;
     item = new Item(item);
     item.reroll();
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function jeweller(item: Item): Item {
-  return item;
+export function jeweller(item: Item): { item: Item; result: boolean } {
+  let result = false;
+  return { item: item, result: result };
 }
 
-export function fusing(item: Item): Item {
-  return item;
+export function fusing(item: Item): { item: Item; result: boolean } {
+  let result = false;
+  return { item: item, result: result };
 }
 
-export function chromatic(item: Item): Item {
-  return item;
+export function chromatic(item: Item): { item: Item; result: boolean } {
+  let result = false;
+  return { item: item, result: result };
 }
 
-export function scouring(item: Item): Item {
+export function scouring(item: Item): { item: Item; result: boolean } {
+  let result = false;
   if (item.rarity !== Rarity.NORMAL) {
+    result = true;
     item = new Item(item);
     item.rarity = Rarity.NORMAL;
     item.reset();
   }
-  return item;
+  return { item: item, result: result };
 }
 
-export function eternal(item: Item): Item {
-  return item;
+export function eternal(item: Item): { item: Item; result: boolean } {
+  return { item: item, result: true };
 }
 
-export function imprint(item: Item, itemImprint: Item | undefined): Item {
+export function imprint(
+  item: Item,
+  itemImprint?: Item
+): { item: Item; result: boolean } {
+  let result = false;
   if (itemImprint) {
-    return itemImprint;
+    result = true;
+    item = itemImprint;
   }
-  return item;
+  return { item: item, result: result };
 }

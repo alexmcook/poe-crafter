@@ -3,9 +3,12 @@ import Base from './base';
 import Mod, { GenerationType } from './mod';
 import { randomRange } from './random';
 import * as _item from './itemFunctions';
-import names from '../data/names.js';
-import * as modsJSON from '../data/mods.json';
-let mods: Mod[] = <Mod[]> modsJSON;
+const names: Names = require('../data/names.json');
+const mods: Mod[] = require('../data/mods.json');
+
+interface Names {
+  [key: string]: string[];
+}
 
 export enum Rarity {
   NORMAL = 'normal',
@@ -50,7 +53,6 @@ export interface WeaponOutput {
 export default class Item extends Base {
   itemName: string;
   itemLevel: number;
-  requiredLevel: number;
   quality: number;
   rarity: Rarity;
   modPool: Mod[];
@@ -64,7 +66,6 @@ export default class Item extends Base {
     if (item instanceof Item) {
       this.itemName = item.itemName;
       this.itemLevel = item.itemLevel;
-      this.requiredLevel = item.requiredLevel;
       this.quality = item.quality;
       this.rarity = item.rarity;
       this.modPool = item.modPool;
@@ -76,7 +77,6 @@ export default class Item extends Base {
     } else {
       this.itemName = this.generateName();
       this.itemLevel = 100;
-      this.requiredLevel = item.requirement.level;
       this.quality = 0;
       this.rarity = Rarity.NORMAL;
       this.modPool = generateModPool(this);
@@ -338,6 +338,16 @@ export default class Item extends Base {
       updatedModPool = _item.filterSuffix(updatedModPool);
     }
     this.currentModPool = updatedModPool;
+  }
+
+  calcLevel(): number {
+    let level: number = this.requirement.level;
+    _.each(this.mods, mod => {
+      if (Math.floor(mod.level * 0.8) > level) {
+        level = Math.floor(mod.level * 0.8);
+      }
+    });
+    return level;
   }
 
   calcWeapon(): WeaponOutput {

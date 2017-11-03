@@ -6,6 +6,8 @@ import App from './App';
 import reducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
+import 'semantic-ui-css/semantic.min.css';
+
 const store = createStore(reducer);
 
 ReactDOM.render(

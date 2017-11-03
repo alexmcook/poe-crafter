@@ -4,17 +4,18 @@ import { Requirement } from '../utils/base';
 
 interface RequirementProps {
   requirement: Requirement;
+  level: number;
 }
 
 class Requirements extends React.Component<RequirementProps> {
   render() {
     let elements: JSX.Element[] = [];
     var prefix = <span key="prefix">Requires </span>;
-    if (this.props.requirement.level > 2) {
+    if (this.props.level > 2) {
       elements.push(
         <span key="level">
           <span>Level </span>
-          <span className="text--normal">{this.props.requirement.level}</span>
+          <span className="text--normal">{this.props.level}</span>
         </span>
       );
     }
