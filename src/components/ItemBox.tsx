@@ -11,8 +11,9 @@ import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
 
 interface ItemBoxProps {
+  currentTab: string;
   item: Item;
-  currencyTabRef: SVGSVGElement;
+  currentTabRef: SVGSVGElement;
   itemRectRef: SVGRectElement;
   display: boolean;
 }
@@ -29,12 +30,12 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
   }
 
   getBoxPosition(nextProps?: ItemBoxProps): number {
-    if ((!this.props.itemRectRef || !this.props.currencyTabRef) && !nextProps) {
+    if ((!this.props.itemRectRef || !this.props.currentTabRef) && !nextProps) {
       return 0;
     }
     let currencyTabRef = nextProps
-      ? nextProps.currencyTabRef
-      : this.props.currencyTabRef;
+      ? nextProps.currentTabRef
+      : this.props.currentTabRef;
     let itemRectRef = nextProps
       ? nextProps.itemRectRef
       : this.props.itemRectRef;
@@ -181,12 +182,19 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
       output = elements;
     }
 
+    let pos: string = '50%';
+    if (this.props.currentTab === 'Currency') {
+      pos = '50%';
+    } else if (this.props.currentTab === 'Essence') {
+      pos = '54.25%';
+    }
+
     return (
       <Grid.Row className="no-pointer-events">
         <Grid.Column>
-          <div style={{ position: 'absolute', left: '50%' }}>
+          <div style={{ position: 'absolute', left: pos }}>
             <div
-              className="item-box"
+              className="item-box no-select"
               style={style}
               ref={ref => {
                 this.itemBox = ref as HTMLDivElement;

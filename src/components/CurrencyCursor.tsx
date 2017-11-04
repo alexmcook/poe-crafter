@@ -3,93 +3,103 @@ import * as React from 'react';
 interface CurrencyCursorProps {
   x: number;
   y: number;
-  selected: string | undefined;
+  selected: { name: string, tier: number };
 }
 
 class Stat extends React.Component<CurrencyCursorProps> {
-  getSource(orb?: string) {
-    let src: string | undefined;
-    switch (orb) {
+  getSource(name: string, tier: number) {
+    switch (name) {
+      //#region regular currency
       case 'WHETSTONE':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyWeaponQuality.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyWeaponQuality.png';
       case 'ARMORSCRAP':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyArmourQuality.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyArmourQuality.png';
       case 'TRANSMUTE':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToMagic.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToMagic.png';
       case 'ALTERATION':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollMagic.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollMagic.png';
       case 'ANNULMENT':
-        src = 'https://web.poecdn.com/image/Art/2DItems/Currency/AnnullOrb.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/AnnullOrb.png';
       case 'EXALTED':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png';
       case 'REGAL':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeMagicToRare.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeMagicToRare.png';
       case 'ALCHEMY':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToRare.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToRare.png';
       case 'CHAOS':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png';
       case 'BLESSED':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImplicitMod.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImplicitMod.png';
       case 'AUGMENT':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToMagic.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToMagic.png';
       case 'DIVINE':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png';
       case 'JEWELLER':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketNumbers.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketNumbers.png';
       case 'FUSING':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketLinks.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketLinks.png';
       case 'CHROMATIC':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketColours.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketColours.png';
       case 'SCOURING':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyConvertToNormal.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyConvertToNormal.png';
       case 'VAAL':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/TTTTTTTTTTTTTTTTTTT.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/TTTTTTTTTTTTTTTTTTT.png';
       case 'ETERNAL':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprintOrb.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprintOrb.png';
       case 'IMPRINT':
-        src =
-          'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprint.png';
-        break;
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprint.png';
+      //#endregion
+      case 'GREED':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Greed' + tier + '.png';
+      case 'CONTEMPT':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Contempt' + tier + '.png';
+      case 'HATRED':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Hatred' + tier + '.png';
+      case 'WOE':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Woe' + tier + '.png';
+      case 'FEAR':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Fear' + tier + '.png';
+      case 'ANGER':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anger' + tier + '.png';
+      case 'TORMENT':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Torment' + tier + '.png';
+      case 'SORROW':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Sorrow' + tier + '.png';
+      case 'RAGE':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Rage' + tier + '.png';
+      case 'SUFFERING':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Suffering' + tier + '.png';
+      case 'WRATH':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Wrath' + tier + '.png';
+      case 'DOUBT':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Doubt' + tier + '.png';
+      case 'LOATHING':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Loathing' + tier + '.png';
+      case 'ZEAL':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Zeal' + tier + '.png';
+      case 'ANGUISH':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anguish' + tier + '.png';
+      case 'SPITE':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Spite' + tier + '.png';
+      case 'SCORN':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Scorn' + tier + '.png';
+      case 'ENVY':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Envy' + tier + '.png';
+      case 'MISERY':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Misery' + tier + '.png';
+      case 'DREAD':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Dread' + tier + '.png';
+      case 'INSANITY':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Insanity' + (tier - 7) + '.png';
+      case 'HORROR':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Horror' + (tier - 7) + '.png';
+      case 'DELIRIUM':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Madness' + (tier - 7) + '.png';
+      case 'HYSTERIA':
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Terror' + (tier - 7) + '.png';
       default:
-        src = '';
-        break;
+        return '';
     }
-    return src;
   }
 
   render() {
@@ -105,7 +115,7 @@ class Stat extends React.Component<CurrencyCursorProps> {
         <img
           className="no-pointer-events"
           style={style}
-          src={this.getSource(this.props.selected)}
+          src={this.getSource(this.props.selected.name, this.props.selected.tier)}
           width="24"
           height="24"
           alt=""

@@ -59,7 +59,11 @@ export default class Base {
     }
     this.tags = base.tags;
     this.artPath = base.artPath;
-    this.maxSockets = base.maxSockets;
+    if (base.implicit != null && base.implicit.modType === 'HasXSockets') {
+      this.maxSockets = base.implicit.stats[0].valueMax;
+    } else {
+      this.maxSockets = base.maxSockets;
+    }
     this.verticalSockets = base.verticalSockets;
     this.requirement = base.requirement;
     if (base.defense != null) {

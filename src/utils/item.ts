@@ -3,10 +3,14 @@ import Base from './base';
 import Mod, { GenerationType } from './mod';
 import { randomRange } from './random';
 import * as _item from './itemFunctions';
-const names: Names = require('../data/names.json');
+const names: NamesJSON = require('../data/names.json');
 const mods: Mod[] = require('../data/mods.json');
 
-interface Names {
+interface NamesJSON {
+  [key: string]: Name[];
+}
+
+interface Name {
   [key: string]: string[];
 }
 
@@ -29,6 +33,7 @@ export interface DefenseOutput {
   incEnergyShield?: number;
   incBlock?: number;
 }
+
 export interface WeaponOutput {
   aps: string;
   crit: string;
@@ -61,6 +66,9 @@ export default class Item extends Base {
   mods: Mod[];
   prefixCount: number;
   suffixCount: number;
+  sockets: number;
+  socketColors: string;
+  socketLinks: string;
   constructor(item: Base | Item) {
     super(item);
     if (item instanceof Item) {
@@ -74,6 +82,9 @@ export default class Item extends Base {
       this.mods = copyMods(item.mods);
       this.prefixCount = item.prefixCount;
       this.suffixCount = item.suffixCount;
+      this.sockets = item.sockets;
+      this.socketColors = item.socketColors;
+      this.socketLinks = item.socketLinks;
     } else {
       this.itemName = this.generateName();
       this.itemLevel = 100;
@@ -85,6 +96,10 @@ export default class Item extends Base {
       this.mods = [];
       this.prefixCount = 0;
       this.suffixCount = 0;
+      this.sockets =
+        this.maxSockets === 0 ? 0 : randomRange(1, item.maxSockets + 1);
+      this.rerollSocketColors();
+      this.rerollSocketLinks();
     }
   }
 
@@ -113,69 +128,78 @@ export default class Item extends Base {
   }
 
   generateName(): string {
+    let prefixes: string[] = [];
     let suffixes: string[] = [];
-    if (this.category.includes('Weapon')) {
-      if (this.type.includes('Axe')) {
-        suffixes = names.axeSuffixes;
-      } else if (this.type.includes('Mace')) {
-        suffixes = names.maceSuffixes;
-      } else if (this.type.includes('Sword')) {
-        suffixes = names.swordSuffixes;
-      } else if (this.type === 'Sceptre') {
-        suffixes = names.sceptreSuffixes;
-      } else if (this.type === 'Staff') {
-        suffixes = names.staffSuffixes;
-      } else if (this.type === 'Dagger') {
-        suffixes = names.daggerSuffixes;
-      } else if (this.type === 'Claw') {
-        suffixes = names.clawSuffixes;
-      } else if (this.type === 'Bow') {
-        suffixes = names.bowSuffixes;
-      } else if (this.type === 'Wand') {
-        suffixes = names.wandSuffixes;
-      }
-    } else if (this.category === 'Jewellery') {
-      if (this.type === 'Amulet') {
-        suffixes = names.amuletSuffixes;
-      } else if (this.type === 'Ring') {
-        suffixes = names.ringSuffixes;
-      } else if (this.type === 'Belt') {
-        suffixes = names.beltSuffixes;
-      }
-    } else if (this.category === 'Armor') {
-      if (this.type === 'Body Armour') {
-        suffixes = names.bodyArmourSuffixes;
-      } else if (this.type === 'Helmet') {
-        suffixes = names.helmetSuffixes;
-      } else if (this.type === 'Gloves') {
-        suffixes = names.glovesSuffixes;
-      } else if (this.type === 'Boots') {
-        suffixes = names.bootsSuffixes;
-      }
-    } else if (this.category === 'Off-hand') {
-      if (this.type === 'Quiver') {
-        suffixes = names.quiverSuffixes;
-      } else if (
-        this.type === 'Shield' &&
-        this.name.includes('Spirit Shield')
-      ) {
-        suffixes = names.spiritShieldSuffixes;
-      } else if (this.type === 'Shield') {
-        suffixes = names.otherShieldSuffixes;
-      } else if (this.type === 'Quiver') {
-        suffixes = names.quiverSuffixes;
-      }
-    } else if (this.category === 'Other' || this.category === 'Fishing Rod') {
-      suffixes = names.jewelSuffixes;
-    } else {
-      throw new Error('Unknown base: ' + this.category + ' ' + this.type);
-    }
-
+    _.each(this.tags, tag => {
+      prefixes = names.prefixes[tag] ? prefixes.concat(names.prefixes[tag]) : prefixes;
+      suffixes = names.suffixes[tag] ? suffixes.concat(names.suffixes[tag]) : suffixes;
+    });
     return (
-      names.prefixes[randomRange(0, names.prefixes.length)] +
+      prefixes[randomRange(0, prefixes.length)] +
       ' ' +
       suffixes[randomRange(0, suffixes.length)]
     );
+  }
+
+  rerollSockets() {
+    let n = this.maxSockets;
+    let output = this.sockets;
+    while (output === this.sockets) {
+      output = 0;
+      for (let i = 0; i < n; i++) {
+        let rnd = Math.random();
+        if (rnd < 0.5) {
+          output++;
+        }
+      }
+    }
+    this.sockets = output;
+    this.rerollSocketColors();
+    this.rerollSocketLinks();
+  }
+
+  rerollSocketLinks() {
+    let n = this.sockets - 1;
+    let output = this.socketLinks;
+    while (output === this.socketLinks) {
+      output = '';
+      for (let i = 0; i < n; i++) {
+        let rnd = Math.random();
+        if (rnd < 0.5) {
+          output += 'L';
+        } else {
+          output += 'X';
+        }
+      }
+    }
+    this.socketLinks = output;
+  }
+
+  rerollSocketColors() {
+    let n = this.sockets;
+    let weightR = this.requirement.str + 30;
+    let weightG = this.requirement.dex + 30;
+    let weightB = this.requirement.int + 30;
+    let weightArr = [weightR, weightG, weightB];
+    let weightKeys = ['R', 'G', 'B'];
+    let weightTotal = weightR + weightG + weightB;
+
+    let output = this.socketColors;
+    while (output === this.socketColors) {
+      output = '';
+      for (let i = 0; i < n; i++) {
+        let variate = Math.random() * weightTotal;
+        let cumulative = 0;
+        for (let j = 0; j < weightArr.length; j++) {
+          cumulative += weightArr[j];
+          if (variate <= cumulative) {
+            output += weightKeys[j];
+            break;
+          }
+        }
+      }
+    }
+    this.socketColors = output;
   }
 
   reset() {

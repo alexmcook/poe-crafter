@@ -3,7 +3,7 @@ export const setItemRect = (rect: SVGRectElement) => ({
   payload: rect
 });
 
-export const setCurrencyTab = (currencyTab: SVGSVGElement) => ({
-  type: 'SET_CURRENCY_TAB',
-  payload: currencyTab
+export const setCurrentTab = (currentTab: SVGSVGElement) => ({
+  type: 'SET_CURRENT_TAB',
+  payload: currentTab
 });
