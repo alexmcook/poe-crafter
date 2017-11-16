@@ -3,10 +3,21 @@ import * as React from 'react';
 interface CurrencyCursorProps {
   x: number;
   y: number;
-  selected: { name: string, tier: number };
+  selected: { name: string; tier: number };
 }
 
-class Stat extends React.Component<CurrencyCursorProps> {
+interface CurrencyCursorState {
+  x: number;
+  y: number;
+  mounted: boolean;
+}
+
+class Stat extends React.Component<CurrencyCursorProps, CurrencyCursorState> {
+  constructor(props: CurrencyCursorProps) {
+    super(props);
+    this.state = { x: 0, y: 0, mounted: false };
+  }
+
   getSource(name: string, tier: number) {
     switch (name) {
       //#region regular currency
@@ -49,64 +60,185 @@ class Stat extends React.Component<CurrencyCursorProps> {
       case 'IMPRINT':
         return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprint.png';
       //#endregion
+      //#region essence
       case 'GREED':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Greed' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Greed' +
+          tier +
+          '.png'
+        );
       case 'CONTEMPT':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Contempt' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Contempt' +
+          tier +
+          '.png'
+        );
       case 'HATRED':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Hatred' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Hatred' +
+          tier +
+          '.png'
+        );
       case 'WOE':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Woe' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Woe' +
+          tier +
+          '.png'
+        );
       case 'FEAR':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Fear' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Fear' +
+          tier +
+          '.png'
+        );
       case 'ANGER':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anger' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anger' +
+          tier +
+          '.png'
+        );
       case 'TORMENT':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Torment' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Torment' +
+          tier +
+          '.png'
+        );
       case 'SORROW':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Sorrow' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Sorrow' +
+          tier +
+          '.png'
+        );
       case 'RAGE':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Rage' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Rage' +
+          tier +
+          '.png'
+        );
       case 'SUFFERING':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Suffering' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Suffering' +
+          tier +
+          '.png'
+        );
       case 'WRATH':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Wrath' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Wrath' +
+          tier +
+          '.png'
+        );
       case 'DOUBT':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Doubt' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Doubt' +
+          tier +
+          '.png'
+        );
       case 'LOATHING':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Loathing' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Loathing' +
+          tier +
+          '.png'
+        );
       case 'ZEAL':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Zeal' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Zeal' +
+          tier +
+          '.png'
+        );
       case 'ANGUISH':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anguish' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anguish' +
+          tier +
+          '.png'
+        );
       case 'SPITE':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Spite' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Spite' +
+          tier +
+          '.png'
+        );
       case 'SCORN':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Scorn' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Scorn' +
+          tier +
+          '.png'
+        );
       case 'ENVY':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Envy' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Envy' +
+          tier +
+          '.png'
+        );
       case 'MISERY':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Misery' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Misery' +
+          tier +
+          '.png'
+        );
       case 'DREAD':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Dread' + tier + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Dread' +
+          tier +
+          '.png'
+        );
       case 'INSANITY':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Insanity' + (tier - 7) + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Insanity' +
+          (tier - 7) +
+          '.png'
+        );
       case 'HORROR':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Horror' + (tier - 7) + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Horror' +
+          (tier - 7) +
+          '.png'
+        );
       case 'DELIRIUM':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Madness' + (tier - 7) + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Madness' +
+          (tier - 7) +
+          '.png'
+        );
       case 'HYSTERIA':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Terror' + (tier - 7) + '.png';
+        return (
+          'https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Terror' +
+          (tier - 7) +
+          '.png'
+        );
+      //#endregion
       default:
         return '';
     }
   }
 
+  updatePos(props: CurrencyCursorProps) {
+    this.setState({
+      x: (props.x ? props.x : 0) - 12 + window.scrollX,
+      y: (props.y ? props.y : 0) - 12 + window.scrollY
+    });
+  }
+
+  componentWillReceiveProps(props: CurrencyCursorProps) {
+    if (this.state.mounted) {
+      this.updatePos(props);
+    }
+  }
+
+  componentDidMount() {
+    this.setState({ mounted: true });
+    window.addEventListener('scroll', () => this.updatePos(this.props));
+  }
+
+  componentWillUnmount() {
+    this.setState({ mounted: false });
+    window.removeEventListener('scroll', () => this.updatePos(this.props));
+  }
+
   render() {
     const style: {} = {
       position: 'absolute',
-      left: (this.props.x ? this.props.x : 0) - 12,
-      top: (this.props.y ? this.props.y : 0) - 12,
+      left: this.state.x,
+      top: this.state.y,
       zIndex: 3
     };
 
@@ -115,7 +247,10 @@ class Stat extends React.Component<CurrencyCursorProps> {
         <img
           className="no-pointer-events"
           style={style}
-          src={this.getSource(this.props.selected.name, this.props.selected.tier)}
+          src={this.getSource(
+            this.props.selected.name,
+            this.props.selected.tier
+          )}
           width="24"
           height="24"
           alt=""
