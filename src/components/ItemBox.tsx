@@ -30,7 +30,7 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
   }
 
   getBoxPosition(): number {
-    if (!this.props.itemRectRef || !this.props.currentTabRef) {
+    if (!this.props.itemRectRef || !this.props.currentTabRef || !this.itemBox) {
       return 0;
     }
     let currentTabRef = this.props.currentTabRef;
@@ -46,6 +46,12 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
     }
   }
 
+  updateY() {
+    if (this.getBoxPosition() !== this.state.y) {
+      this.setState({ y: this.getBoxPosition() });
+    }
+  }
+
   componentDidUpdate() {
     if (this.getBoxPosition() !== this.state.y) {
       this.setState({ y: this.getBoxPosition() });
@@ -53,15 +59,11 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', () =>
-      this.setState({ y: this.getBoxPosition() })
-    );
+    window.addEventListener('resize', () => _.debounce(this.updateY, 100));
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', () =>
-      this.setState({ y: this.getBoxPosition() })
-    );
+    window.removeEventListener('resize', () => _.debounce(this.updateY, 100));
   }
 
   render() {
