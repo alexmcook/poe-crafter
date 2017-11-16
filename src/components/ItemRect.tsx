@@ -22,6 +22,8 @@ interface ItemRectState {
 }
 
 interface Dimension {
+  width: number;
+  height: number;
   x: number;
   y: number;
 }
@@ -29,21 +31,40 @@ interface Dimension {
 class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
   constructor(props: ItemRectProps) {
     super(props);
-    this.state = { dimensions: { x: -1000, y: -1000 } };
+    this.state = { dimensions: { width: 0, height: 0, x: -1000, y: -1000 } };
   }
 
-  onLoad(image: SVGImageElement) {
-    let { width, height } = image.getBBox();
+  componentDidMount() {
+    this.getImg();
+  }
+
+  componentWillReceiveProps(props: ItemRectProps) {
+    this.getImg();
+  }
+
+  getImg() {
+    let img = new Image();
+    img.src = this.props.xlinkHref;
+    img.onload = e => this.onLoad(e.target as HTMLImageElement);
+  }
+
+  onLoad(image: HTMLImageElement) {
     this.setState({
       dimensions: {
-        x: 166 / 2 - width / 2,
-        y: 340 / 2 - height / 2
+        width: image.width,
+        height: image.height,
+        x: 166 / 2 - image.width / 2,
+        y: 340 / 2 - image.height / 2
       }
     });
   }
 
+  doThis(e: SVGImageElement) {
+    console.log('state');
+    console.log(e.getBBox());
+  }
+
   render() {
-    const { x, y } = this.state.dimensions;
     return (
       <svg>
         <rect
@@ -74,9 +95,11 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
           <image
             className="no-pointer-events"
             xlinkHref={this.props.xlinkHref}
-            x={x}
-            y={y}
-            onLoad={e => this.onLoad(e.target as SVGImageElement)}
+            x={this.state.dimensions.x}
+            y={this.state.dimensions.y}
+            width={this.state.dimensions.width}
+            height={this.state.dimensions.height}
+            onLoad={() => this.getImg()}
           />
         </svg>
       </svg>

@@ -145,8 +145,8 @@ export default class Item extends Base {
     let n = this.maxSockets;
     let output = this.sockets;
     while (output === this.sockets) {
-      output = 0;
-      for (let i = 0; i < n; i++) {
+      output = 1;
+      for (let i = 1; i < n; i++) {
         let rnd = Math.random();
         if (rnd < 0.5) {
           output++;
