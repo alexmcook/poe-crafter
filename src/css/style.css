@@ -197,3 +197,9 @@
   fill: rgb(255, 255, 255);
   text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black;
 }
+
+.crafting-text {
+  font-family: 'Fontin-SmallCaps';
+  font-size: 28pt;
+  fill: rgb(254, 192, 118);
+}

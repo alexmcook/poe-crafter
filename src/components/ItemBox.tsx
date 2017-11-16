@@ -29,24 +29,20 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
     this.state = { y: 0 };
   }
 
-  getBoxPosition(nextProps?: ItemBoxProps): number {
-    if ((!this.props.itemRectRef || !this.props.currentTabRef) && !nextProps) {
+  getBoxPosition(): number {
+    if (!this.props.itemRectRef || !this.props.currentTabRef) {
       return 0;
     }
-    let currencyTabRef = nextProps
-      ? nextProps.currentTabRef
-      : this.props.currentTabRef;
-    let itemRectRef = nextProps
-      ? nextProps.itemRectRef
-      : this.props.itemRectRef;
-    let currencyTabY: number = currencyTabRef.getBoundingClientRect().top;
+    let currentTabRef = this.props.currentTabRef;
+    let itemRectRef = this.props.itemRectRef;
+    let currentTabY: number = currentTabRef.getBoundingClientRect().top;
     let itemRectY: number = itemRectRef.getBoundingClientRect().top;
     let height = this.itemBox.getBoundingClientRect().height;
 
     if (itemRectY < height) {
-      return height - currencyTabY;
+      return height - currentTabY;
     } else {
-      return itemRectY - currencyTabY;
+      return itemRectY - currentTabY;
     }
   }
 
@@ -57,12 +53,15 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', () => this.setState({ y: this.getBoxPosition() }));
-    this.setState({ y: this.getBoxPosition() });
+    window.addEventListener('resize', () =>
+      this.setState({ y: this.getBoxPosition() })
+    );
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', () => this.setState({ y: this.getBoxPosition() }));
+    window.removeEventListener('resize', () =>
+      this.setState({ y: this.getBoxPosition() })
+    );
   }
 
   render() {
@@ -132,7 +131,8 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
       (this.props.item.requirement.level > 2 ||
         this.props.item.requirement.str > 14 ||
         this.props.item.requirement.dex > 14 ||
-        this.props.item.requirement.int > 14)
+        this.props.item.requirement.int > 14 ||
+        this.props.item.calcLevel() > 2)
     ) {
       requirements = (
         <Requirements
@@ -187,6 +187,8 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
       pos = '50%';
     } else if (this.props.currentTab === 'Essence') {
       pos = '54.25%';
+    } else if (this.props.currentTab === 'Crafting') {
+      pos = '50%';
     }
 
     return (

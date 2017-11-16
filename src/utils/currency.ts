@@ -291,7 +291,6 @@ export function essence(item: Item, name: string, tier: number): { item: Item; r
     item.updateModPool();
 
     let match = _.find(essences, ess => {
-      console.log(name + (tier - ess.minTier + 1));
       return ess.id.includes(name + (tier - ess.minTier + 1));
     });
     if (!match) {

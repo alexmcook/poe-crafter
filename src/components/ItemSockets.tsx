@@ -14,6 +14,7 @@ interface ItemSocketsProps {
   itemSockets: string;
   itemLinks: string;
   vertical: boolean;
+  craftingTab?: boolean;
 }
 
 class ItemSockets extends React.Component<ItemSocketsProps> {
@@ -56,87 +57,87 @@ class ItemSockets extends React.Component<ItemSocketsProps> {
       >
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[0])}
-          width={64}
-          height={64}
-          x={10}
-          y={54}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 10 / 0.8 : 10}
+          y={this.props.craftingTab ? 54 / 0.8 : 54}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[1])}
-          width={64}
-          height={64}
-          x={92}
-          y={54}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 92 / 0.8 : 92}
+          y={this.props.craftingTab ? 54 / 0.8 : 54}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[2])}
-          width={64}
-          height={64}
-          x={10}
-          y={138}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 10 / 0.8 : 10}
+          y={this.props.craftingTab ? 138 / 0.8 : 138}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[3])}
-          width={64}
-          height={64}
-          x={92}
-          y={138}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 92 / 0.8 : 92}
+          y={this.props.craftingTab ? 138 / 0.8 : 138}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[4])}
-          width={64}
-          height={64}
-          x={10}
-          y={222}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 10 / 0.8 : 10}
+          y={this.props.craftingTab ? 222 / 0.8 : 222}
         />
         <image
           style={this.props.itemSockets[5] ? {} : this.hide}
           xlinkHref={this.getSocketColor(this.props.itemSockets[5])}
-          width={64}
-          height={64}
-          x={92}
-          y={222}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 92 / 0.8 : 92}
+          y={this.props.craftingTab ? 222 / 0.8 : 222}
         />
 
         <image
           style={this.getLink(this.props.itemLinks[0])}
           xlinkHref={socketLink}
-          width={64}
-          height={32}
-          x={51}
-          y={70}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 32 / 0.8 : 32}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 70 / 0.8 : 70}
         />
         <image
           style={this.getLink(this.props.itemLinks[1])}
           xlinkHref={socketLinkV}
-          width={32}
-          height={64}
-          x={107}
-          y={97}
+          width={this.props.craftingTab ? 32 / 0.8 : 32}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 107 / 0.8 : 107}
+          y={this.props.craftingTab ? 97 / 0.8 : 97}
         />
         <image
           style={this.getLink(this.props.itemLinks[2])}
           xlinkHref={socketLink}
-          width={64}
-          height={32}
-          x={51}
-          y={154}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 32 / 0.8 : 32}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 154 / 0.8 : 154}
         />
         <image
           style={this.getLink(this.props.itemLinks[3])}
           xlinkHref={socketLinkV}
-          width={32}
-          height={64}
-          x={25}
-          y={181}
+          width={this.props.craftingTab ? 32 / 0.8 : 32}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 25 / 0.8 : 25}
+          y={this.props.craftingTab ? 181 / 0.8 : 181}
         />
         <image
           style={this.getLink(this.props.itemLinks[4])}
           xlinkHref={socketLink}
-          width={64}
-          height={32}
-          x={51}
-          y={238}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 32 / 0.8 : 32}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 238 / 0.8 : 238}
         />
       </svg>
     );
@@ -153,56 +154,56 @@ class ItemSockets extends React.Component<ItemSocketsProps> {
       >
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[0])}
-          width={64}
-          height={64}
-          x={10}
-          y={96}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 10 / 0.8 : 10}
+          y={this.props.craftingTab ? 96 / 0.8 : 96}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[1])}
-          width={64}
-          height={64}
-          x={92}
-          y={96}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 92 / 0.8 : 92}
+          y={this.props.craftingTab ? 96 / 0.8 : 96}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[2])}
-          width={64}
-          height={64}
-          x={92}
-          y={180}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 92 / 0.8 : 92}
+          y={this.props.craftingTab ? 180 / 0.8 : 180}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[3])}
-          width={64}
-          height={64}
-          x={10}
-          y={180}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 10 / 0.8 : 10}
+          y={this.props.craftingTab ? 180 / 0.8 : 180}
         />
 
         <image
           style={this.getLink(this.props.itemLinks[0])}
           xlinkHref={socketLink}
-          width={64}
-          height={32}
-          x={51}
-          y={112}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 32 / 0.8 : 32}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 112 / 0.8 : 112}
         />
         <image
           style={this.getLink(this.props.itemLinks[1])}
           xlinkHref={socketLinkV}
-          width={32}
-          height={64}
-          x={107}
-          y={139}
+          width={this.props.craftingTab ? 32 / 0.8 : 32}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 107 / 0.8 : 107}
+          y={this.props.craftingTab ? 139 / 0.8 : 139}
         />
         <image
           style={this.getLink(this.props.itemLinks[2])}
           xlinkHref={socketLink}
-          width={64}
-          height={32}
-          x={51}
-          y={196}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 32 / 0.8 : 32}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 196 / 0.8 : 196}
         />
       </svg>
     );
@@ -219,26 +220,26 @@ class ItemSockets extends React.Component<ItemSocketsProps> {
       >
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[0])}
-          width={64}
-          height={64}
-          x={10}
-          y={138}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 10 / 0.8 : 10}
+          y={this.props.craftingTab ? 138 / 0.8 : 138}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[1])}
-          width={64}
-          height={64}
-          x={92}
-          y={138}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 92 / 0.8 : 92}
+          y={this.props.craftingTab ? 138 / 0.8 : 138}
         />
 
         <image
           style={this.getLink(this.props.itemLinks[0])}
           xlinkHref={socketLink}
-          width={64}
-          height={32}
-          x={51}
-          y={154}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 32 / 0.8 : 32}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 154 / 0.8 : 154}
         />
       </svg>
     );
@@ -255,10 +256,10 @@ class ItemSockets extends React.Component<ItemSocketsProps> {
       >
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[0])}
-          width={64}
-          height={64}
-          x={51}
-          y={138}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 138 / 0.8 : 138}
         />
       </svg>
     );
@@ -275,41 +276,41 @@ class ItemSockets extends React.Component<ItemSocketsProps> {
       >
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[0])}
-          width={64}
-          height={64}
-          x={51}
-          y={54}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 54 / 0.8 : 54}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[1])}
-          width={64}
-          height={64}
-          x={51}
-          y={138}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 138 / 0.8 : 138}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[2])}
-          width={64}
-          height={64}
-          x={51}
-          y={222}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 222 / 0.8 : 222}
         />
 
         <image
           style={this.getLink(this.props.itemLinks[0])}
           xlinkHref={socketLinkV}
-          width={32}
-          height={64}
-          x={66}
-          y={97}
+          width={this.props.craftingTab ? 32 / 0.8 : 32}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 66 / 0.8 : 66}
+          y={this.props.craftingTab ? 97 / 0.8 : 97}
         />
         <image
           style={this.getLink(this.props.itemLinks[1])}
           xlinkHref={socketLinkV}
-          width={32}
-          height={64}
-          x={66}
-          y={181}
+          width={this.props.craftingTab ? 32 / 0.8 : 32}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 66 / 0.8 : 66}
+          y={this.props.craftingTab ? 181 / 0.8 : 181}
         />
       </svg>
     );
@@ -326,26 +327,26 @@ class ItemSockets extends React.Component<ItemSocketsProps> {
       >
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[0])}
-          width={64}
-          height={64}
-          x={51}
-          y={96}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 96 / 0.8 : 96}
         />
         <image
           xlinkHref={this.getSocketColor(this.props.itemSockets[1])}
-          width={64}
-          height={64}
-          x={51}
-          y={180}
+          width={this.props.craftingTab ? 64 / 0.8 : 64}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 51 / 0.8 : 51}
+          y={this.props.craftingTab ? 180 / 0.8 : 180}
         />
 
         <image
           style={this.getLink(this.props.itemLinks[0])}
           xlinkHref={socketLinkV}
-          width={32}
-          height={64}
-          x={66}
-          y={139}
+          width={this.props.craftingTab ? 32 / 0.8 : 32}
+          height={this.props.craftingTab ? 64 / 0.8 : 64}
+          x={this.props.craftingTab ? 66 / 0.8 : 66}
+          y={this.props.craftingTab ? 139 / 0.8 : 139}
         />
       </svg>
     );

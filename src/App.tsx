@@ -4,6 +4,7 @@ import BaseSelectorContainer from './containers/BaseSelectorContainer';
 import CurrencyTabContainer from './containers/CurrencyTabContainer';
 import EssenceTabContainer from './containers/EssenceTabContainer';
 import CurrencyCursorContainer from './containers/CurrencyCursorContainer';
+import CraftingTabContainer from './containers/CraftingTabContainer';
 import './css/style.css';
 
 class App extends React.Component {
@@ -14,6 +15,7 @@ class App extends React.Component {
         <BaseSelectorContainer />
         <CurrencyTabContainer />
         <EssenceTabContainer />
+        <CraftingTabContainer />
       </Grid>
     );
   }

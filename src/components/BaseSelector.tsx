@@ -33,7 +33,7 @@ class BaseSelector extends React.Component<
         <Grid.Row centered={true}>
           <Button onClick={() => this.props.changeTab('Currency')}>Currency</Button>
           <Button onClick={() => this.props.changeTab('Essence')}>Essence</Button>
-          <Button disabled={true} onClick={() => this.props.changeTab('Crafting')}>Crafting</Button>
+          <Button onClick={() => this.props.changeTab('Crafting')}>Crafting</Button>
         </Grid.Row>
         <br />
         <Grid.Row centered={true}>

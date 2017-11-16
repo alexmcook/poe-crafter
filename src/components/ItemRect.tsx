@@ -14,6 +14,7 @@ interface ItemRectProps {
   setItemRect: (
     rect: SVGRectElement
   ) => { type: string; payload: SVGRectElement };
+  craftingTab?: boolean;
 }
 
 interface ItemRectState {
@@ -29,15 +30,14 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
   constructor(props: ItemRectProps) {
     super(props);
     this.state = { dimensions: { x: -1000, y: -1000 } };
-    this.onLoad = this.onLoad.bind(this);
   }
 
   onLoad(image: SVGImageElement) {
     let { width, height } = image.getBBox();
     this.setState({
       dimensions: {
-        x: this.props.x + this.props.width / 2 - width / 2,
-        y: this.props.y + this.props.height / 2 - height / 2
+        x: 166 / 2 - width / 2,
+        y: 340 / 2 - height / 2
       }
     });
   }
@@ -63,13 +63,22 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
           onMouseEnter={() => this.props.onMouseEnter()}
           onMouseLeave={() => this.props.onMouseLeave()}
         />
-        <image
-          className="no-pointer-events"
-          xlinkHref={this.props.xlinkHref}
-          x={x}
-          y={y}
-          onLoad={e => this.onLoad(e.target as SVGImageElement)}
-        />
+        <svg 
+          viewBox="0 0 166 340"
+          width={this.props.width}
+          height={this.props.height}
+          x={this.props.x}
+          y={this.props.y}
+          preserveAspectRatio="xMinYMin meet"
+        >
+          <image
+            className="no-pointer-events"
+            xlinkHref={this.props.xlinkHref}
+            x={x}
+            y={y}
+            onLoad={e => this.onLoad(e.target as SVGImageElement)}
+          />
+        </svg>
       </svg>
     );
   }
