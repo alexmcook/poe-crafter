@@ -23,7 +23,9 @@ class BaseSelector extends React.Component<
     _.each(this.props.bases, base => {
       baseOptions.push({ key: base.id, text: base.name, value: base.id });
     });
-    this.state = { baseOptions: baseOptions };
+    this.state = {
+      baseOptions: baseOptions
+    };
   }
 
   render() {
@@ -31,9 +33,15 @@ class BaseSelector extends React.Component<
       <Grid.Row centered={true} columns={2}>
         <br />
         <Grid.Row centered={true}>
-          <Button onClick={() => this.props.changeTab('Currency')}>Currency</Button>
-          <Button onClick={() => this.props.changeTab('Essence')}>Essence</Button>
-          <Button onClick={() => this.props.changeTab('Crafting')}>Crafting</Button>
+          <Button onClick={() => this.props.changeTab('Currency')}>
+            Currency
+          </Button>
+          <Button onClick={() => this.props.changeTab('Essence')}>
+            Essence
+          </Button>
+          <Button onClick={() => this.props.changeTab('Crafting')}>
+            Crafting
+          </Button>
         </Grid.Row>
         <br />
         <Grid.Row centered={true}>
@@ -41,6 +49,7 @@ class BaseSelector extends React.Component<
             placeholder="Select Base"
             search={true}
             selection={true}
+            selectOnNavigation={false}
             options={this.state.baseOptions}
             onChange={(event, target) =>
               this.props.selectBase(target.value as string)}

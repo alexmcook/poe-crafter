@@ -3,6 +3,7 @@ import { CraftingOption } from '../reducers/craftingOptionReducer';
 
 interface CraftOptionProps {
   option: CraftingOption;
+  available: boolean;
   x: number;
   y: number;
 }
@@ -78,7 +79,10 @@ class CraftButton extends React.Component<CraftOptionProps> {
     };
     let element = (
       <text
-        className="crafting-text no-pointer-events"
+        className={
+          (this.props.available ? 'crafting-text' : 'crafting-text-red') +
+          ' no-pointer-events'
+        }
         style={style}
         x={this.props.x + offsetX}
         y={this.props.y + offsetY}
@@ -114,7 +118,7 @@ class CraftButton extends React.Component<CraftOptionProps> {
         <text
           className="crafting-text-gray no-pointer-events"
           textAnchor="end"
-          x={this.props.x + 732}
+          x={this.props.x + 742}
           y={this.props.y + 142}
         >
           cost: {this.props.option.costValue}x
@@ -124,8 +128,8 @@ class CraftButton extends React.Component<CraftOptionProps> {
           xlinkHref={this.getSource(this.props.option.costItem)}
           width="48"
           height="48"
-          x={this.props.x + 736}
-          y={this.props.y + 106}
+          x={this.props.x + 746}
+          y={this.props.y + 108}
         />
       </svg>
     );

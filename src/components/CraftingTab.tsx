@@ -8,6 +8,7 @@ import CraftOption from '../components/CraftOption';
 import CraftButton from '../components/CraftButton';
 import GenericButton from '../components/GenericButton';
 import Item from '../utils/item';
+import { checkAvailability } from '../utils/itemFunctions';
 const background = require('../assets/craftingbench/craftingbench.png');
 const border = require('../assets/craftingbench/craftingbenchborder.png');
 const titleBar = require('../assets/craftingbench/craftingtitlebar.png');
@@ -411,11 +412,36 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               selectedOption={this.props.selectedOption}
               onClick={this.props.craftClick}
             />
-            <CraftOption option={optionsSlice[0]} x={169} y={172} />
-            <CraftOption option={optionsSlice[1]} x={169} y={344} />
-            <CraftOption option={optionsSlice[2]} x={169} y={516} />
-            <CraftOption option={optionsSlice[3]} x={169} y={688} />
-            <CraftOption option={optionsSlice[4]} x={169} y={860} />
+            <CraftOption
+              option={optionsSlice[0]}
+              available={checkAvailability(this.props.item, optionsSlice[0])}
+              x={169}
+              y={172}
+            />
+            <CraftOption
+              option={optionsSlice[1]}
+              available={checkAvailability(this.props.item, optionsSlice[1])}
+              x={169}
+              y={344}
+            />
+            <CraftOption
+              option={optionsSlice[2]}
+              available={checkAvailability(this.props.item, optionsSlice[2])}
+              x={169}
+              y={516}
+            />
+            <CraftOption
+              option={optionsSlice[3]}
+              available={checkAvailability(this.props.item, optionsSlice[3])}
+              x={169}
+              y={688}
+            />
+            <CraftOption
+              option={optionsSlice[4]}
+              available={checkAvailability(this.props.item, optionsSlice[4])}
+              x={169}
+              y={860}
+            />
             <ItemRect
               x={537}
               y={1084}

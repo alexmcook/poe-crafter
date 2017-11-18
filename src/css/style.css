@@ -213,3 +213,10 @@
   font-size: 28pt;
   fill: rgb(128, 128, 128);
 }
+
+.crafting-text-red {
+  font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
+  font-size: 28pt;
+  fill: rgb(255, 0, 0);
+}

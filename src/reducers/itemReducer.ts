@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { Action, EssenceAction } from '../actions';
 import Item from '../utils/item';
+import { checkAvailability } from '../utils/itemFunctions';
 import Base from '../utils/base';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
 import * as currency from '../utils/currency';
@@ -107,9 +108,9 @@ export default (state: ItemState = initialState, action: Action) => {
     case 'SELECT_BASE':
       return {
         ...state,
-        currentItem: new Item(<Base> _.find(bases, base => {
+        currentItem: new Item(_.find(bases, base => {
           return base.id === action.payload;
-        })),
+        }) as Base),
         imprint: undefined
       };
     case 'MOUSE_LEAVE':
@@ -129,7 +130,7 @@ export default (state: ItemState = initialState, action: Action) => {
             : { ...state.selectedCurrency, name: action.payload }
       };
     case 'ESSENCE_CLICK': {
-      action = <EssenceAction> action;
+      action = action as EssenceAction;
       return {
         ...state,
         selectedCurrency:
@@ -476,10 +477,19 @@ export default (state: ItemState = initialState, action: Action) => {
       };
     }
     case 'OPTION_CLICK': {
-      return {
-        ...state,
-        selectedOption: action.payload
-      };
+      if (
+        checkAvailability(state.currentItem, action.payload as CraftingOption)
+      ) {
+        return {
+          ...state,
+          selectedOption: action.payload
+        };
+      } else {
+        return {
+          ...state,
+          selectedOption: undefined
+        };
+      }
     }
     default:
       return state;
