@@ -35,7 +35,9 @@ class TabRect extends React.Component<TabRectProps> {
           x={this.props.x + 10}
           y={this.props.y + 30}
         >
-          {this.props.count > 0 ? this.props.count : undefined}
+          {this.props.count >= 10000
+            ? (this.props.count / 1000).toFixed(1) + 'k'
+            : this.props.count > 0 ? this.props.count : undefined}
         </text>
       </svg>
     );

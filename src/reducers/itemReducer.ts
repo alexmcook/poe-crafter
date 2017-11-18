@@ -466,14 +466,110 @@ export default (state: ItemState = initialState, action: Action) => {
     }
     case 'CRAFT_CLICK': {
       let craft: { item: Item; result: boolean };
+      let option = action.payload as CraftingOption;
       craft = master.craftItem(
         state.currentItem,
-        action.payload as CraftingOption
+        option
       );
+      let count = { ...state.currencyCount };
+      if (craft.result) {
+
+        switch (option.costItem) {      
+          //#region regular currency
+          case 'Orb of Transmutation':
+            count = {
+              ...state.currencyCount,
+              transmute: state.currencyCount.transmute + option.costValue
+            };
+            break;
+          case 'Orb of Alteration':
+            count = {
+              ...state.currencyCount,
+              alteration: state.currencyCount.alteration + option.costValue
+            };
+            break;
+          case 'Exalted Orb':
+            count = {
+              ...state.currencyCount,
+              exalted: state.currencyCount.exalted + option.costValue
+            };
+            break;
+          case 'Regal Orb':
+            count = {
+              ...state.currencyCount,
+              regal: state.currencyCount.regal + option.costValue
+            };
+            break;
+          case 'Orb of Alchemy':
+            count = {
+              ...state.currencyCount,
+              alchemy: state.currencyCount.alchemy + option.costValue
+            };
+            break;
+          case 'Chaos Orb':
+            count = {
+              ...state.currencyCount,
+              chaos: state.currencyCount.chaos + option.costValue
+            };
+            break;
+          case 'Blessed Orb':
+            count = {
+              ...state.currencyCount,
+              blessed: state.currencyCount.blessed + option.costValue
+            };
+            break;
+          case 'Orb of Augmentation':
+            count = {
+              ...state.currencyCount,
+              augment: state.currencyCount.augment + option.costValue
+            };
+            break;
+          case 'Divine Orb':
+            count = {
+              ...state.currencyCount,
+              divine: state.currencyCount.divine + option.costValue
+            };
+            break;
+          case 'Jeweller\'s Orb':
+            count = {
+              ...state.currencyCount,
+              jeweller: state.currencyCount.jeweller + option.costValue
+            };
+            break;
+          case 'Orb of Fusing':
+            count = {
+              ...state.currencyCount,
+              fusing: state.currencyCount.fusing + option.costValue
+            };
+            break;
+          case 'Chromatic Orb':
+            count = {
+              ...state.currencyCount,
+              chromatic: state.currencyCount.chromatic + option.costValue
+            };
+            break;
+          case 'Orb of Scouring':
+            count = {
+              ...state.currencyCount,
+              scouring: state.currencyCount.scouring + option.costValue
+            };
+            break;
+          case 'Vaal Orb':
+            count = {
+              ...state.currencyCount,
+              vaal: state.currencyCount.vaal + option.costValue
+            };
+            break;
+          //#endregion
+          default:
+            count = { ...state.currencyCount };
+        }
+      }
       return {
         ...state,
         currentItem: craft.item,
-        selectedOption: undefined
+        selectedOption: undefined,
+        currencyCount: count
       };
     }
     case 'OPTION_CLICK': {
