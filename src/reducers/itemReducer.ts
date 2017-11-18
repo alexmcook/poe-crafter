@@ -2,7 +2,9 @@ import * as _ from 'lodash';
 import { Action, EssenceAction } from '../actions';
 import Item from '../utils/item';
 import Base from '../utils/base';
+import { CraftingOption } from '../reducers/craftingOptionReducer';
 import * as currency from '../utils/currency';
+import * as master from '../utils/master';
 import { randomRange } from '../utils/random';
 import { toTitleCase } from '../utils/utility';
 const bases: Base[] = require('../data/bases.json');
@@ -16,6 +18,7 @@ export interface ItemState {
   currencyCount: { [key: string]: number };
   essenceCount: { [key: string]: { [key: number]: number } };
   selectedCurrency: { name: string; tier: number };
+  selectedOption?: CraftingOption;
 }
 
 const initialState = {
@@ -67,7 +70,8 @@ const initialState = {
     delirium: { 8: 0 },
     hysteria: { 8: 0 }
   },
-  selectedCurrency: none
+  selectedCurrency: none,
+  selectedOption: undefined
 };
 
 const essenceNames: string[] = [
@@ -458,6 +462,24 @@ export default (state: ItemState = initialState, action: Action) => {
             return state;
         }
       }
+    }
+    case 'CRAFT_CLICK': {
+      let craft: { item: Item; result: boolean };
+      craft = master.craftItem(
+        state.currentItem,
+        action.payload as CraftingOption
+      );
+      return {
+        ...state,
+        currentItem: craft.item,
+        selectedOption: undefined
+      };
+    }
+    case 'OPTION_CLICK': {
+      return {
+        ...state,
+        selectedOption: action.payload
+      };
     }
     default:
       return state;

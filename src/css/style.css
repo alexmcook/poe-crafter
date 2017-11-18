@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Fontin-SmallCaps';
-  src: url('./fonts/Fontin-SmallCaps.WOFF') format('woff');
+  src: url('./fonts/Fontin-SmallCaps.WOFF') format('WOFF');
 }
 
 .text--normal {
@@ -160,6 +160,7 @@
 
 .item-box {
   font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
   position: relative;
   left: -50%;
   transform: translateY(-100%);
@@ -193,6 +194,7 @@
 
 .currency-text {
   font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
   font-size: 28pt;
   fill: rgb(255, 255, 255);
   text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black;
@@ -200,6 +202,14 @@
 
 .crafting-text {
   font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
   font-size: 28pt;
   fill: rgb(254, 192, 118);
+}
+
+.crafting-text-gray {
+  font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
+  font-size: 28pt;
+  fill: rgb(128, 128, 128);
 }

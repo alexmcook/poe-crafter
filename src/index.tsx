@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import App from './App';
+import AppContainer from './containers/AppContainer';
 import reducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -13,18 +13,18 @@ const store = createStore(reducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppContainer />
   </Provider>,
   rootEl
 );
 registerServiceWorker();
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
+  module.hot.accept('./containers/AppContainer', () => {
+    const NextAppContainer = require('./containers/AppContainer').default;
     ReactDOM.render(
       <Provider store={store}>
-        <NextApp />
+        <NextAppContainer />
       </Provider>,
       rootEl
     );

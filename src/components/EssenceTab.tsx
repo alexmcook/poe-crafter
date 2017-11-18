@@ -45,7 +45,7 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
   }
 
   render() {
-    return this.props.currentTab === 'Essence' && (
+    return (
       <Grid.Row centered={true}>
         <ItemContainer />
         <Grid.Column computer={6} tablet={10} mobile={12}>

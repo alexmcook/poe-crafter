@@ -1,4 +1,5 @@
-export type Action = DefaultAction | EssenceAction | MouseAction;
+import { CraftingOption } from '../reducers/craftingOptionReducer';
+export type Action = DefaultAction | EssenceAction | MouseAction | CraftAction;
 
 export type DefaultAction = {
   type: string;
@@ -13,4 +14,9 @@ export type EssenceAction = {
 export type MouseAction = {
   type: string;
   payload: { x: number; y: number };
+};
+
+export type CraftAction = {
+  type: string;
+  payload: CraftingOption;
 };

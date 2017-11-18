@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import Base from './base';
-import Mod, { GenerationType } from './mod';
+import Mod, { GenerationType, Domain } from './mod';
 import { randomRange } from './random';
 import * as _item from './itemFunctions';
 const names: NamesJSON = require('../data/names.json');
@@ -69,6 +69,13 @@ export default class Item extends Base {
   sockets: number;
   socketColors: string;
   socketLinks: string;
+  crafted: boolean;
+  multiMod: boolean;
+  prefixesLocked: boolean;
+  suffixesLocked: boolean;
+  attackLocked: boolean;
+  casterLocked: boolean;
+  leoLevelLocked: boolean;
   constructor(item: Base | Item) {
     super(item);
     if (item instanceof Item) {
@@ -85,6 +92,13 @@ export default class Item extends Base {
       this.sockets = item.sockets;
       this.socketColors = item.socketColors;
       this.socketLinks = item.socketLinks;
+      this.crafted = item.crafted;
+      this.multiMod = item.multiMod;
+      this.prefixesLocked = item.prefixesLocked;
+      this.suffixesLocked = item.suffixesLocked;
+      this.attackLocked = item.attackLocked;
+      this.casterLocked = item.casterLocked;
+      this.leoLevelLocked = item.leoLevelLocked;
     } else {
       this.itemName = this.generateName();
       this.itemLevel = 100;
@@ -100,6 +114,13 @@ export default class Item extends Base {
         this.maxSockets === 0 ? 0 : randomRange(1, item.maxSockets + 1);
       this.rerollSocketColors();
       this.rerollSocketLinks();
+      this.crafted = false;
+      this.multiMod = false;
+      this.prefixesLocked = false;
+      this.suffixesLocked = false;
+      this.attackLocked = false;
+      this.casterLocked = false;
+      this.leoLevelLocked = false;
     }
   }
 
@@ -312,6 +333,34 @@ export default class Item extends Base {
       this.currentTags.push(tag);
     });
     this.mods.push(mod);
+    switch (mod.modType) {
+      case 'ItemGenerationCanHaveMultipleCraftedMods':
+        this.multiMod = true;
+        break;
+      case 'ItemGenerationCannotChangePrefixes':
+        this.prefixesLocked = true;
+        break;
+      case 'ItemGenerationCannotChangeSuffixes':
+        this.suffixesLocked = true;
+        break;
+      case 'ItemGenerationCannotRollCasterAffixes':
+        this.casterLocked = true;
+        break;
+      case 'ItemGenerationCannotRollAttackAffixes':
+        this.attackLocked = true;
+        break;
+      case 'PvPMasterLevel28Crafting':
+        this.leoLevelLocked = true;
+        break;
+      default:
+        break;
+    }
+    let crafted = _.some(this.mods, (m: Mod) => {
+      return m.domain === Domain.MASTER;
+    });
+    if (crafted) {
+      this.crafted = true;
+    }
     this.updateModPool();
   }
 
@@ -329,6 +378,34 @@ export default class Item extends Base {
         throw new Error('(removeMod) Unable to find tag: ' + tag + ' on item');
       }
     });
+    switch (mod.modType) {
+      case 'ItemGenerationCanHaveMultipleCraftedMods':
+        this.multiMod = false;
+        break;
+      case 'ItemGenerationCannotChangePrefixes':
+        this.prefixesLocked = false;
+        break;
+      case 'ItemGenerationCannotChangeSuffixes':
+        this.suffixesLocked = false;
+        break;
+      case 'ItemGenerationCannotRollCasterAffixes':
+        this.casterLocked = false;
+        break;
+      case 'ItemGenerationCannotRollAttackAffixes':
+        this.attackLocked = false;
+        break;
+      case 'PvPMasterLevel28Crafting':
+        this.leoLevelLocked = false;
+        break;
+      default:
+        break;
+    }
+    let crafted = _.some(this.mods, (m: Mod) => {
+      return m.domain === Domain.MASTER;
+    });
+    if (!crafted) {
+      this.crafted = false;
+    }
     this.updateModPool();
   }
 

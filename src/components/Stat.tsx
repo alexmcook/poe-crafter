@@ -1,12 +1,23 @@
 import * as React from 'react';
 
 interface StatProps {
+  text: Text;
+}
+
+interface Text {
   text: string;
+  crafted: boolean;
 }
 
 class Stat extends React.Component<StatProps> {
   render() {
-    return <div className="text--magic">{this.props.text}</div>;
+    return (
+      <div
+        className={this.props.text.crafted ? 'text--crafted' : 'text--magic'}
+      >
+        {this.props.text.text}
+      </div>
+    );
   }
 }
 
