@@ -1,6 +1,7 @@
 import Item, { Rarity } from './item';
-import Mod from './mod';
+import Mod, { GenerationType } from './mod';
 import { randomRange } from './random';
+import { filterPrefix, filterSuffix } from './itemFunctions';
 import * as _ from 'lodash';
 const essences: Essence[] = require('../data/essences.json');
 
@@ -99,7 +100,17 @@ export function annulment(item: Item): { item: Item; result: boolean } {
   if (item.mods.length > 0) {
     result = true;
     item = new Item(item);
-    item.removeMod(item.mods[randomRange(0, item.mods.length)]);
+    if (item.prefixesLocked && item.suffixesLocked) {
+      item = item;
+    } else if (item.prefixesLocked) {
+      let suffixes = filterPrefix(item.mods);
+      item.removeMod(suffixes[randomRange(0, suffixes.length)]);
+    } else if (item.suffixesLocked) {
+      let prefixes = filterSuffix(item.mods);
+      item.removeMod(prefixes[randomRange(0, prefixes.length)]);
+    } else {
+      item.removeMod(item.mods[randomRange(0, item.mods.length)]);
+    }
   }
   return { item: item, result: result };
 }
@@ -169,22 +180,72 @@ export function chaos(item: Item): { item: Item; result: boolean } {
     result = true;
     item = new Item(item);
     item.itemName = item.generateName();
-    item.reset();
-    if (item.type === 'Jewel') {
-      for (let i = 0; i < 3; i++) {
-        item.addMod(item.getMod());
-      }
-      if (Math.random() < 0.5) {
-        item.addMod(item.getMod());
-      }
-    } else {
-      for (let i = 0; i < 4; i++) {
-        item.addMod(item.getMod());
-      }
-      if (Math.random() < 0.5) {
-        item.addMod(item.getMod());
+    if (item.prefixesLocked && item.suffixesLocked) {
+      item = item;
+    } else if (item.prefixesLocked) {
+      let suffixes = filterPrefix(item.mods);
+      _.each(suffixes, mod => {
+        item.removeMod(mod);
+      });
+      if (item.type === 'Jewel') {
+        for (let i = item.mods.length; i < 3; i++) {
+          item.addMod(item.getMod());
+        }
         if (Math.random() < 0.5) {
           item.addMod(item.getMod());
+        }
+      } else {
+        for (let i = item.mods.length; i < 4; i++) {
+          item.addMod(item.getMod());
+        }
+        if (Math.random() < 0.5) {
+          item.addMod(item.getMod());
+          if (Math.random() < 0.5) {
+            item.addMod(item.getMod());
+          }
+        }
+      }
+    } else if (item.suffixesLocked) {
+      let prefixes = filterSuffix(item.mods);
+      _.each(prefixes, mod => {
+        item.removeMod(mod);
+      });
+      if (item.type === 'Jewel') {
+        for (let i = item.mods.length; i < 3; i++) {
+          item.addMod(item.getMod());
+        }
+        if (Math.random() < 0.5) {
+          item.addMod(item.getMod());
+        }
+      } else {
+        for (let i = item.mods.length; i < 4; i++) {
+          item.addMod(item.getMod());
+        }
+        if (Math.random() < 0.5) {
+          item.addMod(item.getMod());
+          if (Math.random() < 0.5) {
+            item.addMod(item.getMod());
+          }
+        }
+      }
+    } else {
+      item.reset();
+      if (item.type === 'Jewel') {
+        for (let i = 0; i < 3; i++) {
+          item.addMod(item.getMod());
+        }
+        if (Math.random() < 0.5) {
+          item.addMod(item.getMod());
+        }
+      } else {
+        for (let i = 0; i < 4; i++) {
+          item.addMod(item.getMod());
+        }
+        if (Math.random() < 0.5) {
+          item.addMod(item.getMod());
+          if (Math.random() < 0.5) {
+            item.addMod(item.getMod());
+          }
         }
       }
     }
@@ -194,7 +255,16 @@ export function chaos(item: Item): { item: Item; result: boolean } {
 
 export function blessed(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.implicit !== null) {
+  let implicitRange = () => {
+    if (item.implicit) {
+      return _.some(item.implicit.stats, stat => {
+        return stat.valueMin !== stat.valueMax;
+      });
+    } else {
+      return false;
+    }
+  };
+  if (item.implicit && implicitRange()) {
     result = true;
     item = new Item(item);
     item.rerollImplicit();
@@ -217,7 +287,13 @@ export function divine(item: Item): { item: Item; result: boolean } {
   if (item.mods.length > 0) {
     result = true;
     item = new Item(item);
-    item.reroll();
+    if (item.prefixesLocked) {
+      item.reroll(GenerationType.SUFFIX);
+    } else if (item.suffixesLocked) {
+      item.reroll(GenerationType.PREFIX);
+    } else {
+      item.reroll();
+    }
   }
   return { item: item, result: result };
 }
@@ -257,8 +333,22 @@ export function scouring(item: Item): { item: Item; result: boolean } {
   if (item.rarity !== Rarity.NORMAL) {
     result = true;
     item = new Item(item);
-    item.rarity = Rarity.NORMAL;
-    item.reset();
+    if (item.prefixesLocked && item.suffixesLocked) {
+      item = item;
+    } else if (item.prefixesLocked) {
+      let suffixes = filterPrefix(item.mods);
+      _.each(suffixes, mod => {
+        item.removeMod(mod);
+      });
+    } else if (item.suffixesLocked) {
+      let prefixes = filterSuffix(item.mods);
+      _.each(prefixes, mod => {
+        item.removeMod(mod);
+      });
+    } else {
+      item.rarity = Rarity.NORMAL;
+      item.reset();
+    }
   }
   return { item: item, result: result };
 }

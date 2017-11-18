@@ -8,7 +8,6 @@ export function craftItem(item: Item, option: CraftingOption) {
     return { item: item, result: false };
   }
   if (option.mod && (!item.crafted || item.multiMod)) {
-    console.log(item.crafted);
     item = new Item(item);
     item.addMod(option.mod);
     return { item: item, result: true };
@@ -48,11 +47,13 @@ export function craftItem(item: Item, option: CraftingOption) {
         return { item: item, result: true };
       }
     } else if (option.customAction.sockets) {
-      item = new Item(item);
-      item.sockets = option.customAction.sockets;
-      item.rerollSocketColors();
-      item.rerollSocketLinks();
-      return { item: item, result: true };
+      if (option.customAction.sockets <= item.maxSockets) {
+        item = new Item(item);
+        item.sockets = option.customAction.sockets;
+        item.rerollSocketColors();
+        item.rerollSocketLinks();
+        return { item: item, result: true };
+      }
     }
   }
   return { item: item, result: false };

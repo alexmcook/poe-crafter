@@ -129,7 +129,7 @@ export function checkAvailability(item: Item, craftOption: CraftingOption): bool
       let correctType =
         craftOption.itemTypes.length === 0 ||
         _.includes(craftOption.itemTypes, item.type);
-      return correctType;
+      return craftOption.customAction.sockets <= item.maxSockets && correctType;
     }
   }
   return false;

@@ -73,8 +73,6 @@ export default class Item extends Base {
   multiMod: boolean;
   prefixesLocked: boolean;
   suffixesLocked: boolean;
-  attackLocked: boolean;
-  casterLocked: boolean;
   leoLevelLocked: boolean;
   constructor(item: Base | Item) {
     super(item);
@@ -96,8 +94,6 @@ export default class Item extends Base {
       this.multiMod = item.multiMod;
       this.prefixesLocked = item.prefixesLocked;
       this.suffixesLocked = item.suffixesLocked;
-      this.attackLocked = item.attackLocked;
-      this.casterLocked = item.casterLocked;
       this.leoLevelLocked = item.leoLevelLocked;
     } else {
       this.itemName = this.generateName();
@@ -118,8 +114,6 @@ export default class Item extends Base {
       this.multiMod = false;
       this.prefixesLocked = false;
       this.suffixesLocked = false;
-      this.attackLocked = false;
-      this.casterLocked = false;
       this.leoLevelLocked = false;
     }
   }
@@ -230,10 +224,20 @@ export default class Item extends Base {
     }
   }
 
-  reroll() {
-    _.each(this.mods, mod => {
-      initMod(mod);
-    });
+  reroll(affixType?: GenerationType) {
+    if (affixType === GenerationType.PREFIX) {
+      _.each(_item.filterSuffix(this.mods), mod => {
+        initMod(mod);
+      });
+    } else if (affixType === GenerationType.SUFFIX) {
+      _.each(_item.filterPrefix(this.mods), mod => {
+        initMod(mod);
+      });
+    } else {
+      _.each(this.mods, mod => {
+        initMod(mod);
+      });
+    }
   }
 
   rerollImplicit() {
@@ -343,12 +347,6 @@ export default class Item extends Base {
       case 'ItemGenerationCannotChangeSuffixes':
         this.suffixesLocked = true;
         break;
-      case 'ItemGenerationCannotRollCasterAffixes':
-        this.casterLocked = true;
-        break;
-      case 'ItemGenerationCannotRollAttackAffixes':
-        this.attackLocked = true;
-        break;
       case 'PvPMasterLevel28Crafting':
         this.leoLevelLocked = true;
         break;
@@ -388,12 +386,6 @@ export default class Item extends Base {
       case 'ItemGenerationCannotChangeSuffixes':
         this.suffixesLocked = false;
         break;
-      case 'ItemGenerationCannotRollCasterAffixes':
-        this.casterLocked = false;
-        break;
-      case 'ItemGenerationCannotRollAttackAffixes':
-        this.attackLocked = false;
-        break;
       case 'PvPMasterLevel28Crafting':
         this.leoLevelLocked = false;
         break;
@@ -413,11 +405,11 @@ export default class Item extends Base {
     let updatedModPool = this.modPool;
     updatedModPool = _item.filterSpawnWeightTagsMatch(
       updatedModPool,
-      this.tags
+      this.currentTags
     );
     updatedModPool = _item.filterSpawnWeightAnyIsZero(
       updatedModPool,
-      this.tags
+      this.currentTags
     );
     updatedModPool = _item.filterGenerationType(updatedModPool);
     updatedModPool = _item.filterDomain(updatedModPool, this.category);
