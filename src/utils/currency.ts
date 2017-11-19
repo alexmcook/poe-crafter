@@ -421,7 +421,7 @@ export function vaal(item: Item): { item: Item; result: boolean } {
         }
         item.rerollSockets();
         let rndMaxLink = Math.random();
-        if (rndMaxLink < 1) {
+        if (rndMaxLink < 1 / 36) {
           let colors = ['R', 'G', 'B'];
           item.sockets = item.maxSockets;
           item.socketLinks = '';
