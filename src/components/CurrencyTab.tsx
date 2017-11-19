@@ -170,6 +170,13 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               onClick={() => this.props.orbClick('SCOURING')}
             />
             <TabRect
+              x={1031}
+              y={597}
+              count={this.props.count.vaal}
+              xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyVaal.png"
+              onClick={() => this.props.orbClick('VAAL')}
+            />
+            <TabRect
               x={251}
               y={972}
               count={this.props.count.eternal}

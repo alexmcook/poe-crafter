@@ -19,6 +19,10 @@
   color: rgb(128, 128, 128);
 }
 
+.text--corrupt {
+  color: rgb(255, 0, 0);
+}
+
 .text--fire {
   color: rgb(150, 0, 0);
 }

@@ -209,7 +209,12 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
                 baseName={this.props.item.name}
                 rarity={this.props.item.rarity}
               />
-              <div className="item-stats">{output}</div>
+              <div className="item-stats">
+                {output}
+                {this.props.item.corrupted ? (
+                  <span className="text--corrupt">Corrupted</span>
+                ) : null}
+              </div>
             </div>
           </div>
         </Grid.Column>

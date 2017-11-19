@@ -9,6 +9,7 @@ import CraftButton from '../components/CraftButton';
 import GenericButton from '../components/GenericButton';
 import Item from '../utils/item';
 import { checkAvailability } from '../utils/itemFunctions';
+import * as _ from 'lodash';
 const background = require('../assets/craftingbench/craftingbench.png');
 const border = require('../assets/craftingbench/craftingbenchborder.png');
 const titleBar = require('../assets/craftingbench/craftingtitlebar.png');
@@ -411,6 +412,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               item={this.props.item}
               selectedOption={this.props.selectedOption}
               onClick={this.props.craftClick}
+              disabled={_.includes(optionsSlice, this.props.selectedOption) ? false : true}
             />
             <CraftOption
               option={optionsSlice[0]}

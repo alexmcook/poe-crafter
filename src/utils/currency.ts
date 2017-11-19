@@ -27,7 +27,11 @@ interface Essence {
 //#region regular currency
 export function whetstone(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.quality < 20 && item.category.includes('Weapon')) {
+  if (
+    item.quality < 20 &&
+    item.category.includes('Weapon') &&
+    !item.corrupted
+  ) {
     result = true;
     item = new Item(item);
     if (item.rarity === Rarity.NORMAL) {
@@ -48,7 +52,8 @@ export function armorScrap(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (
     item.quality < 20 &&
-    (item.category.includes('Armor') || item.type.includes('Shield'))
+    (item.category.includes('Armor') || item.type.includes('Shield')) &&
+    !item.corrupted
   ) {
     result = true;
     item = new Item(item);
@@ -68,7 +73,7 @@ export function armorScrap(item: Item): { item: Item; result: boolean } {
 
 export function transmute(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.rarity === Rarity.NORMAL) {
+  if (item.rarity === Rarity.NORMAL && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.rarity = Rarity.MAGIC;
@@ -83,7 +88,7 @@ export function transmute(item: Item): { item: Item; result: boolean } {
 
 export function alteration(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.rarity === Rarity.MAGIC) {
+  if (item.rarity === Rarity.MAGIC && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.reset();
@@ -97,7 +102,7 @@ export function alteration(item: Item): { item: Item; result: boolean } {
 
 export function annulment(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.mods.length > 0) {
+  if (item.mods.length > 0 && !item.corrupted) {
     result = true;
     item = new Item(item);
     if (item.prefixesLocked && item.suffixesLocked) {
@@ -117,7 +122,7 @@ export function annulment(item: Item): { item: Item; result: boolean } {
 
 export function exalted(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.rarity === Rarity.RARE) {
+  if (item.rarity === Rarity.RARE && !item.corrupted) {
     let maxCount = 6;
     if (item.type === 'Jewel') {
       maxCount = 4;
@@ -133,7 +138,7 @@ export function exalted(item: Item): { item: Item; result: boolean } {
 
 export function regal(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.rarity === Rarity.MAGIC) {
+  if (item.rarity === Rarity.MAGIC && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.rarity = Rarity.RARE;
@@ -146,7 +151,7 @@ export function regal(item: Item): { item: Item; result: boolean } {
 
 export function alchemy(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.rarity === Rarity.NORMAL) {
+  if (item.rarity === Rarity.NORMAL && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.rarity = Rarity.RARE;
@@ -176,7 +181,7 @@ export function alchemy(item: Item): { item: Item; result: boolean } {
 
 export function chaos(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.rarity === Rarity.RARE) {
+  if (item.rarity === Rarity.RARE && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.itemName = item.generateName();
@@ -264,7 +269,7 @@ export function blessed(item: Item): { item: Item; result: boolean } {
       return false;
     }
   };
-  if (item.implicit && implicitRange()) {
+  if (item.implicit && implicitRange() && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.rerollImplicit();
@@ -274,7 +279,7 @@ export function blessed(item: Item): { item: Item; result: boolean } {
 
 export function augment(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.rarity === Rarity.MAGIC && item.mods.length < 2) {
+  if (item.rarity === Rarity.MAGIC && item.mods.length < 2 && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.addMod(item.getMod());
@@ -284,7 +289,7 @@ export function augment(item: Item): { item: Item; result: boolean } {
 
 export function divine(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.mods.length > 0) {
+  if (item.mods.length > 0 && !item.corrupted) {
     result = true;
     item = new Item(item);
     if (item.prefixesLocked) {
@@ -300,7 +305,7 @@ export function divine(item: Item): { item: Item; result: boolean } {
 
 export function jeweller(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.sockets < item.maxSockets) {
+  if (item.sockets < item.maxSockets && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.rerollSockets();
@@ -310,7 +315,7 @@ export function jeweller(item: Item): { item: Item; result: boolean } {
 
 export function fusing(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.socketLinks.indexOf('X') > -1) {
+  if (item.socketLinks.indexOf('X') > -1 && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.rerollSocketLinks();
@@ -320,7 +325,7 @@ export function fusing(item: Item): { item: Item; result: boolean } {
 
 export function chromatic(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.sockets > 0) {
+  if (item.sockets > 0 && !item.corrupted) {
     result = true;
     item = new Item(item);
     item.rerollSocketColors();
@@ -330,7 +335,7 @@ export function chromatic(item: Item): { item: Item; result: boolean } {
 
 export function scouring(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.rarity !== Rarity.NORMAL) {
+  if (item.rarity !== Rarity.NORMAL && !item.corrupted) {
     result = true;
     item = new Item(item);
     if (item.prefixesLocked && item.suffixesLocked) {
@@ -353,8 +358,113 @@ export function scouring(item: Item): { item: Item; result: boolean } {
   return { item: item, result: result };
 }
 
+export function vaal(item: Item): { item: Item; result: boolean } {
+  let result = false;
+  if (!item.corrupted) {
+    result = true;
+    item = new Item(item);
+    item.corrupted = true;
+    if (item.maxSockets === 0) {
+      let rnd = Math.random();
+      if (rnd < 0.33) {
+        item.corruptImplicit();
+      } else if (rnd < 0.66) {
+        item.reset();
+        item.rarity = Rarity.RARE;
+        item.itemName = item.generateName();
+        if (item.type === 'Jewel') {
+          for (let i = 0; i < 3; i++) {
+            item.addMod(item.getMod());
+          }
+          if (Math.random() < 0.5) {
+            item.addMod(item.getMod());
+          }
+        } else {
+          for (let i = 0; i < 4; i++) {
+            item.addMod(item.getMod());
+          }
+          if (Math.random() < 0.5) {
+            item.addMod(item.getMod());
+            if (Math.random() < 0.5) {
+              item.addMod(item.getMod());
+            }
+          }
+        }
+      } else {
+        item = item;
+      }
+    } else {
+      let rnd = Math.random();
+      if (rnd < 0.25) {
+        item.corruptImplicit();
+      } else if (rnd < 0.5) {
+        let count = 1;
+        for (let i = 1; i < item.socketColors.length; i++) {
+          let rndColor = Math.random();
+          if (rndColor < 0.1) {
+            count++;
+          }
+        }
+        for (let i = 0; i < count; i++) {
+          let rndSocket = randomRange(0, item.socketColors.length);
+          while (item.socketColors[rndSocket] === 'W') {
+            rndSocket = randomRange(0, item.socketColors.length);
+          }
+          item.socketColors =
+            item.socketColors.substr(0, rndSocket) +
+            'W' +
+            item.socketColors.substr(rndSocket + 1, item.socketColors.length);
+        }
+      } else if (rnd < 0.75) {
+        item.reset();
+        item.rarity = Rarity.RARE;
+        item.itemName = item.generateName();
+        if (item.type === 'Jewel') {
+          for (let i = 0; i < 3; i++) {
+            item.addMod(item.getMod());
+          }
+          if (Math.random() < 0.5) {
+            item.addMod(item.getMod());
+          }
+        } else {
+          for (let i = 0; i < 4; i++) {
+            item.addMod(item.getMod());
+          }
+          if (Math.random() < 0.5) {
+            item.addMod(item.getMod());
+            if (Math.random() < 0.5) {
+              item.addMod(item.getMod());
+            }
+          }
+        }
+        item.rerollSockets();
+        let rndMaxLink = Math.random();
+        if (rndMaxLink < 1) {
+          let colors = ['R', 'G', 'B'];
+          item.sockets = item.maxSockets;
+          item.socketLinks = '';
+          for (let i = 0; i < item.sockets - 1; i++) {
+            item.socketLinks += 'L';
+          }
+          item.socketColors = '';
+          for (let i = 0; i < item.sockets; i++) {
+            item.socketColors += colors[randomRange(0, 3)];
+          }
+        }
+      } else {
+        item = item;
+      }
+    }
+  }
+  return { item: item, result: result };
+}
+
 export function eternal(item: Item): { item: Item; result: boolean } {
-  return { item: item, result: true };
+  if (!item.corrupted) {
+    return { item: item, result: true };
+  } else {
+    return { item: item, result: false };
+  }
 }
 
 export function imprint(
@@ -362,7 +472,7 @@ export function imprint(
   itemImprint?: Item
 ): { item: Item; result: boolean } {
   let result = false;
-  if (itemImprint) {
+  if (itemImprint && !item.corrupted) {
     result = true;
     item = itemImprint;
   }
@@ -370,9 +480,17 @@ export function imprint(
 }
 //#endregion
 //#region essences
-export function essence(item: Item, name: string, tier: number): { item: Item; result: boolean } {
+export function essence(
+  item: Item,
+  name: string,
+  tier: number
+): { item: Item; result: boolean } {
   let result = false;
-  if ((item.rarity === Rarity.NORMAL || tier > 5 && item.rarity === Rarity.RARE) && item.type !== 'Jewel') {
+  if (
+    (item.rarity === Rarity.NORMAL ||
+      (tier > 5 && item.rarity === Rarity.RARE)) &&
+    item.type !== 'Jewel'
+  ) {
     result = true;
     item = new Item(item);
     item.rarity = Rarity.RARE;
@@ -430,7 +548,7 @@ export function essence(item: Item, name: string, tier: number): { item: Item; r
           throw new Error('Type not found for: ' + item.type);
         }
     }
-    
+
     for (let i = 0; i < 3; i++) {
       item.addMod(item.getMod());
     }

@@ -4,7 +4,7 @@ import { CraftingOption } from '../reducers/craftingOptionReducer';
 const craftBtn = require('../assets/craftingbench/craftbutton.png');
 const craftBtnHighlight = require('../assets/craftingbench/craftbuttonhighlight.png');
 const craftBtnActive = require('../assets/craftingbench/craftbuttonactive.png');
-// const craftBtnDisabled = require('../assets/craftingbench/craftbuttongrayscale.png');
+const craftBtnDisabled = require('../assets/craftingbench/craftbuttongrayscale.png');
 
 interface CraftButtonProps {
   item: Item;
@@ -12,6 +12,7 @@ interface CraftButtonProps {
   onClick: (
     craftingOption: CraftingOption
   ) => { type: string; payload: CraftingOption };
+  disabled: boolean;
 }
 
 interface CraftButtonState {
@@ -71,7 +72,9 @@ class CraftButton extends React.Component<CraftButtonProps, CraftButtonState> {
     return (
       <svg>
         <image
-          xlinkHref={this.state.buttonState}
+          xlinkHref={
+            this.props.disabled ? craftBtnDisabled : this.state.buttonState
+          }
           ref={ref => {
             this.craftButton = ref as SVGImageElement;
           }}

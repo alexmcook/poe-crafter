@@ -4,7 +4,7 @@ const socketLinkV = require('../assets/item/socketLinkVertical.png');
 const socketR = require('../assets/item/socketR.png');
 const socketG = require('../assets/item/socketG.png');
 const socketB = require('../assets/item/socketB.png');
-// const socketW = require('../assets/item/socketW.png');
+const socketW = require('../assets/item/socketW.png');
 
 interface ItemSocketsProps {
   width: number;
@@ -30,6 +30,8 @@ class ItemSockets extends React.Component<ItemSocketsProps> {
         return socketG;
       case 'B':
         return socketB;
+      case 'W':
+        return socketW;
       default:
         return '';
     }

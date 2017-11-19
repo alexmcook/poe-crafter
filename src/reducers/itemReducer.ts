@@ -40,6 +40,7 @@ const initialState = {
     divine: 0,
     jeweller: 0,
     scouring: 0,
+    vaal: 0,
     fusing: 0,
     chromatic: 0,
     eternal: 0,
@@ -423,6 +424,22 @@ export default (state: ItemState = initialState, action: Action) => {
               currencyCount: {
                 ...state.currencyCount,
                 scouring: state.currencyCount.scouring + (orb.result ? 1 : 0)
+              }
+            };
+          case 'VAAL':
+            orb = currency.vaal(state.currentItem);
+            return {
+              ...state,
+              selectedCurrency: action.payload
+                ? {
+                    name: state.selectedCurrency.name,
+                    tier: state.selectedCurrency.tier
+                  }
+                : none,
+              currentItem: orb.item,
+              currencyCount: {
+                ...state.currencyCount,
+                vaal: state.currencyCount.vaal + (orb.result ? 1 : 0)
               }
             };
           case 'ETERNAL':

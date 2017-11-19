@@ -54,7 +54,7 @@ class Stat extends React.Component<CurrencyCursorProps, CurrencyCursorState> {
       case 'SCOURING':
         return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyConvertToNormal.png';
       case 'VAAL':
-        return 'https://web.poecdn.com/image/Art/2DItems/Currency/TTTTTTTTTTTTTTTTTTT.png';
+        return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyVaal.png';
       case 'ETERNAL':
         return 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprintOrb.png';
       case 'IMPRINT':

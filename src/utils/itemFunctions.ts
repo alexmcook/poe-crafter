@@ -41,6 +41,13 @@ export function filterGenerationType(mods: Mod[]): Mod[] {
   });
 }
 
+/* Filter mods to include only mods with a CORRUPTED generationType */
+export function filterGenerationTypeCorruption(mods: Mod[]): Mod[] {
+  return _.filter(mods, mod => {
+    return mod.generationType === GenerationType.CORRUPTED;
+  });
+}
+
 /* Filter mods to include only mods with a domain based on item category */
 export function filterDomain(mods: Mod[], category: string): Mod[] {
   return _.filter(mods, mod => {
@@ -72,7 +79,10 @@ export function filterSuffix(mods: Mod[]): Mod[] {
   });
 }
 
-export function checkAffixCount(item: Item, affixType: GenerationType): boolean {
+export function checkAffixCount(
+  item: Item,
+  affixType: GenerationType
+): boolean {
   let maxCount = 3;
   if (item.rarity === Rarity.RARE) {
     if (item.type === 'Jewel') {
@@ -92,8 +102,11 @@ export function checkAffixCount(item: Item, affixType: GenerationType): boolean 
   }
 }
 
-export function checkAvailability(item: Item, craftOption: CraftingOption): boolean {
-  if (!craftOption) {
+export function checkAvailability(
+  item: Item,
+  craftOption: CraftingOption
+): boolean {
+  if (!craftOption || item.corrupted) {
     return false;
   } else if (craftOption.mod) {
     let affixSpace = checkAffixCount(item, craftOption.mod.generationType);

@@ -7,7 +7,7 @@ export function craftItem(item: Item, option: CraftingOption) {
   if (!option) {
     return { item: item, result: false };
   }
-  if (option.mod && (!item.crafted || item.multiMod)) {
+  if (option.mod && (!item.crafted || item.multiMod) && !item.corrupted) {
     item = new Item(item);
     item.addMod(option.mod);
     return { item: item, result: true };

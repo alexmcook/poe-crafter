@@ -61,6 +61,7 @@ export default class Item extends Base {
   quality: number;
   rarity: Rarity;
   modPool: Mod[];
+  corruptionPool: Mod[];
   currentModPool: Mod[];
   currentTags: string[];
   mods: Mod[];
@@ -74,6 +75,7 @@ export default class Item extends Base {
   prefixesLocked: boolean;
   suffixesLocked: boolean;
   leoLevelLocked: boolean;
+  corrupted: boolean;
   constructor(item: Base | Item) {
     super(item);
     if (item instanceof Item) {
@@ -82,6 +84,7 @@ export default class Item extends Base {
       this.quality = item.quality;
       this.rarity = item.rarity;
       this.modPool = item.modPool;
+      this.corruptionPool = item.corruptionPool;
       this.currentModPool = item.currentModPool;
       this.currentTags = item.currentTags;
       this.mods = copyMods(item.mods);
@@ -95,12 +98,14 @@ export default class Item extends Base {
       this.prefixesLocked = item.prefixesLocked;
       this.suffixesLocked = item.suffixesLocked;
       this.leoLevelLocked = item.leoLevelLocked;
+      this.corrupted = item.corrupted;
     } else {
       this.itemName = this.generateName();
       this.itemLevel = 100;
       this.quality = 0;
       this.rarity = Rarity.NORMAL;
       this.modPool = generateModPool(this);
+      this.corruptionPool = generateCorruptionPool(this);
       this.currentModPool = this.modPool.slice();
       this.currentTags = item.tags.slice();
       this.mods = [];
@@ -115,6 +120,7 @@ export default class Item extends Base {
       this.prefixesLocked = false;
       this.suffixesLocked = false;
       this.leoLevelLocked = false;
+      this.corrupted = false;
     }
   }
 
@@ -256,10 +262,16 @@ export default class Item extends Base {
     }
   }
 
-  getMod() {
+  corruptImplicit() {
+    this.implicit = this.getMod(this.corruptionPool);
+    this.rerollImplicit();
+  }
+
+  getMod(modPool?: Mod[]) {
+    let currentModPool = modPool ? modPool : this.currentModPool;
     let itemTags = this.currentTags;
     let weightTotal = 0;
-    _.each(this.currentModPool, mod => {
+    _.each(currentModPool, mod => {
       let weight = _.find(mod.spawnWeights, spawnWeight => {
         return spawnWeight.valueOf() > 0;
       });
@@ -288,7 +300,7 @@ export default class Item extends Base {
     let selected: Mod | undefined;
     let variate = Math.random() * weightTotal;
     let cumulative = 0;
-    _.each(this.currentModPool, mod => {
+    _.each(currentModPool, mod => {
       let weight = _.find(mod.spawnWeights, spawnWeight => {
         return spawnWeight.valueOf() > 0;
       });
@@ -722,6 +734,14 @@ function generateModPool(item: Item): Mod[] {
   modPool = _item.filterGenerationType(modPool);
   modPool = _item.filterDomain(modPool, item.category);
   return modPool;
+}
+
+function generateCorruptionPool(item: Item): Mod[] {
+  let corruptionPool = _item.filterGenerationTypeCorruption(mods);
+  corruptionPool = _item.filterSpawnWeightTagsMatch(corruptionPool, item.tags);
+  corruptionPool = _item.filterSpawnWeightAnyIsZero(corruptionPool, item.tags);
+  corruptionPool = _item.filterDomain(corruptionPool, item.category);
+  return corruptionPool;
 }
 
 function copyMods(itemMods: Mod[]): Mod[] {
