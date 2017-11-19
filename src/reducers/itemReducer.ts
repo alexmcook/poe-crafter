@@ -20,6 +20,7 @@ export interface ItemState {
   essenceCount: { [key: string]: { [key: number]: number } };
   selectedCurrency: { name: string; tier: number };
   selectedOption?: CraftingOption;
+  prevState?: ItemState;
 }
 
 const initialState = {
@@ -73,7 +74,8 @@ const initialState = {
     hysteria: { 8: 0 }
   },
   selectedCurrency: none,
-  selectedOption: undefined
+  selectedOption: undefined,
+  prevState: undefined
 };
 
 const essenceNames: string[] = [
@@ -109,6 +111,7 @@ export default (state: ItemState = initialState, action: Action) => {
     case 'SELECT_BASE':
       return {
         ...state,
+        prevState: state,
         currentItem: new Item(_.find(bases, base => {
           return base.id === action.payload;
         }) as Base),
@@ -123,13 +126,25 @@ export default (state: ItemState = initialState, action: Action) => {
             : { ...state.selectedCurrency, name: action.payload }
       };
     case 'ORB_CLICK':
-      return {
-        ...state,
-        selectedCurrency:
-          action.payload === state.selectedCurrency.name
-            ? none
-            : { ...state.selectedCurrency, name: action.payload }
-      };
+      if (action.payload === 'REGRET') {
+        let nextState = state;
+        if (state.prevState) {
+          nextState = {
+            ...state.prevState,
+            selectedCurrency: none,
+            selectedOption: undefined
+          };
+        }
+        return nextState;
+      } else {
+        return {
+          ...state,
+          selectedCurrency:
+            action.payload === state.selectedCurrency.name
+              ? none
+              : { ...state.selectedCurrency, name: action.payload }
+        };
+      }
     case 'ESSENCE_CLICK': {
       action = action as EssenceAction;
       return {
@@ -151,6 +166,7 @@ export default (state: ItemState = initialState, action: Action) => {
         );
         let nextState = {
           ...state,
+          prevState: state,
           selectedCurrency: action.payload
             ? {
                 name: state.selectedCurrency.name,
@@ -172,6 +188,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.whetstone(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -188,6 +205,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.armorScrap(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -205,6 +223,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.transmute(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -221,6 +240,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.alteration(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -238,6 +258,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.annulment(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -254,6 +275,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.exalted(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -270,6 +292,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.regal(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -286,6 +309,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.alchemy(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -302,6 +326,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.chaos(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -318,6 +343,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.blessed(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -334,6 +360,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.augment(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -350,6 +377,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.divine(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -366,6 +394,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.jeweller(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -382,6 +411,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.fusing(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -398,6 +428,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.chromatic(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -414,6 +445,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.scouring(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -430,6 +462,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.vaal(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -446,6 +479,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.eternal(state.currentItem);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -462,6 +496,7 @@ export default (state: ItemState = initialState, action: Action) => {
             orb = currency.imprint(state.currentItem, state.imprint);
             return {
               ...state,
+              prevState: state,
               selectedCurrency: action.payload
                 ? {
                     name: state.selectedCurrency.name,
@@ -584,6 +619,7 @@ export default (state: ItemState = initialState, action: Action) => {
       }
       return {
         ...state,
+        prevState: state,
         currentItem: craft.item,
         selectedOption: undefined,
         currencyCount: count

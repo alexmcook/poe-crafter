@@ -5,7 +5,8 @@ import { changeTab } from '../actions/tabActions';
 import BaseSelector from '../components/BaseSelector';
 
 const mapStateToProps = (state: State) => ({
-  bases: state.item.baseList
+  bases: state.item.baseList,
+  currentItem: state.item.currentItem
 });
 
 const mapDispatchToProps = {
