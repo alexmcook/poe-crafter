@@ -373,21 +373,12 @@ export function vaal(item: Item): { item: Item; result: boolean } {
         item.rarity = Rarity.RARE;
         item.itemName = item.generateName();
         if (item.type === 'Jewel') {
-          for (let i = 0; i < 3; i++) {
-            item.addMod(item.getMod());
-          }
-          if (Math.random() < 0.5) {
-            item.addMod(item.getMod());
-          }
-        } else {
           for (let i = 0; i < 4; i++) {
             item.addMod(item.getMod());
           }
-          if (Math.random() < 0.5) {
+        } else {
+          for (let i = 0; i < 6; i++) {
             item.addMod(item.getMod());
-            if (Math.random() < 0.5) {
-              item.addMod(item.getMod());
-            }
           }
         }
       } else {
