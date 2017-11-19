@@ -140,9 +140,8 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
     }
   }
 
-  handleScroll(e: WheelEvent) {
-    e.preventDefault();
-    if (e.deltaY > 0) {
+  handleScroll(e?: WheelEvent, delta?: number) {
+    let scrollDown = () => {
       // SCROLL DOWN
       let nextScrollerPos =
         this.state.scrollerPos + 706 / (this.state.options.length - 5);
@@ -159,7 +158,8 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
         scrollerPos: nextScrollerPos,
         optionsPos: nextOptionsPos
       });
-    } else if (e.deltaY < 0) {
+    };
+    let scrollUp = () => {
       // SCROLL UP
       let nextScrollerPos =
         this.state.scrollerPos - 706 / (this.state.options.length - 5);
@@ -174,6 +174,32 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
         scrollerPos: nextScrollerPos,
         optionsPos: nextOptionsPos
       });
+    };
+    if (e) {
+      e.preventDefault();
+      e.deltaY > 0 ? scrollDown() : scrollUp();
+    } else if (delta) {
+      if (delta > 0) {
+        for (let i = 0; i < 4; i++) {
+          scrollDown();
+        }
+      } else {
+        for (let i = 0; i < 4; i++) {
+          scrollUp();
+        }
+      }
+    }
+  }
+
+  handleClick(e: MouseEvent) {
+    let y = e.clientY - this.scrollBar.getBoundingClientRect().top;
+    let scrollerPos =
+      this.scroller.getBoundingClientRect().top -
+      this.scrollBar.getBoundingClientRect().top;
+    if (y < scrollerPos) {
+      this.handleScroll(undefined, -1);
+    } else if (y > scrollerPos + this.scroller.getBoundingClientRect().height) {
+      this.handleScroll(undefined, 1);
     }
   }
 
@@ -184,7 +210,9 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
     this.option4.addEventListener('wheel', e => this.handleScroll(e));
     this.option5.addEventListener('wheel', e => this.handleScroll(e));
     this.scroller.addEventListener('wheel', e => this.handleScroll(e));
+    this.scroller.addEventListener('click', e => this.handleClick(e));
     this.scrollBar.addEventListener('wheel', e => this.handleScroll(e));
+    this.scrollBar.addEventListener('click', e => this.handleClick(e));
   }
 
   componentWillUnmount() {
@@ -225,6 +253,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
             viewBox="0 0 1282 1736"
             preserveAspectRatio="xMinYMin meet"
             ref={ref => (ref !== null ? this.props.setCurrentTab(ref) : null)}
+            onContextMenu={e => e.preventDefault()}
           >
             <image
               xlinkHref={border}
@@ -412,7 +441,11 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               item={this.props.item}
               selectedOption={this.props.selectedOption}
               onClick={this.props.craftClick}
-              disabled={_.includes(optionsSlice, this.props.selectedOption) ? false : true}
+              disabled={
+                _.includes(optionsSlice, this.props.selectedOption)
+                  ? false
+                  : true
+              }
             />
             <CraftOption
               option={optionsSlice[0]}

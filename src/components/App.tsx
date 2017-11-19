@@ -9,11 +9,24 @@ import '../css/style.css';
 
 interface AppProps {
   currentTab: string;
+  keyListener: (key: string) => { type: string; payload: string };
 }
 
-class App extends React.Component<AppProps> {  
+class App extends React.Component<AppProps> {
   constructor(props: AppProps) {
     super(props);
+  }
+
+  componentWillMount() {
+    window.addEventListener('keyup', (e: KeyboardEvent) => {
+      this.props.keyListener(e.key);
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', (e: KeyboardEvent) => {
+      this.props.keyListener(e.key);
+    });
   }
 
   getTab(currentTab: string) {

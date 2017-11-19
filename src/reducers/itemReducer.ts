@@ -639,6 +639,12 @@ export default (state: ItemState = initialState, action: Action) => {
         };
       }
     }
+    case 'KEY_UP': {
+      return {
+        ...state,
+        selectedCurrency: action.payload === 'Shift' ? none : state.selectedCurrency
+      };
+    }
     default:
       return state;
   }

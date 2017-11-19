@@ -3,8 +3,8 @@ import { State } from '../reducers';
 import CurrencyCursor from '../components/CurrencyCursor';
 
 const mapStateToProps = (state: State) => ({
-  x: state.mouse.clientX,
-  y: state.mouse.clientY,
+  x: state.input.clientX,
+  y: state.input.clientY,
   selected: state.item.selectedCurrency
 });
 

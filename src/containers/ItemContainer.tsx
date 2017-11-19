@@ -7,7 +7,7 @@ const mapStateToProps = (state: State) => ({
   item: state.item.currentItem,
   currentTabRef: state.refs.currentTab,
   itemRectRef: state.refs.itemRect,
-  display: state.mouse.hoverItemRect
+  display: state.input.hoverItemRect
 });
 
 const mapDispatchToProps = {};

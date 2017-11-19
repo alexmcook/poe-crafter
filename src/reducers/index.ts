@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import item, { ItemState } from './itemReducer';
-import mouse, { MouseState } from './mouseReducer';
+import input, { InputState } from './inputReducer';
 import refs, { RefsState } from './refsReducer';
 import tab, { TabState } from './tabReducer';
 import craftingOptions, { CraftingOptionsState } from './craftingOptionReducer';
 
 export interface State {
   item: ItemState;
-  mouse: MouseState;
+  input: InputState;
   refs: RefsState;
   tab: TabState;
   craftingOptions: CraftingOptionsState;
@@ -15,7 +15,7 @@ export interface State {
 
 export default combineReducers({
   item,
-  mouse,
+  input,
   refs,
   tab,
   craftingOptions

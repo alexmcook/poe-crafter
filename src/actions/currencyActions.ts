@@ -24,3 +24,8 @@ export const optionClick = (option?: CraftingOption) => ({
   type: 'OPTION_CLICK',
   payload: option
 });
+
+export const keyUp = (e: React.KeyboardEvent<SVGSVGElement>) => ({
+  type: 'KEY_UP',
+  payload: e.keyCode
+});

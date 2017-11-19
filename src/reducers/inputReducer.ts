@@ -1,6 +1,6 @@
-import { MouseAction } from '../actions';
+import { Action, MouseAction } from '../actions';
 
-export interface MouseState {
+export interface InputState {
   clientX?: number;
   clientY?: number;
   hoverItemRect: boolean;
@@ -8,10 +8,11 @@ export interface MouseState {
 
 const initialState = { hoverItemRect: false };
 
-export default (state: MouseState = initialState, action: MouseAction) => {
+export default (state: InputState = initialState, action: Action) => {
   switch (action.type) {
     case 'MOUSE_MOVE':
       let nextState = state;
+      action = action as MouseAction;
       if (action.payload) {
         nextState = {
           ...state,

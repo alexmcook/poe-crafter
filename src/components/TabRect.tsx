@@ -4,7 +4,7 @@ interface TabRectProps {
   xlinkHref: string;
   x: number;
   y: number;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<SVGRectElement>) => void;
   count: number;
 }
 
@@ -15,6 +15,7 @@ class TabRect extends React.Component<TabRectProps> {
         <rect
           className="rect-capture"
           onClick={this.props.onClick}
+          onContextMenu={this.props.onClick}
           x={this.props.x}
           y={this.props.y}
           opacity="0.7"
