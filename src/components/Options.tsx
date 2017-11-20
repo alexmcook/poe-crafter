@@ -59,6 +59,27 @@ class Options extends React.Component<OptionsProps, OptionsState> {
         Reset
       </Button>
     );
+    const nestedModal = (
+      <Modal
+        open={this.state.openNested}
+        trigger={resetBtn}
+        size="mini"
+        onClose={() => this.closeNested()}
+      >
+        <Modal.Header>Are you sure?</Modal.Header>
+        <Modal.Content>
+          <Button
+            onClick={() => {
+              this.props.reset();
+              this.close();
+            }}
+          >
+            Yes
+          </Button>
+          <Button onClick={() => this.closeNested()}>No</Button>
+        </Modal.Content>
+      </Modal>
+    );
     return (
       <Modal
         open={this.state.open}
@@ -79,8 +100,8 @@ class Options extends React.Component<OptionsProps, OptionsState> {
               <Grid.Column width={16}>
                 <span
                   onClick={() => this.toggle('forceShift')}
-                  className="no-select cursor--pointer"
-                  style={{ fontSize: '12pt' }}
+                  className="no-select"
+                  style={{ fontSize: '12pt', cursor: 'pointer' }}
                 >
                   <Icon
                     name={
@@ -99,8 +120,8 @@ class Options extends React.Component<OptionsProps, OptionsState> {
               <Grid.Column width={16}>
                 <span
                   onClick={() => this.toggle('anchorItemBox')}
-                  className="no-select cursor--pointer"
-                  style={{ fontSize: '12pt' }}
+                  className="no-select"
+                  style={{ fontSize: '12pt', cursor: 'pointer' }}
                 >
                   <Icon
                     name={
@@ -116,28 +137,9 @@ class Options extends React.Component<OptionsProps, OptionsState> {
                   {' Anchor item display window'}
                 </span>
               </Grid.Column>
-              <Grid.Column width={16} floated={'right'}>
+              <Grid.Column width={16}>
                 <br />
-                <Modal
-                  open={this.state.openNested}
-                  trigger={resetBtn}
-                  size="mini"
-                  dimmer={false}
-                  onClose={() => this.closeNested()}
-                >
-                  <Modal.Header>Are you sure?</Modal.Header>
-                  <Modal.Content>
-                    <Button
-                      onClick={() => {
-                        this.props.reset();
-                        this.close();
-                      }}
-                    >
-                      Yes
-                    </Button>
-                    <Button onClick={() => this.closeNested()}>No</Button>
-                  </Modal.Content>
-                </Modal>
+                {nestedModal}
               </Grid.Column>
             </Grid.Row>
           </Grid>
