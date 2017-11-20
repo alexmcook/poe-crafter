@@ -653,7 +653,7 @@ export default (state: ItemState = initialState, action: Action) => {
       };
     case 'OPTION_CLICK':
       if (
-        checkAvailability(state.currentItem, action.payload as CraftingOption)
+        checkAvailability(state.currentItem, action.payload as CraftingOption) === 0
       ) {
         return {
           ...state,

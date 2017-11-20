@@ -1,4 +1,4 @@
-import Item from './item';
+import Item, { Rarity } from './item';
 import Mod, { Domain } from './mod';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
 import * as _ from 'lodash';
@@ -9,6 +9,9 @@ export function craftItem(item: Item, option: CraftingOption) {
   }
   if (option.mod && (!item.crafted || item.multiMod) && !item.corrupted) {
     item = new Item(item);
+    if (item.rarity === Rarity.NORMAL) {
+      item.rarity = Rarity.MAGIC;
+    }
     item.addMod(option.mod);
     return { item: item, result: true };
   } else if (option.customAction) {
