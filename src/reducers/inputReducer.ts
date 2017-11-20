@@ -1,12 +1,13 @@
-import { Action, MouseAction } from '../actions';
+import { Action, MouseAction, OptionAction } from '../actions';
 
 export interface InputState {
   clientX?: number;
   clientY?: number;
   hoverItemRect: boolean;
+  anchorItemBox: boolean;
 }
 
-const initialState = { hoverItemRect: false };
+const initialState = { hoverItemRect: false, anchorItemBox: false };
 
 export default (state: InputState = initialState, action: Action) => {
   switch (action.type) {
@@ -24,7 +25,14 @@ export default (state: InputState = initialState, action: Action) => {
     case 'ITEM_RECT_MOUSE_ENTER':
       return { ...state, hoverItemRect: true };
     case 'ITEM_RECT_MOUSE_LEAVE':
-      return { ...state, hoverItemRect: false };
+      return { ...state, hoverItemRect: state.anchorItemBox ? true : false };
+    case 'SET_ANCHOR_ITEMBOX':
+      action = action as OptionAction;
+      return {
+        ...state,
+        hoverItemRect: action.payload ? true : false,
+        anchorItemBox: action ? true : false
+      };
     default:
       return state;
   }

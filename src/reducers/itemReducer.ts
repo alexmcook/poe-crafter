@@ -22,7 +22,6 @@ export interface ItemState {
   selectedOption?: CraftingOption;
   prevState?: ItemState;
   forceShift: boolean;
-  anchorItemBox: boolean;
 }
 
 const initialState = {
@@ -78,8 +77,7 @@ const initialState = {
   selectedCurrency: none,
   selectedOption: undefined,
   prevState: undefined,
-  forceShift: false,
-  anchorItemBox: false
+  forceShift: false
 };
 
 const essenceNames: string[] = [
@@ -679,12 +677,6 @@ export default (state: ItemState = initialState, action: Action) => {
       return {
         ...state,
         forceShift: action ? true : false
-      };
-    case 'SET_ANCHOR_ITEMBOX':
-      action = action as OptionAction;
-      return {
-        ...state,
-        anchorItemBox: action ? true : false
       };
     default:
       return state;
