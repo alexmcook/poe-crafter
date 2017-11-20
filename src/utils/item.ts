@@ -17,7 +17,8 @@ interface Name {
 export enum Rarity {
   NORMAL = 'normal',
   MAGIC = 'magic',
-  RARE = 'rare'
+  RARE = 'rare',
+  CURRENCY = 'currency'
 }
 
 export interface DefenseOutput {

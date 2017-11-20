@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Popup } from 'semantic-ui-react';
+import CurrencyTooltip from '../components/CurrencyTooltip';
 
 interface TabRectProps {
   name: string;
@@ -46,7 +47,10 @@ class TabRect extends React.Component<TabRectProps> {
             </text>
           </svg>
         }
-        content={this.props.name}
+        content={<CurrencyTooltip name={this.props.name} text={this.props.name} />}
+        style={{ background: 'rgba(0, 0, 0, 0)', boxShadow: 'none', border: 'none', borderRadius: 'none' }}
+        basic={true}
+        position="top center"
         className="no-pointer-events"
       />
     );
