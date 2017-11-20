@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { State } from '../reducers';
-import { selectBase } from '../actions/baseSelectorActions';
-import { changeTab } from '../actions/tabActions';
+import { selectBase, setLevel } from '../actions/baseSelectorActions';
 import BaseSelector from '../components/BaseSelector';
 
 const mapStateToProps = (state: State) => ({
@@ -11,7 +10,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = {
   selectBase: selectBase,
-  changeTab: changeTab
+  setLevel: setLevel
 };
 
 const BaseSelectorContainer = connect(mapStateToProps, mapDispatchToProps)(BaseSelector);

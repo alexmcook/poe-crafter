@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Action, EssenceAction } from '../actions';
+import { Action, NumberAction, EssenceAction, OptionAction } from '../actions';
 import Item from '../utils/item';
 import { checkAvailability } from '../utils/itemFunctions';
 import Base from '../utils/base';
@@ -21,6 +21,8 @@ export interface ItemState {
   selectedCurrency: { name: string; tier: number };
   selectedOption?: CraftingOption;
   prevState?: ItemState;
+  forceShift: boolean;
+  anchorItemBox: boolean;
 }
 
 const initialState = {
@@ -75,7 +77,9 @@ const initialState = {
   },
   selectedCurrency: none,
   selectedOption: undefined,
-  prevState: undefined
+  prevState: undefined,
+  forceShift: false,
+  anchorItemBox: false
 };
 
 const essenceNames: string[] = [
@@ -145,7 +149,7 @@ export default (state: ItemState = initialState, action: Action) => {
               : { ...state.selectedCurrency, name: action.payload }
         };
       }
-    case 'ESSENCE_CLICK': {
+    case 'ESSENCE_CLICK':
       action = action as EssenceAction;
       return {
         ...state,
@@ -155,8 +159,7 @@ export default (state: ItemState = initialState, action: Action) => {
             ? none
             : { name: action.payload.essence, tier: action.payload.tier }
       };
-    }
-    case 'ITEM_CLICK': {
+    case 'ITEM_CLICK':
       let orb: { item: Item; result: boolean };
       if (essenceNames.indexOf(state.selectedCurrency.name) >= 0) {
         orb = currency.essence(
@@ -167,12 +170,13 @@ export default (state: ItemState = initialState, action: Action) => {
         let nextState = {
           ...state,
           prevState: orb.result ? state : state.prevState,
-          selectedCurrency: action.payload
-            ? {
-                name: state.selectedCurrency.name,
-                tier: state.selectedCurrency.tier
-              }
-            : none,
+          selectedCurrency:
+            action.payload || state.forceShift
+              ? {
+                  name: state.selectedCurrency.name,
+                  tier: state.selectedCurrency.tier
+                }
+              : none,
           essenceCount: { ...state.essenceCount },
           currentItem: orb.item
         };
@@ -189,12 +193,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -206,12 +211,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -224,12 +230,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -241,12 +248,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -259,12 +267,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -276,12 +285,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -293,12 +303,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -310,12 +321,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -327,12 +339,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -344,12 +357,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -361,12 +375,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -378,12 +393,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -395,12 +411,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -412,12 +429,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -429,12 +447,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -446,12 +465,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -463,12 +483,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -480,12 +501,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               imprint: orb.item,
               currencyCount: {
                 ...state.currencyCount,
@@ -497,12 +519,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return {
               ...state,
               prevState: orb.result ? state : state.prevState,
-              selectedCurrency: action.payload
-                ? {
-                    name: state.selectedCurrency.name,
-                    tier: state.selectedCurrency.tier
-                  }
-                : none,
+              selectedCurrency:
+                action.payload || state.forceShift
+                  ? {
+                      name: state.selectedCurrency.name,
+                      tier: state.selectedCurrency.tier
+                    }
+                  : none,
               currentItem: orb.item,
               imprint: undefined,
               currencyCount: {
@@ -515,17 +538,13 @@ export default (state: ItemState = initialState, action: Action) => {
             return state;
         }
       }
-    }
-    case 'CRAFT_CLICK': {
+    case 'CRAFT_CLICK':
       let craft: { item: Item; result: boolean };
       let option = action.payload as CraftingOption;
-      craft = master.craftItem(
-        state.currentItem,
-        option
-      );
+      craft = master.craftItem(state.currentItem, option);
       let count = { ...state.currencyCount };
       if (craft.result) {
-        switch (option.costItem) {      
+        switch (option.costItem) {
           //#region regular currency
           case 'Orb of Transmutation':
             count = {
@@ -623,8 +642,7 @@ export default (state: ItemState = initialState, action: Action) => {
         selectedOption: undefined,
         currencyCount: count
       };
-    }
-    case 'OPTION_CLICK': {
+    case 'OPTION_CLICK':
       if (
         checkAvailability(state.currentItem, action.payload as CraftingOption)
       ) {
@@ -638,13 +656,36 @@ export default (state: ItemState = initialState, action: Action) => {
           selectedOption: undefined
         };
       }
-    }
-    case 'KEY_UP': {
+    case 'KEY_UP':
       return {
         ...state,
-        selectedCurrency: action.payload === 'Shift' ? none : state.selectedCurrency
+        selectedCurrency:
+          action.payload === 'Shift' ? none : state.selectedCurrency
       };
-    }
+    case 'SET_LEVEL':
+      action = action as NumberAction;
+      if (action.payload >= 1 && action.payload <= 100) {
+        let item = new Item(state.currentItem);
+        item.itemLevel = action.payload;
+        return {
+          ...state,
+          currentItem: item
+        };
+      } else {
+        return state;
+      }
+    case 'SET_FORCE_SHIFT':
+      action = action as OptionAction;
+      return {
+        ...state,
+        forceShift: action ? true : false
+      };
+    case 'SET_ANCHOR_ITEMBOX':
+      action = action as OptionAction;
+      return {
+        ...state,
+        anchorItemBox: action ? true : false
+      };
     default:
       return state;
   }

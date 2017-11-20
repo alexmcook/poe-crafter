@@ -59,6 +59,12 @@ export function filterDomain(mods: Mod[], category: string): Mod[] {
   });
 }
 
+export function filterLevel(mods: Mod[], level: number): Mod[] {
+  return _.filter(mods, mod => {
+    return mod.level <= level;
+  });
+}
+
 export function filterGroup(mods: Mod[], currentMods: Mod[]): Mod[] {
   return _.filter(mods, mod => {
     return !_.some(currentMods, itemMod => {

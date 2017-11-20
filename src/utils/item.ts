@@ -426,6 +426,7 @@ export default class Item extends Base {
     updatedModPool = _item.filterGenerationType(updatedModPool);
     updatedModPool = _item.filterDomain(updatedModPool, this.category);
     updatedModPool = _item.filterGroup(updatedModPool, this.mods);
+    updatedModPool = _item.filterLevel(updatedModPool, this.itemLevel);
     let maxCount = 3;
     if (this.rarity === Rarity.RARE) {
       if (this.type === 'Jewel') {
@@ -733,6 +734,7 @@ function generateModPool(item: Item): Mod[] {
   modPool = _item.filterSpawnWeightAnyIsZero(modPool, item.tags);
   modPool = _item.filterGenerationType(modPool);
   modPool = _item.filterDomain(modPool, item.category);
+  modPool = _item.filterLevel(modPool, item.itemLevel);
   return modPool;
 }
 
@@ -741,6 +743,7 @@ function generateCorruptionPool(item: Item): Mod[] {
   corruptionPool = _item.filterSpawnWeightTagsMatch(corruptionPool, item.tags);
   corruptionPool = _item.filterSpawnWeightAnyIsZero(corruptionPool, item.tags);
   corruptionPool = _item.filterDomain(corruptionPool, item.category);
+  corruptionPool = _item.filterLevel(corruptionPool, item.itemLevel);
   return corruptionPool;
 }
 

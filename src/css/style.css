@@ -179,6 +179,10 @@
   cursor: url('../assets/cursor.png') 0 0, default;
 }
 
+.cursor--pointer {
+  cursor: 'pointer'
+}
+
 .no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;

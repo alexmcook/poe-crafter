@@ -475,6 +475,23 @@ export function essence(
   ) {
     result = true;
     item = new Item(item);
+    let itemLevel = item.itemLevel;
+    switch (tier) {
+      case 1:
+        item.itemLevel = 35;
+        break;
+      case 2:
+        item.itemLevel = 45;
+        break;
+      case 3:
+        item.itemLevel = 60;
+        break;
+      case 4:
+        item.itemLevel = 75;
+        break;
+      default:
+        break;
+    }
     item.rarity = Rarity.RARE;
     item.itemName = item.generateName();
     item.reset();
@@ -540,6 +557,7 @@ export function essence(
         item.addMod(item.getMod());
       }
     }
+    item.itemLevel = itemLevel;
   }
   return { item: item, result: result };
 }

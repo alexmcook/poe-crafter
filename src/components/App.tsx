@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
-import BaseSelectorContainer from '../containers/BaseSelectorContainer';
+import ButtonRowContainer from '../containers/ButtonRowContainer';
 import CurrencyTabContainer from '../containers/CurrencyTabContainer';
 import EssenceTabContainer from '../containers/EssenceTabContainer';
 import CurrencyCursorContainer from '../containers/CurrencyCursorContainer';
@@ -43,9 +43,9 @@ class App extends React.Component<AppProps> {
   }
   render() {
     return (
-      <Grid columns={16} centered={true}>
+      <Grid columns={16}>
         <CurrencyCursorContainer />
-        <BaseSelectorContainer />
+        <ButtonRowContainer />
         {this.getTab(this.props.currentTab)}
       </Grid>
     );

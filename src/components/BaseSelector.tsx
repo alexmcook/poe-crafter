@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-import { Grid, Dropdown, DropdownItemProps, Button } from 'semantic-ui-react';
+import { Dropdown, DropdownItemProps, Input } from 'semantic-ui-react';
 import Item from '../utils/item';
 import Base from '../utils/base';
 
 interface BaseSelectorProps {
   bases: Base[];
   selectBase: (value: string) => { type: string; payload: string };
-  changeTab: (value: string) => { type: string; payload: string };
+  setLevel: (value: number) => { type: string; payload: number };
   currentItem: Item;
 }
 
@@ -41,36 +41,39 @@ class BaseSelector extends React.Component<
     }
   }
 
+  handleChange(e: React.SyntheticEvent<HTMLInputElement>) {
+    let value = parseInt((e.target as HTMLInputElement).value, 10);
+    if (value > 100) {
+      value = 100;
+    } else if (value < 1) {
+      value = 1;
+    }
+    this.props.setLevel(value);
+  }
+
   render() {
     return (
-      <Grid.Row centered={true} columns={2}>
-        <br />
-        <Grid.Row centered={true}>
-          <Button onClick={() => this.props.changeTab('Currency')}>
-            Currency
-          </Button>
-          <Button onClick={() => this.props.changeTab('Essence')}>
-            Essence
-          </Button>
-          <Button onClick={() => this.props.changeTab('Crafting')}>
-            Crafting
-          </Button>
-        </Grid.Row>
-        <br />
-        <Grid.Row centered={true}>
-          <Dropdown
-            placeholder="Select Base"
-            search={true}
-            selection={true}
-            selectOnNavigation={false}
-            selectOnBlur={false}
-            options={this.state.baseOptions}
-            onChange={(event, target) =>
-              this.props.selectBase(target.value as string)}
-            defaultValue={this.state.initialBase.value}
-          />
-        </Grid.Row>
-      </Grid.Row>
+      <div>
+        <Dropdown
+          placeholder="Select Base"
+          search={true}
+          selection={true}
+          selectOnNavigation={false}
+          selectOnBlur={false}
+          options={this.state.baseOptions}
+          onChange={(event, target) =>
+            this.props.selectBase(target.value as string)}
+          defaultValue={this.state.initialBase.value}
+        />
+        <Input
+          label="Level"
+          type="number"
+          min="1"
+          max="100"
+          onChange={e => this.handleChange(e)}
+          value={this.props.currentItem.itemLevel}
+        />
+      </div>
     );
   }
 }
