@@ -12,13 +12,15 @@ interface OptionsProps {
 
 interface OptionsState {
   open: boolean;
+  openNested: boolean;
 }
 
 class Options extends React.Component<OptionsProps, OptionsState> {
   constructor(props: OptionsProps) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      openNested: false
     };
   }
 
@@ -26,8 +28,16 @@ class Options extends React.Component<OptionsProps, OptionsState> {
     this.setState({ open: true });
   }
 
+  openNested() {
+    this.setState({ openNested: true });
+  }
+
   close() {
-    this.setState({ open: false });
+    this.setState({ open: false, openNested: false });
+  }
+
+  closeNested() {
+    this.setState({ openNested: false });
   }
 
   toggle(option: string) {
@@ -44,11 +54,17 @@ class Options extends React.Component<OptionsProps, OptionsState> {
   }
 
   render() {
+    const resetBtn = (
+      <Button color="red" onClick={() => this.openNested()}>
+        Reset
+      </Button>
+    );
     return (
       <Modal
         open={this.state.open}
         trigger={<Button onClick={() => this.open()}>Options</Button>}
         size="tiny"
+        dimmer="blurring"
         onClose={() => this.close()}
       >
         <Modal.Header>Options</Modal.Header>
@@ -102,9 +118,26 @@ class Options extends React.Component<OptionsProps, OptionsState> {
               </Grid.Column>
               <Grid.Column width={16} floated={'right'}>
                 <br />
-                <Button color="red" onClick={() => this.props.reset()}>
-                  Reset
-                </Button>
+                <Modal
+                  open={this.state.openNested}
+                  trigger={resetBtn}
+                  size="mini"
+                  dimmer={false}
+                  onClose={() => this.closeNested()}
+                >
+                  <Modal.Header>Are you sure?</Modal.Header>
+                  <Modal.Content>
+                    <Button
+                      onClick={() => {
+                        this.props.reset();
+                        this.close();
+                      }}
+                    >
+                      Yes
+                    </Button>
+                    <Button onClick={() => this.closeNested()}>No</Button>
+                  </Modal.Content>
+                </Modal>
               </Grid.Column>
             </Grid.Row>
           </Grid>

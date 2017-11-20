@@ -12,6 +12,17 @@ const bases: Base[] = require('../data/bases.json');
 
 const none = { name: 'none', tier: 0 };
 
+function findBase(id: string): Base {
+  let match = _.find(bases, base => {
+    return base.id === id;
+  });
+  if (!match) {
+    throw new Error('No base found for ' + id);
+  } else {
+    return match;
+  }
+}
+
 export interface ItemState {
   currentItem: Item;
   imprint?: Item;
@@ -681,6 +692,7 @@ export default (state: ItemState = initialState, action: Action) => {
     case 'RESET':
       return {
         ...initialState,
+        currentItem: new Item(findBase(state.currentItem.id)),
         forceShift: state.forceShift
       };
     default:
