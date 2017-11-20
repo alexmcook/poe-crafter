@@ -7,6 +7,63 @@ interface CraftOptionTooltipProps {
 }
 
 class CraftOptionTooltip extends React.Component<CraftOptionTooltipProps> {
+  private errors = [
+    (
+    <div key="error1" className="text--corrupt">
+      Item has the wrong base type.
+    </div>
+    ),
+    (
+    <div key="error2" className="text--corrupt">
+      Target is corrupted.
+    </div>
+    ),
+    (
+    <div key="error3" className="text--corrupt">
+      This item already has a crafted Mod.
+    </div>
+    ),
+    (
+    <div key="error4" className="text--corrupt">
+      There are no crafted Mods on this item.
+    </div>
+    ),
+    (
+    <div key="error5" className="text--corrupt">
+      This item already has a mod of this type.
+    </div>
+    ),
+    (
+    <div key="error6" className="text--corrupt">
+      This item may not have another prefix mod.
+    </div>
+    ),
+    (
+    <div key="error7" className="text--corrupt">
+      This item may not have another suffix mod.
+    </div>
+    ),
+    (
+    <div key="error8" className="text--corrupt">
+      This item already has that many sockets.
+    </div>
+    ),
+    (
+    <div key="error9" className="text--corrupt">
+      This item already has those links.
+    </div>
+    ),
+    (
+    <div key="error10" className="text--corrupt">
+      This item doesn't have enough sockets.
+    </div>
+    ),
+    (
+    <div key="error11" className="text--corrupt">
+      This item can not have that many sockets.
+    </div>
+    )
+  ];
   pluralize(types: string[]): string[] {
     let pluralized = _.reduce(
       types,
@@ -75,70 +132,15 @@ class CraftOptionTooltip extends React.Component<CraftOptionTooltipProps> {
       },
       []
     );
-
-    const errors = [
-      (
-      <div key="error1" className="text--corrupt">
-        Item has the wrong base type.
-      </div>
-      ),
-      (
-      <div key="error2" className="text--corrupt">
-        Target is corrupted.
-      </div>
-      ),
-      (
-      <div key="error3" className="text--corrupt">
-        This item already has a crafted Mod.
-      </div>
-      ),
-      (
-      <div key="error4" className="text--corrupt">
-        There are no crafted Mods on this item.
-      </div>
-      ),
-      (
-      <div key="error5" className="text--corrupt">
-        This item already has a mod of this type.
-      </div>
-      ),
-      (
-      <div key="error6" className="text--corrupt">
-        This item may not have another prefix mod.
-      </div>
-      ),
-      (
-      <div key="error7" className="text--corrupt">
-        This item may not have another suffix mod.
-      </div>
-      ),
-      (
-      <div key="error8" className="text--corrupt">
-        This item already has that many sockets.
-      </div>
-      ),
-      (
-      <div key="error9" className="text--corrupt">
-        This item already has those links.
-      </div>
-      ),
-      (
-      <div key="error10" className="text--corrupt">
-        This item doesn't have enough sockets.
-      </div>
-      ),
-      (
-      <div key="error11" className="text--corrupt">
-        This item can not have that many sockets.
-      </div>
-      )
-    ];
+    
     return (
-      this.props.types.length > 0 && (
+      (this.props.types.length > 0 || this.props.error > 0) && (
         <div className="craft-option-tooltip no-select no-pointer-events">
-          {output}
-          {this.props.error !== 0 ? <br /> : null}
-          {this.props.error !== 0 ? errors[this.props.error - 1] : null}
+          {this.props.types.length > 0 ? output : null}
+          {this.props.error !== 0 && this.props.types.length > 0 ? (
+            <br />
+          ) : null}
+          {this.props.error > 0 ? this.errors[this.props.error - 1] : null}
         </div>
       )
     );

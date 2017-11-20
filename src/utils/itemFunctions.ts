@@ -116,11 +116,6 @@ export function checkAvailability(
     return 2;
   } else if (craftOption.mod) {
     let affixSpace = checkAffixCount(item, craftOption.mod.generationType);
-    if (!affixSpace) {
-      return craftOption.mod.generationType === GenerationType.PREFIX ? 6 : 7;
-    } else if (item.crafted && !item.multiMod) {
-      return 3;
-    }
     let match = _.some(item.mods, (mod: Mod) => {
       return mod.group === craftOption.mod.group;
     });
@@ -129,6 +124,10 @@ export function checkAvailability(
       _.includes(craftOption.itemTypes, item.type);
     if (!correctType) {
       return 1;
+    } else if (item.crafted && !item.multiMod) {
+      return 3;
+    } else if (!affixSpace) {
+      return craftOption.mod.generationType === GenerationType.PREFIX ? 6 : 7;
     }
     let result = !match;
     return result ? 0 : 5;
