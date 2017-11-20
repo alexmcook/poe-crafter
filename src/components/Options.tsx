@@ -7,6 +7,7 @@ interface OptionsProps {
   anchorItemBoxState: boolean;
   setForceShift: (value: boolean) => { type: string; payload: boolean };
   setAnchorItemBox: (value: boolean) => { type: string; payload: boolean };
+  reset: () => { type: string; payload: {} };
 }
 
 interface OptionsState {
@@ -70,8 +71,6 @@ class Options extends React.Component<OptionsProps, OptionsState> {
                       this.props.forceShiftState ? 'toggle on' : 'toggle off'
                     }
                     fitted={true}
-                    onClick={() => this.toggle('forceShift')}
-                    className="no-select cursor--pointer"
                     style={{
                       fontSize: '17pt',
                       verticalAlign: 'top',
@@ -92,8 +91,6 @@ class Options extends React.Component<OptionsProps, OptionsState> {
                       this.props.anchorItemBoxState ? 'toggle on' : 'toggle off'
                     }
                     fitted={true}
-                    onClick={() => this.toggle('anchorItemBox')}
-                    className="no-select cursor--pointer"
                     style={{
                       fontSize: '17pt',
                       verticalAlign: 'top',
@@ -105,7 +102,9 @@ class Options extends React.Component<OptionsProps, OptionsState> {
               </Grid.Column>
               <Grid.Column width={16} floated={'right'}>
                 <br />
-                <Button color="red">Reset</Button>
+                <Button color="red" onClick={() => this.props.reset()}>
+                  Reset
+                </Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>

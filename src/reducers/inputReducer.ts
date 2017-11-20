@@ -30,8 +30,8 @@ export default (state: InputState = initialState, action: Action) => {
       action = action as OptionAction;
       return {
         ...state,
-        hoverItemRect: action.payload ? true : false,
-        anchorItemBox: action ? true : false
+        hoverItemRect: action.payload,
+        anchorItemBox: action.payload
       };
     default:
       return state;

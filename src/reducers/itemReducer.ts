@@ -676,7 +676,12 @@ export default (state: ItemState = initialState, action: Action) => {
       action = action as OptionAction;
       return {
         ...state,
-        forceShift: action ? true : false
+        forceShift: action.payload
+      };
+    case 'RESET':
+      return {
+        ...initialState,
+        forceShift: state.forceShift
       };
     default:
       return state;

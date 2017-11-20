@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { State } from '../reducers';
 import Options from '../components/Options';
-import { setForceShift, setAnchorItemBox } from '../actions/optionsActions';
+import { setForceShift, setAnchorItemBox, reset } from '../actions/optionsActions';
 
 const mapStateToProps = (state: State) => ({
   forceShiftState: state.item.forceShift,
@@ -10,7 +10,8 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = {
   setForceShift: setForceShift,
-  setAnchorItemBox: setAnchorItemBox
+  setAnchorItemBox: setAnchorItemBox,
+  reset: reset
 };
 
 const OptionsContainer = connect(mapStateToProps, mapDispatchToProps)(Options);
