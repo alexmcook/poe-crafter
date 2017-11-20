@@ -20,35 +20,9 @@ interface CraftButtonState {
 }
 
 class CraftButton extends React.Component<CraftButtonProps, CraftButtonState> {
-  private craftButton: SVGImageElement;
   constructor(props: CraftButtonProps) {
     super(props);
     this.state = { buttonState: craftBtn };
-  }
-  componentDidMount() {
-    this.craftButton.addEventListener('mouseenter', () =>
-      this.handleMouseEnter()
-    );
-    this.craftButton.addEventListener('mouseleave', () =>
-      this.handleMouseLeave()
-    );
-    this.craftButton.addEventListener('mousedown', () =>
-      this.handleMouseDown()
-    );
-    this.craftButton.addEventListener('mouseup', () => this.handleMouseUp());
-  }
-
-  componentWillUnmount() {
-    this.craftButton.removeEventListener('mouseenter', () =>
-      this.handleMouseEnter()
-    );
-    this.craftButton.removeEventListener('mouseleave', () =>
-      this.handleMouseLeave()
-    );
-    this.craftButton.removeEventListener('mousedown', () =>
-      this.handleMouseDown()
-    );
-    this.craftButton.removeEventListener('mouseup', () => this.handleMouseUp());
   }
 
   handleMouseEnter() {
@@ -75,13 +49,14 @@ class CraftButton extends React.Component<CraftButtonProps, CraftButtonState> {
           xlinkHref={
             this.props.disabled ? craftBtnDisabled : this.state.buttonState
           }
-          ref={ref => {
-            this.craftButton = ref as SVGImageElement;
-          }}
           width="192"
           height="78"
           x="547"
           y="1636"
+          onMouseEnter={e => this.handleMouseEnter()}
+          onMouseLeave={e => this.handleMouseLeave()}
+          onMouseDown={e => this.handleMouseDown()}
+          onMouseUp={e => this.handleMouseUp()}
         />
       </svg>
     );

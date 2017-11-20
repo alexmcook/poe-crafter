@@ -13,7 +13,9 @@ const mapStateToProps = (state: State) => ({
   itemLinks: state.item.currentItem.socketLinks,
   verticalSockets: state.item.currentItem.verticalSockets,
   craftingOptions: state.craftingOptions,
-  selectedOption: state.item.selectedOption
+  selectedOption: state.item.selectedOption,
+  cursorX: state.input.clientX,
+  cursorY: state.input.clientY
 });
 
 const mapDispatchToProps = {

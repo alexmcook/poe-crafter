@@ -10,9 +10,9 @@ export const essenceClick = (essence: string, tier: number) => ({
   payload: { essence: essence, tier: tier }
 });
 
-export const itemClick = (e: React.MouseEvent<SVGRectElement>) => ({
+export const itemClick = (e: MouseEvent) => ({
   type: 'ITEM_CLICK',
-  payload: e.nativeEvent.shiftKey
+  payload: e.shiftKey
 });
 
 export const craftClick = (option: CraftingOption) => ({
@@ -25,7 +25,7 @@ export const optionClick = (option?: CraftingOption) => ({
   payload: option
 });
 
-export const keyUp = (e: React.KeyboardEvent<SVGSVGElement>) => ({
+export const keyUp = (e: KeyboardEvent) => ({
   type: 'KEY_UP',
   payload: e.keyCode
 });

@@ -3,6 +3,15 @@
   src: url('./fonts/Fontin-SmallCaps.WOFF') format('WOFF');
 }
 
+@font-face {
+  font-family: 'Fontin-Regular';
+  src: url('./fonts/Fontin-Regular.WOFF') format('WOFF');
+}
+
+.text--white {
+  color: rgb(255, 255, 255);
+}
+
 .text--normal {
   color: rgb(200, 200, 200);
 }
@@ -219,6 +228,21 @@
   white-space: nowrap;
   margin-bottom: -10%;
   z-index: 2;
+}
+
+.craft-option-tooltip {
+  font-family: 'Fontin-Regular';
+  font-variant-ligatures: none;
+  background-color: rgba(0, 0, 0, 0.85);
+  text-align: left;
+  font-size: 12pt;
+  position: absolute;
+  z-index: 2;
+  padding-top: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 2px;
+  white-space: nowrap;
 }
 
 .game-tab {

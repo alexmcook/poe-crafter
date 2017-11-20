@@ -19,11 +19,9 @@ interface EssenceTabProps {
     essence: string,
     tier: number
   ) => { type: string; payload: { essence: string; tier: number } };
-  itemClick: (
-    e: React.MouseEvent<SVGRectElement>
-  ) => { type: string; payload: boolean };
+  itemClick: (e: MouseEvent) => { type: string; payload: boolean };
   mouseMove: (
-    e: React.MouseEvent<SVGSVGElement>
+    e: MouseEvent
   ) => { type: string; payload: { x: number; y: number } };
   mouseLeave: () => { type: string; payload: {} };
   itemRectMouseEnter: () => { type: string; payload: {} };
@@ -56,8 +54,7 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
             className="game-tab no-select"
             viewBox="0 0 1282 1282"
             preserveAspectRatio="xMinYMin meet"
-            onMouseMove={(e: React.MouseEvent<SVGSVGElement>) =>
-              this.props.mouseMove(e)}
+            onMouseMove={e => this.props.mouseMove(e.nativeEvent)}
             onMouseLeave={() => this.props.mouseLeave()}
             ref={ref => (ref !== null ? this.props.setCurrentTab(ref) : null)}
             onContextMenu={e => e.preventDefault()}

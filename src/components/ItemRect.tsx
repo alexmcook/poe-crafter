@@ -6,9 +6,7 @@ interface ItemRectProps {
   y: number;
   width: number;
   height: number;
-  onClick: (
-    e: React.MouseEvent<SVGRectElement>
-  ) => { type: string; payload: boolean };
+  onClick: (e: MouseEvent) => { type: string; payload: boolean };
   onMouseEnter: () => { type: string };
   onMouseLeave: () => { type: string };
   setItemRect: (
@@ -59,11 +57,6 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
     });
   }
 
-  doThis(e: SVGImageElement) {
-    console.log('state');
-    console.log(e.getBBox());
-  }
-
   render() {
     return (
       <svg>
@@ -74,7 +67,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
             }
           }}
           className="rect-capture"
-          onClick={e => this.props.onClick(e)}
+          onClick={e => this.props.onClick(e.nativeEvent)}
           x={this.props.x}
           y={this.props.y}
           opacity="0.7"
@@ -84,7 +77,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
           onMouseEnter={() => this.props.onMouseEnter()}
           onMouseLeave={() => this.props.onMouseLeave()}
         />
-        <svg 
+        <svg
           viewBox="0 0 166 340"
           width={this.props.width}
           height={this.props.height}

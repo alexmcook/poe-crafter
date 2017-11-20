@@ -14,11 +14,9 @@ interface CurrencyTabProps {
   verticalSockets: boolean;
   itemArt: string;
   orbClick: (orb: string) => { type: string; payload: string };
-  itemClick: (
-    e: React.MouseEvent<SVGRectElement>
-  ) => { type: string; payload: boolean };
+  itemClick: (e: MouseEvent) => { type: string; payload: boolean };
   mouseMove: (
-    e: React.MouseEvent<SVGSVGElement>
+    e: MouseEvent
   ) => { type: string; payload: { x: number; y: number } };
   mouseLeave: () => { type: string; payload: {} };
   itemRectMouseEnter: () => { type: string; payload: {} };
@@ -51,8 +49,7 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
             className="game-tab no-select"
             viewBox="0 0 1282 1282"
             preserveAspectRatio="xMinYMin meet"
-            onMouseMove={(e: React.MouseEvent<SVGSVGElement>) =>
-              this.props.mouseMove(e)}
+            onMouseMove={e => this.props.mouseMove(e.nativeEvent)}
             onMouseLeave={() => this.props.mouseLeave()}
             ref={ref => (ref !== null ? this.props.setCurrentTab(ref) : null)}
             onContextMenu={e => e.preventDefault()}
@@ -63,7 +60,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={151}
               count={this.props.count.whetstone}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyWeaponQuality.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('WHETSTONE'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('WHETSTONE');
+              }}
               name="Blacksmith's Whetstone"
             />
             <TabRect
@@ -71,7 +71,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={151}
               count={this.props.count.armorScrap}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyArmourQuality.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('ARMORSCRAP'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('ARMORSCRAP');
+              }}
               name="Armourer's Scrap"
             />
             <TabRect
@@ -79,7 +82,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={307}
               count={this.props.count.transmute}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToMagic.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('TRANSMUTE'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('TRANSMUTE');
+              }}
               name="Orb of Transmutation"
             />
             <TabRect
@@ -87,7 +93,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={307}
               count={this.props.count.alteration}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollMagic.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('ALTERATION'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('ALTERATION');
+              }}
               name="Orb of Alteration"
             />
             <TabRect
@@ -95,7 +104,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={307}
               count={this.props.count.annulment}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/AnnullOrb.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('ANNULMENT'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('ANNULMENT');
+              }}
               name="Orb of Annulment"
             />
             <TabRect
@@ -103,7 +115,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={307}
               count={this.props.count.exalted}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('EXALTED'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('EXALTED');
+              }}
               name="Exalted Orb"
             />
             <TabRect
@@ -111,7 +126,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={307}
               count={this.props.count.regal}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeMagicToRare.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('REGAL'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('REGAL');
+              }}
               name="Regal Orb"
             />
             <TabRect
@@ -119,7 +137,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={307}
               count={this.props.count.alchemy}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToRare.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('ALCHEMY'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('ALCHEMY');
+              }}
               name="Orb of Alchemy"
             />
             <TabRect
@@ -127,7 +148,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={307}
               count={this.props.count.chaos}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('CHAOS'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('CHAOS');
+              }}
               name="Chaos Orb"
             />
             <TabRect
@@ -135,7 +159,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={307}
               count={this.props.count.blessed}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImplicitMod.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('BLESSED'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('BLESSED');
+              }}
               name="Blessed Orb"
             />
             <TabRect
@@ -143,7 +170,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={417}
               count={this.props.count.augment}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToMagic.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('AUGMENT'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('AUGMENT');
+              }}
               name="Orb of Augmentation"
             />
             <TabRect
@@ -151,7 +181,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={417}
               count={this.props.count.divine}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('DIVINE'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('DIVINE');
+              }}
               name="Divine Orb"
             />
             <TabRect
@@ -159,7 +192,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={597}
               count={this.props.count.jeweller}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketNumbers.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('JEWELLER'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('JEWELLER');
+              }}
               name="Jeweller's Orb"
             />
             <TabRect
@@ -167,7 +203,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={597}
               count={this.props.count.fusing}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketLinks.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('FUSING'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('FUSING');
+              }}
               name="Orb of Fusing"
             />
             <TabRect
@@ -175,7 +214,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={597}
               count={this.props.count.chromatic}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketColours.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('CHROMATIC'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('CHROMATIC');
+              }}
               name="Chromatic Orb"
             />
             <TabRect
@@ -183,7 +225,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={597}
               count={this.props.count.scouring}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyConvertToNormal.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('SCOURING'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('SCOURING');
+              }}
               name="Orb of Scouring"
             />
             <TabRect
@@ -191,7 +236,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={597}
               count={0}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyPassiveSkillRefund.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('REGRET'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('REGRET');
+              }}
               name="Orb of Regret"
             />
             <TabRect
@@ -199,7 +247,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={597}
               count={this.props.count.vaal}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyVaal.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('VAAL'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('VAAL');
+              }}
               name="Vaal Orb"
             />
             <TabRect
@@ -207,7 +258,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={972}
               count={this.props.count.eternal}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprintOrb.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('ETERNAL'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('ETERNAL');
+              }}
               name="Eternal Orb"
             />
             <TabRect
@@ -215,7 +269,10 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={1088}
               count={this.props.count.imprint}
               xlinkHref="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprint.png"
-              onClick={(e) => { e.preventDefault(); this.props.orbClick('IMPRINT'); }}
+              onClick={e => {
+                e.preventDefault();
+                this.props.orbClick('IMPRINT');
+              }}
               name="Imprint"
             />
             <ItemRect
