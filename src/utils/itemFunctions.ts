@@ -112,11 +112,11 @@ export function checkAvailability(
   item: Item,
   craftOption: CraftingOption
 ): boolean {
-  if (!craftOption || item.corrupted) {
+  if (!craftOption || item.corrupted ) {
     return false;
   } else if (craftOption.mod) {
     let affixSpace = checkAffixCount(item, craftOption.mod.generationType);
-    if (!affixSpace) {
+    if (!affixSpace || (item.crafted && !item.multiMod)) {
       return false;
     }
     let match = _.some(item.mods, (mod: Mod) => {
