@@ -310,15 +310,15 @@ export function jeweller(item: Item): { item: Item; result: boolean } {
     result = true;
     item = new Item(item);
     let tempMaxSockets = item.maxSockets;
-    if (item.itemLevel < 15) {
+    if (item.itemLevel < 15 && item.maxSockets > 1) {
       item.maxSockets = 2;
-    } else if (item.itemLevel < 28) {
+    } else if (item.itemLevel < 28 && item.maxSockets > 2) {
       item.maxSockets = 3;
-    } else if (item.itemLevel < 35) {
+    } else if (item.itemLevel < 35 && item.maxSockets > 3) {
       item.maxSockets = 4;
-    } else if (item.itemLevel < 50) {
+    } else if (item.itemLevel < 50 && item.maxSockets > 4) {
       item.maxSockets = 5;
-    } else {
+    } else if (item.itemLevel >= 50 && item.maxSockets > 5) {
       item.maxSockets = 6;
     }
     item.rerollSockets();
@@ -329,7 +329,10 @@ export function jeweller(item: Item): { item: Item; result: boolean } {
 
 export function fusing(item: Item): { item: Item; result: boolean } {
   let result = false;
-  if (item.socketLinks.indexOf('X') > -1 && !item.corrupted) {
+  if (
+    (item.socketLinks.indexOf('X') > -1 || (item.socketLinks.length < 5 && item.sockets > 1)) &&
+    !item.corrupted
+  ) {
     result = true;
     item = new Item(item);
     item.rerollSocketLinks();
