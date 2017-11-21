@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as _ from 'lodash';
 import { Portal } from 'semantic-ui-react';
 
 interface TooltipProps {
@@ -47,6 +48,17 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
 
   componentDidMount() {
     this.ref = ReactDOM.findDOMNode(this);
+    window.addEventListener(
+      'resize',
+      _.debounce(() => this.calcPosition(), 100)
+    );
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      'resize',
+      _.debounce(() => this.calcPosition(), 100)
+    );
   }
 
   handleRef(ref: Element) {

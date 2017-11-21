@@ -209,14 +209,11 @@
 .item-box {
   font-family: 'Fontin-SmallCaps';
   font-variant-ligatures: none;
-  position: relative;
-  left: -50%;
-  transform: translateY(-100%);
   background-color: rgba(0, 0, 0, 0.85);
   text-align: center;
   font-size: 10.875pt;
-  white-space: nowrap;
   z-index: 2;
+  white-space: nowrap;
 }
 
 .currency-tooltip {

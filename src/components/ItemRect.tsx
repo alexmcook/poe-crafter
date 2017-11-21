@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Tooltip from '../components/Tooltip';
+import ItemContainer from '../containers/ItemContainer';
 
 interface ItemRectProps {
   xlinkHref: string;
@@ -7,12 +9,6 @@ interface ItemRectProps {
   width: number;
   height: number;
   onClick: (e: MouseEvent) => { type: string; payload: boolean };
-  onMouseEnter: () => { type: string };
-  onMouseLeave: () => { type: string };
-  setItemRect: (
-    rect: SVGRectElement
-  ) => { type: string; payload: SVGRectElement };
-  craftingTab?: boolean;
 }
 
 interface ItemRectState {
@@ -58,46 +54,46 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
   }
 
   render() {
-    return [(
-      <rect
-        key={'rect' + this.props.x + this.props.y}
-        ref={ref => {
-          if (ref !== null) {
-            this.props.setItemRect(ref);
-          }
-        }}
-        className="rect-capture"
-        onClick={e => this.props.onClick(e.nativeEvent)}
-        x={this.props.x}
-        y={this.props.y}
-        opacity="0.7"
-        fill="#04041E"
-        width={this.props.width}
-        height={this.props.height}
-        onMouseEnter={() => this.props.onMouseEnter()}
-        onMouseLeave={() => this.props.onMouseLeave()}
-      />
-    ), (
-      <svg
-        key={'img' + this.props.x + this.props.y}
-        viewBox="0 0 166 340"
-        width={this.props.width}
-        height={this.props.height}
-        x={this.props.x}
-        y={this.props.y}
-        preserveAspectRatio="xMinYMin meet"
+    return (
+      <Tooltip
+        trigger={
+        <svg>
+          <rect
+            key={'rect' + this.props.x + this.props.y}
+            className="rect-capture"
+            onClick={e => this.props.onClick(e.nativeEvent)}
+            x={this.props.x}
+            y={this.props.y}
+            opacity="0.7"
+            fill="#04041E"
+            width={this.props.width}
+            height={this.props.height}
+          />,
+          <svg
+            key={'img' + this.props.x + this.props.y}
+            viewBox="0 0 166 340"
+            width={this.props.width}
+            height={this.props.height}
+            x={this.props.x}
+            y={this.props.y}
+            preserveAspectRatio="xMinYMin meet"
+          >
+            <image
+              className="no-pointer-events"
+              xlinkHref={this.props.xlinkHref}
+              x={this.state.dimensions.x}
+              y={this.state.dimensions.y}
+              width={this.state.dimensions.width}
+              height={this.state.dimensions.height}
+              onLoad={() => this.getImg()}
+            />
+          </svg>
+        </svg>
+        }
       >
-        <image
-          className="no-pointer-events"
-          xlinkHref={this.props.xlinkHref}
-          x={this.state.dimensions.x}
-          y={this.state.dimensions.y}
-          width={this.state.dimensions.width}
-          height={this.state.dimensions.height}
-          onLoad={() => this.getImg()}
-        />
-      </svg>
-    )];
+        <ItemContainer />
+      </Tooltip>
+    );
   }
 }
 

@@ -6,7 +6,6 @@ import Requirements from './Requirements';
 import Stat from './Stat';
 import Separator from './Separator';
 import Item from '../utils/item';
-import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
 
@@ -23,55 +22,7 @@ interface ItemBoxState {
 }
 
 class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
-  private itemBox: HTMLDivElement;
-  constructor(props: ItemBoxProps) {
-    super(props);
-    this.state = { y: 0 };
-  }
-
-  getBoxPosition(): number {
-    if (!this.props.itemRectRef || !this.props.currentTabRef || !this.itemBox) {
-      return 0;
-    }
-    let currentTabRef = this.props.currentTabRef;
-    let itemRectRef = this.props.itemRectRef;
-    let currentTabY: number = currentTabRef.getBoundingClientRect().top;
-    let itemRectY: number = itemRectRef.getBoundingClientRect().top;
-    let height = this.itemBox.getBoundingClientRect().height;
-
-    if (itemRectY < height) {
-      return height - currentTabY;
-    } else {
-      return itemRectY - currentTabY;
-    }
-  }
-
-  updateY() {
-    if (this.getBoxPosition() !== this.state.y) {
-      this.setState({ y: this.getBoxPosition() });
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.getBoxPosition() !== this.state.y) {
-      this.setState({ y: this.getBoxPosition() });
-    }
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', () => _.debounce(this.updateY, 100));
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', () => _.debounce(this.updateY, 100));
-  }
-
   render() {
-    const style: {} = {
-      top: this.state.y + 'px',
-      visibility: this.props.display ? 'visible' : 'hidden'
-    };
-
     let header: JSX.Element[] = [],
       weaponType: JSX.Element,
       weapon: JSX.Element,
@@ -183,42 +134,21 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
     } else {
       output = elements;
     }
-
-    let pos: string = '50%';
-    if (this.props.currentTab === 'Currency') {
-      pos = '50%';
-    } else if (this.props.currentTab === 'Essence') {
-      pos = '54.25%';
-    } else if (this.props.currentTab === 'Crafting') {
-      pos = '50%';
-    }
-
+    
     return (
-      <Grid.Row className="no-pointer-events">
-        <Grid.Column>
-          <div style={{ position: 'absolute', left: pos }}>
-            <div
-              className="item-box no-select"
-              style={style}
-              ref={ref => {
-                this.itemBox = ref as HTMLDivElement;
-              }}
-            >
-              <Title
-                itemName={this.props.item.getName()}
-                baseName={this.props.item.name}
-                rarity={this.props.item.rarity}
-              />
-              <div className="item-stats">
-                {output}
-                {this.props.item.corrupted ? (
-                  <span className="text--corrupt">Corrupted</span>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </Grid.Column>
-      </Grid.Row>
+      <div className="item-box no-select">
+        <Title
+          itemName={this.props.item.getName()}
+          baseName={this.props.item.name}
+          rarity={this.props.item.rarity}
+        />
+        <div className="item-stats">
+          {output}
+          {this.props.item.corrupted ? (
+            <span className="text--corrupt">Corrupted</span>
+          ) : null}
+        </div>
+      </div>
     );
   }
 }

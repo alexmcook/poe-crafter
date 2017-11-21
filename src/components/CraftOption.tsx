@@ -1,11 +1,22 @@
 import * as React from 'react';
+import CraftOptionTooltip from '../components/CraftOptionTooltip';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
+import Tooltip from '../components/Tooltip';
+const option = require('../assets/craftingbench/craftingbenchslot.png');
+const optionHighlight = require('../assets/craftingbench/craftingbenchslothighlight.png');
 
 interface CraftOptionProps {
   option: CraftingOption;
-  available: boolean;
+  selectedOption: CraftingOption;
+  available: number;
   x: number;
   y: number;
+  cursorX: number;
+  cursorY: number;
+  optionClick: (
+    option?: CraftingOption
+  ) => { type: string; payload: CraftingOption };
+  handleScroll: (e: WheelEvent) => void;
 }
 
 class CraftButton extends React.Component<CraftOptionProps> {
@@ -81,7 +92,7 @@ class CraftButton extends React.Component<CraftOptionProps> {
       <text
         key={'text' + offsetX + offsetY + this.props.option.order}
         className={
-          (this.props.available ? 'crafting-text' : 'crafting-text-red') +
+          (this.props.available === 0 ? 'crafting-text' : 'crafting-text-red') +
           ' no-pointer-events'
         }
         style={style}
@@ -97,49 +108,78 @@ class CraftButton extends React.Component<CraftOptionProps> {
   }
 
   render() {
-    const singleOptionText = (this.props.option.text && this.props.option.text.length === 1) ||
-    !this.props.option.text
-      ? this.createTextElement(90, 64)
-      : null;
-    const doubleOptionText1 = this.props.option.text && this.props.option.text.length > 1
-    ? this.createTextElement(90, 44, 0)
-    : null;
-    const doubleOptionText2 = this.props.option.text && this.props.option.text.length > 1
-    ? this.createTextElement(90, 78, 1)
-    : null;
-    return [
-      singleOptionText, 
-      doubleOptionText1, 
-      doubleOptionText2, (
-      <text
-        key={'leveltext' + this.props.option.order}
-        className="crafting-text-gray no-pointer-events"
-        x={this.props.x + 90}
-        y={this.props.y + 142}
+    const singleOptionText =
+      (this.props.option.text && this.props.option.text.length === 1) ||
+      !this.props.option.text
+        ? this.createTextElement(90, 64)
+        : null;
+    const doubleOptionText1 =
+      this.props.option.text && this.props.option.text.length > 1
+        ? this.createTextElement(90, 44, 0)
+        : null;
+    const doubleOptionText2 =
+      this.props.option.text && this.props.option.text.length > 1
+        ? this.createTextElement(90, 78, 1)
+        : null;
+    return (
+      <Tooltip
+        trigger={
+          <svg>
+            <image
+              xlinkHref={
+                this.props.selectedOption === this.props.option
+                  ? optionHighlight
+                  : option
+              }
+              onClick={() => this.props.optionClick(this.props.option)}
+              onWheel={e => this.props.handleScroll(e.nativeEvent)}
+              width="880"
+              height="173"
+              x={this.props.x}
+              y={this.props.y}
+            />
+            {singleOptionText}
+            {doubleOptionText1}
+            {doubleOptionText2}
+            <text
+              key={'leveltext' + this.props.option.order}
+              className="crafting-text-gray no-pointer-events"
+              x={this.props.x + 90}
+              y={this.props.y + 142}
+            >
+              {this.props.option.mod
+                ? 'lvl: ' + this.props.option.mod.level
+                : null}
+            </text>
+            <text
+              key={'costtext' + this.props.option.order}
+              className="crafting-text-gray no-pointer-events"
+              textAnchor="end"
+              x={this.props.x + 742}
+              y={this.props.y + 142}
+            >
+              cost: {this.props.option.costValue}x
+            </text>
+            <image
+              key={'costorb' + this.props.option.order}
+              className="no-pointer-events"
+              xlinkHref={this.getSource(this.props.option.costItem)}
+              width="48"
+              height="48"
+              x={this.props.x + 746}
+              y={this.props.y + 108}
+            />
+          </svg>
+        }
+        x={this.props.cursorX + 40}
+        y={this.props.cursorY}
       >
-        {this.props.option.mod ? 'lvl: ' + this.props.option.mod.level : null}
-      </text>
-    ), (
-      <text
-        key={'costtext' + this.props.option.order}
-        className="crafting-text-gray no-pointer-events"
-        textAnchor="end"
-        x={this.props.x + 742}
-        y={this.props.y + 142}
-      >
-        cost: {this.props.option.costValue}x
-      </text>
-    ), (
-      <image
-        key={'costorb' + this.props.option.order}
-        className="no-pointer-events"
-        xlinkHref={this.getSource(this.props.option.costItem)}
-        width="48"
-        height="48"
-        x={this.props.x + 746}
-        y={this.props.y + 108}
-      />
-    )];
+        <CraftOptionTooltip
+          types={this.props.option.itemTypes}
+          error={this.props.available}
+        />
+      </Tooltip>
+    );
   }
 }
 

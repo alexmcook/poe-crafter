@@ -3,11 +3,8 @@ import * as _ from 'lodash';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
 import ItemRect from '../components/ItemRect';
 import ItemSockets from '../components/ItemSockets';
-import ItemContainer from '../containers/ItemContainer';
 import { Grid } from 'semantic-ui-react';
-import Tooltip from '../components/Tooltip';
 import CraftOption from '../components/CraftOption';
-import CraftOptionTooltip from '../components/CraftOptionTooltip';
 import CraftButton from '../components/CraftButton';
 import GenericButton from '../components/GenericButton';
 import Item from '../utils/item';
@@ -16,8 +13,6 @@ const background = require('../assets/craftingbench/craftingbench.png');
 const border = require('../assets/craftingbench/craftingbenchborder.png');
 const titleBar = require('../assets/craftingbench/craftingtitlebar.png');
 const closeBtn = require('../assets/craftingbench/craftclosebutton.png');
-const option = require('../assets/craftingbench/craftingbenchslot.png');
-const optionHighlight = require('../assets/craftingbench/craftingbenchslothighlight.png');
 const scrollBar = require('../assets/craftingbench/scrollbar.png');
 const scroller = require('../assets/craftingbench/scroller.png');
 
@@ -195,84 +190,8 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
       this.state.optionsPos,
       this.state.optionsPos + 5
     );
-    const option1 = (
-      <image
-        xlinkHref={
-          this.props.selectedOption === optionsSlice[0]
-            ? optionHighlight
-            : option
-        }
-        onClick={() => this.props.optionClick(optionsSlice[0])}
-        onWheel={e => this.handleScroll(e.nativeEvent)}
-        width="880"
-        height="173"
-        x="169"
-        y="172"
-      />
-    );
-    const option2 = (
-      <image
-        xlinkHref={
-          this.props.selectedOption === optionsSlice[1]
-            ? optionHighlight
-            : option
-        }
-        onClick={() => this.props.optionClick(optionsSlice[1])}
-        onWheel={e => this.handleScroll(e.nativeEvent)}
-        width="880"
-        height="173"
-        x="169"
-        y="344"
-      />
-    );
-    const option3 = (
-      <image
-        xlinkHref={
-          this.props.selectedOption === optionsSlice[2]
-            ? optionHighlight
-            : option
-        }
-        onClick={() => this.props.optionClick(optionsSlice[2])}
-        onWheel={e => this.handleScroll(e.nativeEvent)}
-        width="880"
-        height="173"
-        x="169"
-        y="516"
-      />
-    );
-    const option4 = (
-      <image
-        xlinkHref={
-          this.props.selectedOption === optionsSlice[3]
-            ? optionHighlight
-            : option
-        }
-        onClick={() => this.props.optionClick(optionsSlice[3])}
-        onWheel={e => this.handleScroll(e.nativeEvent)}
-        width="880"
-        height="173"
-        x="169"
-        y="688"
-      />
-    );
-    const option5 = (
-      <image
-        xlinkHref={
-          this.props.selectedOption === optionsSlice[4]
-            ? optionHighlight
-            : option
-        }
-        onClick={() => this.props.optionClick(optionsSlice[4])}
-        onWheel={e => this.handleScroll(e.nativeEvent)}
-        width="880"
-        height="173"
-        x="169"
-        y="860"
-      />
-    );
     return (
       <Grid.Row centered={true}>
-        <ItemContainer />
         <Grid.Column computer={5} tablet={10} mobile={12}>
           <svg
             className="game-tab no-select"
@@ -289,56 +208,6 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               x="159"
               y="75"
             />
-            <Tooltip
-              trigger={option1}
-              x={this.props.cursorX + 40}
-              y={this.props.cursorY}
-            >
-              <CraftOptionTooltip
-                types={optionsSlice[0].itemTypes}
-                error={checkAvailability(this.props.item, optionsSlice[0])}
-              />
-            </Tooltip>
-            <Tooltip
-              trigger={option2}
-              x={this.props.cursorX + 40}
-              y={this.props.cursorY}
-            >
-              <CraftOptionTooltip
-                types={optionsSlice[1].itemTypes}
-                error={checkAvailability(this.props.item, optionsSlice[1])}
-              />
-            </Tooltip>
-            <Tooltip
-              trigger={option3}
-              x={this.props.cursorX + 40}
-              y={this.props.cursorY}
-            >
-              <CraftOptionTooltip
-                types={optionsSlice[2].itemTypes}
-                error={checkAvailability(this.props.item, optionsSlice[2])}
-              />
-            </Tooltip>
-            <Tooltip
-              trigger={option4}
-              x={this.props.cursorX + 40}
-              y={this.props.cursorY}
-            >
-              <CraftOptionTooltip
-                types={optionsSlice[3].itemTypes}
-                error={checkAvailability(this.props.item, optionsSlice[3])}
-              />
-            </Tooltip>
-            <Tooltip
-              trigger={option5}
-              x={this.props.cursorX + 40}
-              y={this.props.cursorY}
-            >
-              <CraftOptionTooltip
-                types={optionsSlice[4].itemTypes}
-                error={checkAvailability(this.props.item, optionsSlice[4])}
-              />
-            </Tooltip>
             <image
               xlinkHref={scrollBar}
               ref={ref => {
@@ -455,43 +324,58 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
             />
             <CraftOption
               option={optionsSlice[0]}
-              available={
-                checkAvailability(this.props.item, optionsSlice[0]) === 0
-              }
+              selectedOption={this.props.selectedOption}
+              available={checkAvailability(this.props.item, optionsSlice[0])}
+              optionClick={this.props.optionClick}
+              handleScroll={e => this.handleScroll(e)}
               x={169}
               y={172}
+              cursorX={this.props.cursorX}
+              cursorY={this.props.cursorY}
             />
             <CraftOption
               option={optionsSlice[1]}
-              available={
-                checkAvailability(this.props.item, optionsSlice[1]) === 0
-              }
+              selectedOption={this.props.selectedOption}
+              available={checkAvailability(this.props.item, optionsSlice[1])}
+              optionClick={this.props.optionClick}
+              handleScroll={e => this.handleScroll(e)}
               x={169}
               y={344}
+              cursorX={this.props.cursorX}
+              cursorY={this.props.cursorY}
             />
             <CraftOption
               option={optionsSlice[2]}
-              available={
-                checkAvailability(this.props.item, optionsSlice[2]) === 0
-              }
+              selectedOption={this.props.selectedOption}
+              available={checkAvailability(this.props.item, optionsSlice[2])}
+              optionClick={this.props.optionClick}
+              handleScroll={e => this.handleScroll(e)}
               x={169}
               y={516}
+              cursorX={this.props.cursorX}
+              cursorY={this.props.cursorY}
             />
             <CraftOption
               option={optionsSlice[3]}
-              available={
-                checkAvailability(this.props.item, optionsSlice[3]) === 0
-              }
+              selectedOption={this.props.selectedOption}
+              available={checkAvailability(this.props.item, optionsSlice[3])}
+              optionClick={this.props.optionClick}
+              handleScroll={e => this.handleScroll(e)}
               x={169}
               y={688}
+              cursorX={this.props.cursorX}
+              cursorY={this.props.cursorY}
             />
             <CraftOption
               option={optionsSlice[4]}
-              available={
-                checkAvailability(this.props.item, optionsSlice[4]) === 0
-              }
+              selectedOption={this.props.selectedOption}
+              available={checkAvailability(this.props.item, optionsSlice[4])}
+              optionClick={this.props.optionClick}
+              handleScroll={e => this.handleScroll(e)}
               x={169}
               y={860}
+              cursorX={this.props.cursorX}
+              cursorY={this.props.cursorY}
             />
             <ItemRect
               x={537}
@@ -500,10 +384,6 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={418}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={() => ({ type: '', payload: false })}
-              onMouseEnter={this.props.itemRectMouseEnter}
-              onMouseLeave={this.props.itemRectMouseLeave}
-              setItemRect={this.props.setItemRect}
-              craftingTab={true}
             />
             <ItemSockets
               x={537}

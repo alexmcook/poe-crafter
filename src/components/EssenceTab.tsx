@@ -1,5 +1,4 @@
 import * as React from 'react';
-import ItemContainer from '../containers/ItemContainer';
 import TabRect from './TabRect';
 import ItemRect from './ItemRect';
 import ItemSockets from './ItemSockets';
@@ -62,7 +61,6 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
   render() {
     return (
       <Grid.Row centered={true}>
-        <ItemContainer />
         <Grid.Column computer={6} tablet={10} mobile={12}>
           <svg
             className="game-tab no-select"
@@ -1531,9 +1529,6 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
               height={340}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={this.props.itemClick}
-              onMouseEnter={this.props.itemRectMouseEnter}
-              onMouseLeave={this.props.itemRectMouseLeave}
-              setItemRect={this.props.setItemRect}
             />
             <ItemSockets
               x={705}
