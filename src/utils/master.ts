@@ -52,9 +52,16 @@ export function craftItem(item: Item, option: CraftingOption) {
     } else if (option.customAction.sockets) {
       if (option.customAction.sockets <= item.maxSockets) {
         item = new Item(item);
+        let previousColors = item.socketColors.slice(0, item.sockets);
+        let previousLinks = item.socketLinks.slice(0, item.sockets - 1);
+        console.log(previousColors);
         item.sockets = option.customAction.sockets;
         item.rerollSocketColors();
         item.rerollSocketLinks();
+        console.log(item.socketColors);
+        item.socketColors = previousColors.slice(0, item.sockets) + item.socketColors.slice(previousColors.length);
+        item.socketLinks = previousLinks.slice(0, item.sockets - 1) + item.socketLinks.slice(previousLinks.length);
+        console.log(item.socketColors);
         return { item: item, result: true };
       }
     }

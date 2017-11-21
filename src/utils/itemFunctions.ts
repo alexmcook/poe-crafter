@@ -159,7 +159,7 @@ export function checkAvailability(
       }
       let result1 = craftOption.customAction.links <= item.sockets;
       let result2 = craftOption.customAction.links !== item.socketLinks.length;
-      if (result1 || result2) {
+      if (result1 && result2) {
         return 0;
       } else if (!result1) {
         return 10;
@@ -175,7 +175,7 @@ export function checkAvailability(
       }
       let result1 = craftOption.customAction.sockets <= item.maxSockets;
       let result2 = item.sockets !== craftOption.customAction.sockets;
-      if (result1 || result2) {
+      if (result1 && result2) {
         return 0;
       } else if (!result1) {
         return 11;
