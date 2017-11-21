@@ -122,12 +122,12 @@ class Stat extends React.Component<WeaponProps> {
 
     return (
       <div className="text--descriptor">
-        <div>{phys}</div>
-        <div>{ele}</div>
-        <div>{chaos}</div>
-        <div>{crit}</div>
-        <div>{aps}</div>
-        <div>{range}</div>
+        {phys}
+        {ele}
+        {chaos}
+        {crit}
+        {aps}
+        {range}
       </div>
     );
   }

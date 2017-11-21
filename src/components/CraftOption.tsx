@@ -79,6 +79,7 @@ class CraftButton extends React.Component<CraftOptionProps> {
     };
     let element = (
       <text
+        key={'text' + offsetX + offsetY + this.props.option.order}
         className={
           (this.props.available ? 'crafting-text' : 'crafting-text-red') +
           ' no-pointer-events'
@@ -96,43 +97,49 @@ class CraftButton extends React.Component<CraftOptionProps> {
   }
 
   render() {
-    return (
-      <svg>
-        {(this.props.option.text && this.props.option.text.length === 1) ||
-        !this.props.option.text
-          ? this.createTextElement(90, 64)
-          : null}
-        {this.props.option.text && this.props.option.text.length > 1
-          ? this.createTextElement(90, 44, 0)
-          : null}
-        {this.props.option.text && this.props.option.text.length > 1
-          ? this.createTextElement(90, 78, 1)
-          : null}
-        <text
-          className="crafting-text-gray no-pointer-events"
-          x={this.props.x + 90}
-          y={this.props.y + 142}
-        >
-          {this.props.option.mod ? 'lvl: ' + this.props.option.mod.level : null}
-        </text>
-        <text
-          className="crafting-text-gray no-pointer-events"
-          textAnchor="end"
-          x={this.props.x + 742}
-          y={this.props.y + 142}
-        >
-          cost: {this.props.option.costValue}x
-        </text>
-        <image
-          className="no-pointer-events"
-          xlinkHref={this.getSource(this.props.option.costItem)}
-          width="48"
-          height="48"
-          x={this.props.x + 746}
-          y={this.props.y + 108}
-        />
-      </svg>
-    );
+    const singleOptionText = (this.props.option.text && this.props.option.text.length === 1) ||
+    !this.props.option.text
+      ? this.createTextElement(90, 64)
+      : null;
+    const doubleOptionText1 = this.props.option.text && this.props.option.text.length > 1
+    ? this.createTextElement(90, 44, 0)
+    : null;
+    const doubleOptionText2 = this.props.option.text && this.props.option.text.length > 1
+    ? this.createTextElement(90, 78, 1)
+    : null;
+    return [
+      singleOptionText, 
+      doubleOptionText1, 
+      doubleOptionText2, (
+      <text
+        key={'leveltext' + this.props.option.order}
+        className="crafting-text-gray no-pointer-events"
+        x={this.props.x + 90}
+        y={this.props.y + 142}
+      >
+        {this.props.option.mod ? 'lvl: ' + this.props.option.mod.level : null}
+      </text>
+    ), (
+      <text
+        key={'costtext' + this.props.option.order}
+        className="crafting-text-gray no-pointer-events"
+        textAnchor="end"
+        x={this.props.x + 742}
+        y={this.props.y + 142}
+      >
+        cost: {this.props.option.costValue}x
+      </text>
+    ), (
+      <image
+        key={'costorb' + this.props.option.order}
+        className="no-pointer-events"
+        xlinkHref={this.getSource(this.props.option.costItem)}
+        width="48"
+        height="48"
+        x={this.props.x + 746}
+        y={this.props.y + 108}
+      />
+    )];
   }
 }
 

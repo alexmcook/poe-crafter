@@ -1482,6 +1482,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.orbClick('SCOURING');
               }}
               name="Orb of Scouring"
+              currencyText="Removes all properties from an item"
+              stackSize={30}
             />
             <TabRect
               x={1037}
@@ -1493,6 +1495,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.orbClick('ANNULMENT');
               }}
               name="Orb of Annulment"
+              currencyText="Removes a random property from an item"
+              stackSize={20}
             />
             <TabRect
               x={1037}
@@ -1504,6 +1508,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.orbClick('ETERNAL');
               }}
               name="Eternal Orb"
+              currencyText="Creates an imprint of an item for later restoration"
+              stackSize={10}
             />
             <TabRect
               x={1037}
@@ -1515,6 +1521,7 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.orbClick('IMPRINT');
               }}
               name="Imprint"
+              currencyText="Restores an imprinted item onto the original"
             />
             //#endregion
             <ItemRect

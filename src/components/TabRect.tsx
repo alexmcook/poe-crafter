@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Popup } from 'semantic-ui-react';
+import Tooltip from '../components/Tooltip';
 import CurrencyTooltip from '../components/CurrencyTooltip';
 
 interface TabRectProps {
@@ -7,7 +7,7 @@ interface TabRectProps {
   xlinkHref: string;
   x: number;
   y: number;
-  onClick: (e: React.MouseEvent<SVGRectElement>) => void;
+  onClick: (e: MouseEvent) => void;
   count: number;
   currencyText?: string;
   essenceText?: string[];
@@ -17,13 +17,13 @@ interface TabRectProps {
 class TabRect extends React.Component<TabRectProps> {
   render() {
     return (
-      <Popup
+      <Tooltip
         trigger={
-          <svg>
+          <a>
             <rect
               className="rect-capture"
-              onClick={this.props.onClick}
-              onContextMenu={this.props.onClick}
+              onClick={e => this.props.onClick(e.nativeEvent)}
+              onContextMenu={e => this.props.onClick(e.nativeEvent)}
               x={this.props.x}
               y={this.props.y}
               opacity="0.7"
@@ -48,27 +48,21 @@ class TabRect extends React.Component<TabRectProps> {
                 ? (this.props.count / 1000).toFixed(1) + 'k'
                 : this.props.count > 0 ? this.props.count : undefined}
             </text>
-          </svg>
+          </a>
         }
-        content={
-          <CurrencyTooltip
-            name={this.props.name}
-            text={
-              this.props.essenceText ? this.props.essenceText : this.props.name
-            }
-            stackSize={this.props.stackSize ? this.props.stackSize : undefined}
-          />
-        }
-        style={{
-          background: 'rgba(0, 0, 0, 0)',
-          boxShadow: 'none',
-          border: 'none',
-          borderRadius: 'none'
-        }}
-        basic={true}
-        position="top center"
-        className="no-pointer-events"
-      />
+      >
+        <CurrencyTooltip
+          name={this.props.name}
+          text={
+            this.props.currencyText
+              ? this.props.currencyText
+              : this.props.essenceText
+                ? this.props.essenceText
+                : this.props.name
+          }
+          stackSize={this.props.stackSize ? this.props.stackSize : undefined}
+        />
+      </Tooltip>
     );
   }
 }

@@ -44,21 +44,19 @@ class CraftButton extends React.Component<CraftButtonProps, CraftButtonState> {
 
   render() {
     return (
-      <svg>
-        <image
-          xlinkHref={
-            this.props.disabled ? craftBtnDisabled : this.state.buttonState
-          }
-          width="192"
-          height="78"
-          x="547"
-          y="1636"
-          onMouseEnter={e => this.handleMouseEnter()}
-          onMouseLeave={e => this.handleMouseLeave()}
-          onMouseDown={e => this.handleMouseDown()}
-          onMouseUp={e => this.handleMouseUp()}
-        />
-      </svg>
+      <image
+        xlinkHref={
+          this.props.disabled ? craftBtnDisabled : this.state.buttonState
+        }
+        width="192"
+        height="78"
+        x="547"
+        y="1636"
+        onMouseEnter={e => this.handleMouseEnter()}
+        onMouseLeave={e => this.handleMouseLeave()}
+        onMouseDown={e => this.handleMouseDown()}
+        onMouseUp={e => this.handleMouseUp()}
+      />
     );
   }
 }

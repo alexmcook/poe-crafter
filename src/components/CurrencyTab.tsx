@@ -65,6 +65,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('WHETSTONE');
               }}
               name="Blacksmith's Whetstone"
+              currencyText="Improves the quality of a weapon"
+              stackSize={20}
             />
             <TabRect
               x={796}
@@ -76,6 +78,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('ARMORSCRAP');
               }}
               name="Armourer's Scrap"
+              currencyText="Improves the quality of an armour"
+              stackSize={40}
             />
             <TabRect
               x={47}
@@ -87,6 +91,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('TRANSMUTE');
               }}
               name="Orb of Transmutation"
+              currencyText="Upgrades a normal item to a magic item"
+              stackSize={40}
             />
             <TabRect
               x={165}
@@ -98,6 +104,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('ALTERATION');
               }}
               name="Orb of Alteration"
+              currencyText="Reforges a magic item with new random properties"
+              stackSize={20}
             />
             <TabRect
               x={282}
@@ -109,6 +117,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('ANNULMENT');
               }}
               name="Orb of Annulment"
+              currencyText="Removes a random property from an item"
+              stackSize={20}
             />
             <TabRect
               x={539}
@@ -120,6 +130,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('EXALTED');
               }}
               name="Exalted Orb"
+              currencyText="Enchants a rare item with a new random property"
+              stackSize={10}
             />
             <TabRect
               x={796}
@@ -131,6 +143,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('REGAL');
               }}
               name="Regal Orb"
+              currencyText="Upgrades a magic item to a rare item"
+              stackSize={10}
             />
             <TabRect
               x={914}
@@ -142,6 +156,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('ALCHEMY');
               }}
               name="Orb of Alchemy"
+              currencyText="Upgrades a normal item to a rare item"
+              stackSize={10}
             />
             <TabRect
               x={1031}
@@ -153,6 +169,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('CHAOS');
               }}
               name="Chaos Orb"
+              currencyText="Reforges a rare item with new random properties"
+              stackSize={10}
             />
             <TabRect
               x={1148}
@@ -164,6 +182,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('BLESSED');
               }}
               name="Blessed Orb"
+              currencyText="Randomises the numeric values of the implicit properties of an item"
+              stackSize={20}
             />
             <TabRect
               x={400}
@@ -175,6 +195,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('AUGMENT');
               }}
               name="Orb of Augmentation"
+              currencyText="Enchants a magic item with a new random property"
+              stackSize={30}
             />
             <TabRect
               x={1148}
@@ -186,6 +208,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('DIVINE');
               }}
               name="Divine Orb"
+              currencyText="Randomises the numeric values of the random properties on an item"
+              stackSize={10}
             />
             <TabRect
               x={164}
@@ -197,6 +221,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('JEWELLER');
               }}
               name="Jeweller's Orb"
+              currencyText="Reforges the number of sockets on an item"
+              stackSize={20}
             />
             <TabRect
               x={282}
@@ -208,6 +234,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('FUSING');
               }}
               name="Orb of Fusing"
+              currencyText="Reforges the links between sockets on an item"
+              stackSize={20}
             />
             <TabRect
               x={400}
@@ -219,6 +247,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('CHROMATIC');
               }}
               name="Chromatic Orb"
+              currencyText="Reforges the colour of sockets on an item"
+              stackSize={20}
             />
             <TabRect
               x={796}
@@ -230,6 +260,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('SCOURING');
               }}
               name="Orb of Scouring"
+              currencyText="Removes all properties from an item"
+              stackSize={30}
             />
             <TabRect
               x={914}
@@ -241,6 +273,7 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('REGRET');
               }}
               name="Orb of Regret"
+              currencyText="Undo last action"
             />
             <TabRect
               x={1031}
@@ -252,6 +285,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('VAAL');
               }}
               name="Vaal Orb"
+              currencyText="Corrupts an item, modifying it unpredictably"
+              stackSize={10}
             />
             <TabRect
               x={251}
@@ -263,6 +298,8 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('ETERNAL');
               }}
               name="Eternal Orb"
+              currencyText="Creates an imprint of an item for later restoration"
+              stackSize={10}
             />
             <TabRect
               x={251}
@@ -274,6 +311,7 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
                 this.props.orbClick('IMPRINT');
               }}
               name="Imprint"
+              currencyText="Restores an imprinted item onto the original"
             />
             <ItemRect
               x={565}

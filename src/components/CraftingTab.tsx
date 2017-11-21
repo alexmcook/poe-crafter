@@ -1,16 +1,17 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
 import ItemRect from '../components/ItemRect';
 import ItemSockets from '../components/ItemSockets';
 import ItemContainer from '../containers/ItemContainer';
-import { Grid, Popup } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
+import Tooltip from '../components/Tooltip';
 import CraftOption from '../components/CraftOption';
 import CraftOptionTooltip from '../components/CraftOptionTooltip';
 import CraftButton from '../components/CraftButton';
 import GenericButton from '../components/GenericButton';
 import Item from '../utils/item';
 import { checkAvailability } from '../utils/itemFunctions';
-import * as _ from 'lodash';
 const background = require('../assets/craftingbench/craftingbench.png');
 const border = require('../assets/craftingbench/craftingbenchborder.png');
 const titleBar = require('../assets/craftingbench/craftingtitlebar.png');
@@ -288,121 +289,56 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               x="159"
               y="75"
             />
-            <Popup
+            <Tooltip
               trigger={option1}
-              content={
-                <CraftOptionTooltip
-                  types={optionsSlice[0].itemTypes}
-                  error={checkAvailability(this.props.item, optionsSlice[0])}
-                />
-              }
-              style={{
-                background: 'rgba(0, 0, 0, 0)',
-                boxShadow: 'none',
-                border: 'none',
-                borderRadius: 'none',
-                position: 'absolute',
-                left: this.props.cursorX + 24 + 'px',
-                top: this.props.cursorY - 12 + 'px'
-              }}
-              basic={true}
-              position="top center"
-              className="no-pointer-events"
-              mouseEnterDelay={0}
-              mouseLeaveDelay={0}
-            />
-            <Popup
+              x={this.props.cursorX + 40}
+              y={this.props.cursorY}
+            >
+              <CraftOptionTooltip
+                types={optionsSlice[0].itemTypes}
+                error={checkAvailability(this.props.item, optionsSlice[0])}
+              />
+            </Tooltip>
+            <Tooltip
               trigger={option2}
-              content={
-                <CraftOptionTooltip
-                  types={optionsSlice[1].itemTypes}
-                  error={checkAvailability(this.props.item, optionsSlice[1])}
-                />
-              }
-              style={{
-                background: 'rgba(0, 0, 0, 0)',
-                boxShadow: 'none',
-                border: 'none',
-                borderRadius: 'none',
-                position: 'absolute',
-                left: this.props.cursorX + 24 + 'px',
-                top: this.props.cursorY - 12 + 'px'
-              }}
-              basic={true}
-              position="top center"
-              className="no-pointer-events"
-              mouseEnterDelay={0}
-              mouseLeaveDelay={0}
-            />
-            <Popup
+              x={this.props.cursorX + 40}
+              y={this.props.cursorY}
+            >
+              <CraftOptionTooltip
+                types={optionsSlice[1].itemTypes}
+                error={checkAvailability(this.props.item, optionsSlice[1])}
+              />
+            </Tooltip>
+            <Tooltip
               trigger={option3}
-              content={
-                <CraftOptionTooltip
-                  types={optionsSlice[2].itemTypes}
-                  error={checkAvailability(this.props.item, optionsSlice[2])}
-                />
-              }
-              style={{
-                background: 'rgba(0, 0, 0, 0)',
-                boxShadow: 'none',
-                border: 'none',
-                borderRadius: 'none',
-                position: 'absolute',
-                left: this.props.cursorX + 24 + 'px',
-                top: this.props.cursorY - 12 + 'px'
-              }}
-              basic={true}
-              position="top center"
-              className="no-pointer-events"
-              mouseEnterDelay={0}
-              mouseLeaveDelay={0}
-            />
-            <Popup
+              x={this.props.cursorX + 40}
+              y={this.props.cursorY}
+            >
+              <CraftOptionTooltip
+                types={optionsSlice[2].itemTypes}
+                error={checkAvailability(this.props.item, optionsSlice[2])}
+              />
+            </Tooltip>
+            <Tooltip
               trigger={option4}
-              content={
-                <CraftOptionTooltip
-                  types={optionsSlice[3].itemTypes}
-                  error={checkAvailability(this.props.item, optionsSlice[3])}
-                />
-              }
-              style={{
-                background: 'rgba(0, 0, 0, 0)',
-                boxShadow: 'none',
-                border: 'none',
-                borderRadius: 'none',
-                position: 'absolute',
-                left: this.props.cursorX + 24 + 'px',
-                top: this.props.cursorY - 12 + 'px'
-              }}
-              basic={true}
-              position="top center"
-              className="no-pointer-events"
-              mouseEnterDelay={0}
-              mouseLeaveDelay={0}
-            />
-            <Popup
+              x={this.props.cursorX + 40}
+              y={this.props.cursorY}
+            >
+              <CraftOptionTooltip
+                types={optionsSlice[3].itemTypes}
+                error={checkAvailability(this.props.item, optionsSlice[3])}
+              />
+            </Tooltip>
+            <Tooltip
               trigger={option5}
-              content={
-                <CraftOptionTooltip
-                  types={optionsSlice[4].itemTypes}
-                  error={checkAvailability(this.props.item, optionsSlice[4])}
-                />
-              }
-              style={{
-                background: 'rgba(0, 0, 0, 0)',
-                boxShadow: 'none',
-                border: 'none',
-                borderRadius: 'none',
-                position: 'absolute',
-                left: this.props.cursorX + 24 + 'px',
-                top: this.props.cursorY - 12 + 'px'
-              }}
-              basic={true}
-              position="top center"
-              className="no-pointer-events"
-              mouseEnterDelay={0}
-              mouseLeaveDelay={0}
-            />
+              x={this.props.cursorX + 40}
+              y={this.props.cursorY}
+            >
+              <CraftOptionTooltip
+                types={optionsSlice[4].itemTypes}
+                error={checkAvailability(this.props.item, optionsSlice[4])}
+              />
+            </Tooltip>
             <image
               xlinkHref={scrollBar}
               ref={ref => {
@@ -519,31 +455,41 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
             />
             <CraftOption
               option={optionsSlice[0]}
-              available={checkAvailability(this.props.item, optionsSlice[0]) === 0}
+              available={
+                checkAvailability(this.props.item, optionsSlice[0]) === 0
+              }
               x={169}
               y={172}
             />
             <CraftOption
               option={optionsSlice[1]}
-              available={checkAvailability(this.props.item, optionsSlice[1]) === 0}
+              available={
+                checkAvailability(this.props.item, optionsSlice[1]) === 0
+              }
               x={169}
               y={344}
             />
             <CraftOption
               option={optionsSlice[2]}
-              available={checkAvailability(this.props.item, optionsSlice[2]) === 0}
+              available={
+                checkAvailability(this.props.item, optionsSlice[2]) === 0
+              }
               x={169}
               y={516}
             />
             <CraftOption
               option={optionsSlice[3]}
-              available={checkAvailability(this.props.item, optionsSlice[3]) === 0}
+              available={
+                checkAvailability(this.props.item, optionsSlice[3]) === 0
+              }
               x={169}
               y={688}
             />
             <CraftOption
               option={optionsSlice[4]}
-              available={checkAvailability(this.props.item, optionsSlice[4]) === 0}
+              available={
+                checkAvailability(this.props.item, optionsSlice[4]) === 0
+              }
               x={169}
               y={860}
             />

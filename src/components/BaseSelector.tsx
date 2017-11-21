@@ -52,29 +52,30 @@ class BaseSelector extends React.Component<
   }
 
   render() {
-    return (
-      <div>
-        <Dropdown
-          placeholder="Select Base"
-          search={true}
-          selection={true}
-          selectOnNavigation={false}
-          selectOnBlur={false}
-          options={this.state.baseOptions}
-          onChange={(event, target) =>
-            this.props.selectBase(target.value as string)}
-          defaultValue={this.state.initialBase.value}
-        />
-        <Input
-          label="Level"
-          type="number"
-          min="1"
-          max="100"
-          onChange={e => this.handleChange(e)}
-          value={this.props.currentItem.itemLevel}
-        />
-      </div>
-    );
+    return [(
+      <Dropdown
+        key="dropdown"
+        placeholder="Select Base"
+        search={true}
+        selection={true}
+        selectOnNavigation={false}
+        selectOnBlur={false}
+        options={this.state.baseOptions}
+        onChange={(event, target) =>
+          this.props.selectBase(target.value as string)}
+        defaultValue={this.state.initialBase.value}
+      />
+    ), (
+      <Input
+        key="input"
+        label="Level"
+        type="number"
+        min="1"
+        max="100"
+        onChange={e => this.handleChange(e)}
+        value={this.props.currentItem.itemLevel}
+      />
+    )];
   }
 }
 

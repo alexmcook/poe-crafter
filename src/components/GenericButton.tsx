@@ -43,30 +43,31 @@ class CraftButton extends React.Component<
   }
 
   render() {
-    return (
-      <svg>
-        <image
-          xlinkHref={this.state.buttonState}
-          width={this.props.width}
-          height={this.props.height}
-          x={this.props.x}
-          y={this.props.y}
-          onMouseEnter={e => this.handleMouseEnter()}
-          onMouseLeave={e => this.handleMouseLeave()}
-          onMouseDown={e => this.handleMouseDown()}
-          onMouseUp={e => this.handleMouseUp()}
-        />
-        <text
-          className="no-pointer-events crafting-text"
-          x={this.props.x + this.props.width / 2}
-          y={this.props.y + this.props.height / 2}
-          textAnchor="middle"
-          alignmentBaseline="central"
-        >
-          {this.props.text}
-        </text>
-      </svg>
-    );
+    return [(
+      <image
+        key={this.props.text + 'btn'}
+        xlinkHref={this.state.buttonState}
+        width={this.props.width}
+        height={this.props.height}
+        x={this.props.x}
+        y={this.props.y}
+        onMouseEnter={e => this.handleMouseEnter()}
+        onMouseLeave={e => this.handleMouseLeave()}
+        onMouseDown={e => this.handleMouseDown()}
+        onMouseUp={e => this.handleMouseUp()}
+      />
+    ), (
+      <text
+        key={this.props.text + 'text'}
+        className="no-pointer-events crafting-text"
+        x={this.props.x + this.props.width / 2}
+        y={this.props.y + this.props.height / 2}
+        textAnchor="middle"
+        alignmentBaseline="central"
+      >
+        {this.props.text}
+      </text>
+    )];
   }
 }
 

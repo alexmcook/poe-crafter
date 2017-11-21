@@ -12,16 +12,19 @@ interface CurrencyTooltipProps {
 
 class CurrencyTooltip extends React.Component<CurrencyTooltipProps> {
   reduceText(): JSX.Element[] {
-    console.log(this.props.text);
     let text =
       typeof this.props.text === 'string' ? [this.props.text] : this.props.text;
     return _.reduce(
       text,
-      (result: JSX.Element[], line: string) => {
+      (result: JSX.Element[], line: string, index: number) => {
         if (line === '') {
-          result.push(<br />);
+          result.push(<br key={'br' + index} />);
         } else {
-          result.push(<div className="text--magic">{line}</div>);
+          result.push(
+            <div key={'div' + index} className="text--magic">
+              {line}
+            </div>
+          );
         }
         return result;
       },
