@@ -4,7 +4,14 @@ import TabRect from './TabRect';
 import ItemRect from './ItemRect';
 import ItemSockets from './ItemSockets';
 import { Grid } from 'semantic-ui-react';
+import * as _ from 'lodash';
 const background = require('../assets/essencetab.png');
+const essenceTexts: EssenceText[] = require('../data/essenceText.json');
+
+interface EssenceText {
+  id: string;
+  text: string[];
+}
 
 interface EssenceTabProps {
   currentTab: string;
@@ -45,6 +52,13 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
     this.state = { cursorX: 0, cursorY: 0 };
   }
 
+  getEssenceText(id: string): EssenceText {
+    let match = _.find(essenceTexts, essenceText => {
+      return essenceText.id === id;
+    });
+    return match as EssenceText;
+  }
+
   render() {
     return (
       <Grid.Row centered={true}>
@@ -71,6 +85,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('GREED', 7);
               }}
               name="Deafening Essence of Greed"
+              essenceText={this.getEssenceText('Greed7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -82,6 +98,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('GREED', 6);
               }}
               name="Shrieking Essence of Greed"
+              essenceText={this.getEssenceText('Greed6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -93,6 +111,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('GREED', 5);
               }}
               name="Screaming Essence of Greed"
+              essenceText={this.getEssenceText('Greed5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -104,6 +124,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('GREED', 4);
               }}
               name="Wailing Essence of Greed"
+              essenceText={this.getEssenceText('Greed4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -115,6 +137,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('GREED', 3);
               }}
               name="Weeping Essence of Greed"
+              essenceText={this.getEssenceText('Greed3').text}
+              stackSize={9}
             />
             <TabRect
               x={561}
@@ -126,6 +150,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('GREED', 2);
               }}
               name="Muttering Essence of Greed"
+              essenceText={this.getEssenceText('Greed2').text}
+              stackSize={9}
             />
             <TabRect
               x={660}
@@ -137,8 +163,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('GREED', 1);
               }}
               name="Whispering Essence of Greed"
+              essenceText={this.getEssenceText('Greed1').text}
+              stackSize={9}
             />
-            //#endregion //#region essence contempt
+            //#endregion 
+            //#region essence contempt
             <TabRect
               x={68}
               y={157}
@@ -149,6 +178,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('CONTEMPT', 7);
               }}
               name="Deafening Essence of Contempt"
+              essenceText={this.getEssenceText('Contempt7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -160,6 +191,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('CONTEMPT', 6);
               }}
               name="Shrieking Essence of Contempt"
+              essenceText={this.getEssenceText('Contempt6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -171,6 +204,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('CONTEMPT', 5);
               }}
               name="Screaming Essence of Contempt"
+              essenceText={this.getEssenceText('Contempt5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -182,6 +217,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('CONTEMPT', 4);
               }}
               name="Wailing Essence of Contempt"
+              essenceText={this.getEssenceText('Contempt4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -193,6 +230,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('CONTEMPT', 3);
               }}
               name="Weeping Essence of Contempt"
+              essenceText={this.getEssenceText('Contempt3').text}
+              stackSize={9}
             />
             <TabRect
               x={561}
@@ -204,6 +243,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('CONTEMPT', 2);
               }}
               name="Muttering Essence of Contempt"
+              essenceText={this.getEssenceText('Contempt2').text}
+              stackSize={9}
             />
             <TabRect
               x={660}
@@ -215,8 +256,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('CONTEMPT', 1);
               }}
               name="Whispering Essence of Contempt"
+              essenceText={this.getEssenceText('Contempt1').text}
+              stackSize={9}
             />
-            //#endregion //#region essence hatred
+            //#endregion 
+            //#region essence hatred
             <TabRect
               x={68}
               y={255}
@@ -227,6 +271,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HATRED', 7);
               }}
               name="Deafening Essence of Hatred"
+              essenceText={this.getEssenceText('Hatred7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -238,6 +284,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HATRED', 6);
               }}
               name="Shrieking Essence of Hatred"
+              essenceText={this.getEssenceText('Hatred6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -249,6 +297,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HATRED', 5);
               }}
               name="Screaming Essence of Hatred"
+              essenceText={this.getEssenceText('Hatred5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -260,6 +310,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HATRED', 4);
               }}
               name="Wailing Essence of Hatred"
+              essenceText={this.getEssenceText('Hatred4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -271,6 +323,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HATRED', 3);
               }}
               name="Weeping Essence of Hatred"
+              essenceText={this.getEssenceText('Hatred3').text}
+              stackSize={9}
             />
             <TabRect
               x={561}
@@ -282,6 +336,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HATRED', 2);
               }}
               name="Muttering Essence of Hatred"
+              essenceText={this.getEssenceText('Hatred2').text}
+              stackSize={9}
             />
             <TabRect
               x={660}
@@ -293,8 +349,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HATRED', 1);
               }}
               name="Whispering Essence of Hatred"
+              essenceText={this.getEssenceText('Hatred1').text}
+              stackSize={9}
             />
-            //#endregion //#region essence woe
+            //#endregion 
+            //#region essence woe
             <TabRect
               x={68}
               y={353}
@@ -305,6 +364,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WOE', 7);
               }}
               name="Deafening Essence of Woe"
+              essenceText={this.getEssenceText('Woe7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -316,6 +377,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WOE', 6);
               }}
               name="Shrieking Essence of Woe"
+              essenceText={this.getEssenceText('Woe6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -327,6 +390,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WOE', 5);
               }}
               name="Screaming Essence of Woe"
+              essenceText={this.getEssenceText('Woe5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -338,6 +403,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WOE', 4);
               }}
               name="Wailing Essence of Woe"
+              essenceText={this.getEssenceText('Woe4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -349,6 +416,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WOE', 3);
               }}
               name="Weeping Essence of Woe"
+              essenceText={this.getEssenceText('Woe3').text}
+              stackSize={9}
             />
             <TabRect
               x={561}
@@ -360,6 +429,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WOE', 2);
               }}
               name="Muttering Essence of Woe"
+              essenceText={this.getEssenceText('Woe2').text}
+              stackSize={9}
             />
             <TabRect
               x={660}
@@ -371,8 +442,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WOE', 1);
               }}
               name="Whispering Essence of Woe"
+              essenceText={this.getEssenceText('Woe1').text}
+              stackSize={9}
             />
-            //#endregion //#region essence fear
+            //#endregion 
+            //#region essence fear
             <TabRect
               x={68}
               y={452}
@@ -383,6 +457,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('FEAR', 7);
               }}
               name="Deafening Essence of Fear"
+              essenceText={this.getEssenceText('Fear7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -394,6 +470,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('FEAR', 6);
               }}
               name="Shrieking Essence of Fear"
+              essenceText={this.getEssenceText('Fear6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -405,6 +483,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('FEAR', 5);
               }}
               name="Screaming Essence of Fear"
+              essenceText={this.getEssenceText('Fear5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -416,6 +496,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('FEAR', 4);
               }}
               name="Wailing Essence of Fear"
+              essenceText={this.getEssenceText('Fear4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -427,6 +509,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('FEAR', 3);
               }}
               name="Weeping Essence of Fear"
+              essenceText={this.getEssenceText('Fear3').text}
+              stackSize={9}
             />
             <TabRect
               x={561}
@@ -438,8 +522,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('FEAR', 2);
               }}
               name="Muttering Essence of Fear"
+              essenceText={this.getEssenceText('Fear2').text}
+              stackSize={9}
             />
-            //#endregion //#region essence anger
+            //#endregion 
+            //#region essence anger
             <TabRect
               x={68}
               y={550}
@@ -450,6 +537,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGER', 7);
               }}
               name="Deafening Essence of Anger"
+              essenceText={this.getEssenceText('Anger7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -461,6 +550,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGER', 6);
               }}
               name="Shrieking Essence of Anger"
+              essenceText={this.getEssenceText('Anger6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -472,6 +563,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGER', 5);
               }}
               name="Screaming Essence of Anger"
+              essenceText={this.getEssenceText('Anger5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -483,6 +576,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGER', 4);
               }}
               name="Wailing Essence of Anger"
+              essenceText={this.getEssenceText('Anger4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -494,6 +589,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGER', 3);
               }}
               name="Weeping Essence of Anger"
+              essenceText={this.getEssenceText('Anger3').text}
+              stackSize={9}
             />
             <TabRect
               x={561}
@@ -505,8 +602,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGER', 2);
               }}
               name="Muttering Essence of Anger"
+              essenceText={this.getEssenceText('Anger2').text}
+              stackSize={9}
             />
-            //#endregion //#region essence torment
+            //#endregion 
+            //#region essence torment
             <TabRect
               x={68}
               y={649}
@@ -517,6 +617,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('TORMENT', 7);
               }}
               name="Deafening Essence of Torment"
+              essenceText={this.getEssenceText('Torment7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -528,6 +630,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('TORMENT', 6);
               }}
               name="Shrieking Essence of Torment"
+              essenceText={this.getEssenceText('Torment6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -539,6 +643,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('TORMENT', 5);
               }}
               name="Screaming Essence of Torment"
+              essenceText={this.getEssenceText('Torment5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -550,6 +656,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('TORMENT', 4);
               }}
               name="Wailing Essence of Torment"
+              essenceText={this.getEssenceText('Torment4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -561,6 +669,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('TORMENT', 3);
               }}
               name="Weeping Essence of Torment"
+              essenceText={this.getEssenceText('Torment3').text}
+              stackSize={9}
             />
             <TabRect
               x={561}
@@ -572,8 +682,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('TORMENT', 2);
               }}
               name="Muttering Essence of Torment"
+              essenceText={this.getEssenceText('Torment2').text}
+              stackSize={9}
             />
-            //#endregion //#region essence sorrow
+            //#endregion 
+            //#region essence sorrow
             <TabRect
               x={68}
               y={748}
@@ -584,6 +697,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SORROW', 7);
               }}
               name="Deafening Essence of Sorrow"
+              essenceText={this.getEssenceText('Sorrow7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -595,6 +710,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SORROW', 6);
               }}
               name="Shrieking Essence of Sorrow"
+              essenceText={this.getEssenceText('Sorrow6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -606,6 +723,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SORROW', 5);
               }}
               name="Screaming Essence of Sorrow"
+              essenceText={this.getEssenceText('Sorrow5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -617,6 +736,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SORROW', 4);
               }}
               name="Wailing Essence of Sorrow"
+              essenceText={this.getEssenceText('Sorrow4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -628,6 +749,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SORROW', 3);
               }}
               name="Weeping Essence of Sorrow"
+              essenceText={this.getEssenceText('Sorrow3').text}
+              stackSize={9}
             />
             <TabRect
               x={561}
@@ -639,8 +762,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SORROW', 2);
               }}
               name="Muttering Essence of Sorrow"
+              essenceText={this.getEssenceText('Sorrow2').text}
+              stackSize={9}
             />
-            //#endregion //#region essence rage
+            //#endregion 
+            //#region essence rage
             <TabRect
               x={68}
               y={846}
@@ -651,6 +777,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('RAGE', 7);
               }}
               name="Deafening Essence of Rage"
+              essenceText={this.getEssenceText('Rage7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -662,6 +790,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('RAGE', 6);
               }}
               name="Shrieking Essence of Rage"
+              essenceText={this.getEssenceText('Rage6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -673,6 +803,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('RAGE', 5);
               }}
               name="Screaming Essence of Rage"
+              essenceText={this.getEssenceText('Rage5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -684,6 +816,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('RAGE', 4);
               }}
               name="Wailing Essence of Rage"
+              essenceText={this.getEssenceText('Rage4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -695,8 +829,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('RAGE', 3);
               }}
               name="Weeping Essence of Rage"
+              essenceText={this.getEssenceText('Rage3').text}
+              stackSize={9}
             />
-            //#endregion //#region essence suffering
+            //#endregion 
+            //#region essence suffering
             <TabRect
               x={68}
               y={944}
@@ -707,6 +844,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SUFFERING', 7);
               }}
               name="Deafening Essence of Suffering"
+              essenceText={this.getEssenceText('Suffering7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -718,6 +857,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SUFFERING', 6);
               }}
               name="Shrieking Essence of Suffering"
+              essenceText={this.getEssenceText('Suffering6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -729,6 +870,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SUFFERING', 5);
               }}
               name="Screaming Essence of Suffering"
+              essenceText={this.getEssenceText('Suffering5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -740,6 +883,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SUFFERING', 4);
               }}
               name="Wailing Essence of Suffering"
+              essenceText={this.getEssenceText('Suffering4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -751,8 +896,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SUFFERING', 3);
               }}
               name="Weeping Essence of Suffering"
+              essenceText={this.getEssenceText('Suffering3').text}
+              stackSize={9}
             />
-            //#endregion //#region essence wrath
+            //#endregion 
+            //#region essence wrath
             <TabRect
               x={68}
               y={1043}
@@ -763,6 +911,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WRATH', 7);
               }}
               name="Deafening Essence of Wrath"
+              essenceText={this.getEssenceText('Wrath7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -774,6 +924,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WRATH', 6);
               }}
               name="Shrieking Essence of Wrath"
+              essenceText={this.getEssenceText('Wrath6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -785,6 +937,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WRATH', 5);
               }}
               name="Screaming Essence of Wrath"
+              essenceText={this.getEssenceText('Wrath5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -796,6 +950,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WRATH', 4);
               }}
               name="Wailing Essence of Wrath"
+              essenceText={this.getEssenceText('Wrath4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -807,8 +963,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('WRATH', 3);
               }}
               name="Weeping Essence of Wrath"
+              essenceText={this.getEssenceText('Wrath3').text}
+              stackSize={9}
             />
-            //#endregion //#region essence doubt
+            //#endregion 
+            //#region essence doubt
             <TabRect
               x={68}
               y={1141}
@@ -819,6 +978,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DOUBT', 7);
               }}
               name="Deafening Essence of Doubt"
+              essenceText={this.getEssenceText('Doubt7').text}
+              stackSize={9}
             />
             <TabRect
               x={167}
@@ -830,6 +991,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DOUBT', 6);
               }}
               name="Shrieking Essence of Doubt"
+              essenceText={this.getEssenceText('Doubt6').text}
+              stackSize={9}
             />
             <TabRect
               x={265}
@@ -841,6 +1004,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DOUBT', 5);
               }}
               name="Screaming Essence of Doubt"
+              essenceText={this.getEssenceText('Doubt5').text}
+              stackSize={9}
             />
             <TabRect
               x={364}
@@ -852,6 +1017,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DOUBT', 4);
               }}
               name="Wailing Essence of Doubt"
+              essenceText={this.getEssenceText('Doubt4').text}
+              stackSize={9}
             />
             <TabRect
               x={462}
@@ -863,8 +1030,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DOUBT', 3);
               }}
               name="Weeping Essence of Doubt"
+              essenceText={this.getEssenceText('Doubt3').text}
+              stackSize={9}
             />
-            //#endregion //#region essence loathing
+            //#endregion 
+            //#region essence loathing
             <TabRect
               x={839}
               y={59}
@@ -875,6 +1045,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('LOATHING', 4);
               }}
               name="Wailing Essence of Loathing"
+              essenceText={this.getEssenceText('Loathing4').text}
+              stackSize={9}
             />
             <TabRect
               x={937}
@@ -886,6 +1058,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('LOATHING', 5);
               }}
               name="Screaming Essence of Loathing"
+              essenceText={this.getEssenceText('Loathing5').text}
+              stackSize={9}
             />
             <TabRect
               x={1036}
@@ -897,6 +1071,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('LOATHING', 6);
               }}
               name="Shrieking Essence of Loathing"
+              essenceText={this.getEssenceText('Loathing6').text}
+              stackSize={9}
             />
             <TabRect
               x={1135}
@@ -908,8 +1084,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('LOATHING', 7);
               }}
               name="Deafening Essence of Loathing"
+              essenceText={this.getEssenceText('Loathing7').text}
+              stackSize={9}
             />
-            //#endregion //#region essence zeal
+            //#endregion 
+            //#region essence zeal
             <TabRect
               x={839}
               y={157}
@@ -920,6 +1099,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ZEAL', 4);
               }}
               name="Wailing Essence of Zeal"
+              essenceText={this.getEssenceText('Zeal4').text}
+              stackSize={9}
             />
             <TabRect
               x={937}
@@ -931,6 +1112,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ZEAL', 5);
               }}
               name="Screaming Essence of Zeal"
+              essenceText={this.getEssenceText('Zeal5').text}
+              stackSize={9}
             />
             <TabRect
               x={1036}
@@ -942,6 +1125,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ZEAL', 6);
               }}
               name="Shrieking Essence of Zeal"
+              essenceText={this.getEssenceText('Zeal6').text}
+              stackSize={9}
             />
             <TabRect
               x={1135}
@@ -953,8 +1138,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ZEAL', 7);
               }}
               name="Deafening Essence of Zeal"
+              essenceText={this.getEssenceText('Zeal7').text}
+              stackSize={9}
             />
-            //#endregion //#region essence anguish
+            //#endregion 
+            //#region essence anguish
             <TabRect
               x={839}
               y={255}
@@ -965,6 +1153,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGUISH', 4);
               }}
               name="Wailing Essence of Anguish"
+              essenceText={this.getEssenceText('Anguish4').text}
+              stackSize={9}
             />
             <TabRect
               x={937}
@@ -976,6 +1166,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGUISH', 5);
               }}
               name="Screaming Essence of Anguish"
+              essenceText={this.getEssenceText('Anguish5').text}
+              stackSize={9}
             />
             <TabRect
               x={1036}
@@ -987,6 +1179,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGUISH', 6);
               }}
               name="Shrieking Essence of Anguish"
+              essenceText={this.getEssenceText('Anguish6').text}
+              stackSize={9}
             />
             <TabRect
               x={1135}
@@ -998,8 +1192,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ANGUISH', 7);
               }}
               name="Deafening Essence of Anguish"
+              essenceText={this.getEssenceText('Anguish7').text}
+              stackSize={9}
             />
-            //#endregion //#region essence spite
+            //#endregion 
+            //#region essence spite
             <TabRect
               x={839}
               y={353}
@@ -1010,6 +1207,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SPITE', 4);
               }}
               name="Wailing Essence of Spite"
+              essenceText={this.getEssenceText('Spite4').text}
+              stackSize={9}
             />
             <TabRect
               x={937}
@@ -1021,6 +1220,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SPITE', 5);
               }}
               name="Screaming Essence of Spite"
+              essenceText={this.getEssenceText('Spite5').text}
+              stackSize={9}
             />
             <TabRect
               x={1036}
@@ -1032,6 +1233,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SPITE', 6);
               }}
               name="Shrieking Essence of Spite"
+              essenceText={this.getEssenceText('Spite6').text}
+              stackSize={9}
             />
             <TabRect
               x={1135}
@@ -1043,6 +1246,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SPITE', 7);
               }}
               name="Deafening Essence of Spite"
+              essenceText={this.getEssenceText('Spite7').text}
+              stackSize={9}
             />
             //#endregion //#region essence scorn
             <TabRect
@@ -1055,6 +1260,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SCORN', 5);
               }}
               name="Screaming Essence of Scorn"
+              essenceText={this.getEssenceText('Scorn5').text}
+              stackSize={9}
             />
             <TabRect
               x={1036}
@@ -1066,6 +1273,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SCORN', 6);
               }}
               name="Shrieking Essence of Scorn"
+              essenceText={this.getEssenceText('Scorn6').text}
+              stackSize={9}
             />
             <TabRect
               x={1135}
@@ -1077,8 +1286,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('SCORN', 7);
               }}
               name="Deafening Essence of Scorn"
+              essenceText={this.getEssenceText('Scorn7').text}
+              stackSize={9}
             />
-            //#endregion //#region essence envy
+            //#endregion 
+            //#region essence envy
             <TabRect
               x={937}
               y={550}
@@ -1089,6 +1301,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ENVY', 5);
               }}
               name="Screaming Essence of Envy"
+              essenceText={this.getEssenceText('Envy5').text}
+              stackSize={9}
             />
             <TabRect
               x={1036}
@@ -1100,6 +1314,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ENVY', 6);
               }}
               name="Shrieking Essence of Envy"
+              essenceText={this.getEssenceText('Envy6').text}
+              stackSize={9}
             />
             <TabRect
               x={1135}
@@ -1111,8 +1327,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('ENVY', 7);
               }}
               name="Deafening Essence of Envy"
+              essenceText={this.getEssenceText('Envy7').text}
+              stackSize={9}
             />
-            //#endregion //#region essence misery
+            //#endregion 
+            //#region essence misery
             <TabRect
               x={937}
               y={649}
@@ -1123,6 +1342,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('MISERY', 5);
               }}
               name="Screaming Essence of Misery"
+              essenceText={this.getEssenceText('Misery5').text}
+              stackSize={9}
             />
             <TabRect
               x={1036}
@@ -1134,6 +1355,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('MISERY', 6);
               }}
               name="Shrieking Essence of Misery"
+              essenceText={this.getEssenceText('Misery6').text}
+              stackSize={9}
             />
             <TabRect
               x={1135}
@@ -1145,8 +1368,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('MISERY', 7);
               }}
               name="Deafening Essence of Misery"
+              essenceText={this.getEssenceText('Misery7').text}
+              stackSize={9}
             />
-            //#endregion //#region essence dread
+            //#endregion 
+            //#region essence dread
             <TabRect
               x={937}
               y={748}
@@ -1157,6 +1383,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DREAD', 5);
               }}
               name="Screaming Essence of Dread"
+              essenceText={this.getEssenceText('Dread5').text}
+              stackSize={9}
             />
             <TabRect
               x={1036}
@@ -1168,6 +1396,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DREAD', 6);
               }}
               name="Shrieking Essence of Dread"
+              essenceText={this.getEssenceText('Dread6').text}
+              stackSize={9}
             />
             <TabRect
               x={1135}
@@ -1179,8 +1409,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DREAD', 7);
               }}
               name="Deafening Essence of Dread"
+              essenceText={this.getEssenceText('Dread7').text}
+              stackSize={9}
             />
-            //#endregion //#region essence insanity
+            //#endregion 
+            //#region essence insanity
             <TabRect
               x={1135}
               y={846}
@@ -1191,6 +1424,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('INSANITY', 8);
               }}
               name="Essence of Insanity"
+              essenceText={this.getEssenceText('Insanity8').text}
+              stackSize={9}
             />
             //#endregion //#region essence horror
             <TabRect
@@ -1203,6 +1438,8 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HORROR', 8);
               }}
               name="Essence of Horror"
+              essenceText={this.getEssenceText('Horror8').text}
+              stackSize={9}
             />
             //#endregion //#region essence delerium
             <TabRect
@@ -1215,8 +1452,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('DELIRIUM', 8);
               }}
               name="Essence of Delirium"
+              essenceText={this.getEssenceText('Delirium8').text}
+              stackSize={9}
             />
-            //#endregion //#region essence hysteria
+            //#endregion 
+            //#region essence hysteria
             <TabRect
               x={1135}
               y={1141}
@@ -1227,8 +1467,11 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
                 this.props.essenceClick('HYSTERIA', 8);
               }}
               name="Essence of Hysteria"
+              essenceText={this.getEssenceText('Hysteria8').text}
+              stackSize={9}
             />
-            //#endregion //#region Currency
+            //#endregion 
+            //#region Currency
             <TabRect
               x={1037}
               y={846}

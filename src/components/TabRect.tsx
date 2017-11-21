@@ -9,6 +9,9 @@ interface TabRectProps {
   y: number;
   onClick: (e: React.MouseEvent<SVGRectElement>) => void;
   count: number;
+  currencyText?: string;
+  essenceText?: string[];
+  stackSize?: number;
 }
 
 class TabRect extends React.Component<TabRectProps> {
@@ -47,8 +50,21 @@ class TabRect extends React.Component<TabRectProps> {
             </text>
           </svg>
         }
-        content={<CurrencyTooltip name={this.props.name} text={this.props.name} />}
-        style={{ background: 'rgba(0, 0, 0, 0)', boxShadow: 'none', border: 'none', borderRadius: 'none' }}
+        content={
+          <CurrencyTooltip
+            name={this.props.name}
+            text={
+              this.props.essenceText ? this.props.essenceText : this.props.name
+            }
+            stackSize={this.props.stackSize ? this.props.stackSize : undefined}
+          />
+        }
+        style={{
+          background: 'rgba(0, 0, 0, 0)',
+          boxShadow: 'none',
+          border: 'none',
+          borderRadius: 'none'
+        }}
         basic={true}
         position="top center"
         className="no-pointer-events"

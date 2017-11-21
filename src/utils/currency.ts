@@ -7,6 +7,7 @@ const essences: Essence[] = require('../data/essences.json');
 
 interface Essence {
   id: string;
+  tier: number;
   minTier: number;
   name: string;
   amulet: Mod;
