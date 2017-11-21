@@ -309,7 +309,20 @@ export function jeweller(item: Item): { item: Item; result: boolean } {
   if (item.sockets < item.maxSockets && !item.corrupted) {
     result = true;
     item = new Item(item);
+    let tempMaxSockets = item.maxSockets;
+    if (item.itemLevel < 15) {
+      item.maxSockets = 2;
+    } else if (item.itemLevel < 28) {
+      item.maxSockets = 3;
+    } else if (item.itemLevel < 35) {
+      item.maxSockets = 4;
+    } else if (item.itemLevel < 50) {
+      item.maxSockets = 5;
+    } else {
+      item.maxSockets = 6;
+    }
     item.rerollSockets();
+    item.maxSockets = tempMaxSockets;
   }
   return { item: item, result: result };
 }
