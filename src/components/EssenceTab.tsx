@@ -13,7 +13,6 @@ interface EssenceText {
 }
 
 interface EssenceTabProps {
-  currentTab: string;
   count: { [key: string]: number };
   essenceCount: { [key: string]: { [key: number]: number } };
   itemSockets: string;
@@ -30,14 +29,7 @@ interface EssenceTabProps {
     e: MouseEvent
   ) => { type: string; payload: { x: number; y: number } };
   mouseLeave: () => { type: string; payload: {} };
-  itemRectMouseEnter: () => { type: string; payload: {} };
-  itemRectMouseLeave: () => { type: string; payload: {} };
-  setCurrentTab: (
-    currentTab: SVGSVGElement
-  ) => { type: string; payload: SVGSVGElement };
-  setItemRect: (
-    rect: SVGRectElement
-  ) => { type: string; payload: SVGRectElement };
+  anchorItemBox: boolean;
 }
 
 interface EssenceTabState {
@@ -68,7 +60,6 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
             preserveAspectRatio="xMinYMin meet"
             onMouseMove={e => this.props.mouseMove(e.nativeEvent)}
             onMouseLeave={() => this.props.mouseLeave()}
-            ref={ref => (ref !== null ? this.props.setCurrentTab(ref) : null)}
             onContextMenu={e => e.preventDefault()}
           >
             <image xlinkHref={background} height="1282" width="1282" />
@@ -1529,6 +1520,7 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
               height={340}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={this.props.itemClick}
+              alwaysOn={this.props.anchorItemBox}
             />
             <ItemSockets
               x={705}

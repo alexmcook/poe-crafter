@@ -2,11 +2,9 @@ import { connect } from 'react-redux';
 import { State } from '../reducers';
 import * as currency from '../actions/currencyActions';
 import * as input from '../actions/inputActions';
-import * as refs from '../actions/refsActions';
 import CraftingTab from '../components/CraftingTab';
 
 const mapStateToProps = (state: State) => ({
-  currentTab: state.tab.currentTab,
   item: state.item.currentItem,
   itemArt: state.item.currentItem.artPath,
   itemSockets: state.item.currentItem.socketColors,
@@ -15,16 +13,13 @@ const mapStateToProps = (state: State) => ({
   craftingOptions: state.craftingOptions,
   selectedOption: state.item.selectedOption,
   cursorX: state.input.clientX,
-  cursorY: state.input.clientY
+  cursorY: state.input.clientY,
+  anchorItemBox: state.input.anchorItemBox
 });
 
 const mapDispatchToProps = {
   mouseMove: input.mouseMove,
   mouseLeave: input.mouseLeave,
-  itemRectMouseEnter: input.itemRectMouseEnter,
-  itemRectMouseLeave: input.itemRectMouseLeave,
-  setCurrentTab: refs.setCurrentTab,
-  setItemRect: refs.setItemRect,
   craftClick: currency.craftClick,
   optionClick: currency.optionClick
 };

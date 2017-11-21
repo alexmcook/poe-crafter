@@ -7,6 +7,7 @@ interface TooltipProps {
   trigger: JSX.Element;
   x?: number;
   y?: number;
+  alwaysOn?: boolean;
 }
 
 interface TooltipState {
@@ -50,14 +51,14 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
     this.ref = ReactDOM.findDOMNode(this);
     window.addEventListener(
       'resize',
-      _.debounce(() => this.calcPosition(), 100)
+      _.debounce(() => this.calcPosition(), 250)
     );
   }
 
   componentWillUnmount() {
     window.removeEventListener(
       'resize',
-      _.debounce(() => this.calcPosition(), 100)
+      _.debounce(() => this.calcPosition(), 250)
     );
   }
 
@@ -89,6 +90,7 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
           trigger={this.props.trigger}
           openOnTriggerMouseEnter={true}
           closeOnTriggerMouseLeave={true}
+          open={this.props.alwaysOn ? this.props.alwaysOn : undefined}
         >
           {tooltip}
         </Portal>

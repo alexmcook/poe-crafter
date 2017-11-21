@@ -10,18 +10,10 @@ import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
 
 interface ItemBoxProps {
-  currentTab: string;
   item: Item;
-  currentTabRef: SVGSVGElement;
-  itemRectRef: SVGRectElement;
-  display: boolean;
 }
 
-interface ItemBoxState {
-  y: number;
-}
-
-class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
+class ItemBox extends React.Component<ItemBoxProps> {
   render() {
     let header: JSX.Element[] = [],
       weaponType: JSX.Element,
@@ -134,7 +126,7 @@ class ItemBox extends React.Component<ItemBoxProps, ItemBoxState> {
     } else {
       output = elements;
     }
-    
+
     return (
       <div className="item-box no-select">
         <Title

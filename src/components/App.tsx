@@ -13,10 +13,6 @@ interface AppProps {
 }
 
 class App extends React.Component<AppProps> {
-  constructor(props: AppProps) {
-    super(props);
-  }
-
   componentWillMount() {
     window.addEventListener('keyup', (e: KeyboardEvent) => {
       this.props.keyListener(e.key);

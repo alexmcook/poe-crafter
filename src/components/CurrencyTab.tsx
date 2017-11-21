@@ -6,7 +6,6 @@ import { Grid } from 'semantic-ui-react';
 const background = require('../assets/currencytab.png');
 
 interface CurrencyTabProps {
-  currentTab: string;
   count: { [key: string]: number };
   itemSockets: string;
   itemLinks: string;
@@ -18,14 +17,7 @@ interface CurrencyTabProps {
     e: MouseEvent
   ) => { type: string; payload: { x: number; y: number } };
   mouseLeave: () => { type: string; payload: {} };
-  itemRectMouseEnter: () => { type: string; payload: {} };
-  itemRectMouseLeave: () => { type: string; payload: {} };
-  setCurrentTab: (
-    currentTab: SVGSVGElement
-  ) => { type: string; payload: SVGSVGElement };
-  setItemRect: (
-    rect: SVGRectElement
-  ) => { type: string; payload: SVGRectElement };
+  anchorItemBox: boolean;
 }
 
 interface CurrencyTabState {
@@ -49,7 +41,6 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
             preserveAspectRatio="xMinYMin meet"
             onMouseMove={e => this.props.mouseMove(e.nativeEvent)}
             onMouseLeave={() => this.props.mouseLeave()}
-            ref={ref => (ref !== null ? this.props.setCurrentTab(ref) : null)}
             onContextMenu={e => e.preventDefault()}
           >
             <image xlinkHref={background} height="1282" width="1282" />
@@ -318,6 +309,7 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               height={340}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={this.props.itemClick}
+              alwaysOn={this.props.anchorItemBox}
             />
             <ItemSockets
               x={565}

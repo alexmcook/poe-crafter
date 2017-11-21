@@ -8,16 +8,6 @@ export const mouseLeave = () => ({
   payload: {}
 });
 
-export const itemRectMouseEnter = () => ({
-  type: 'ITEM_RECT_MOUSE_ENTER',
-  payload: {}
-});
-
-export const itemRectMouseLeave = () => ({
-  type: 'ITEM_RECT_MOUSE_LEAVE',
-  payload: {}
-});
-
 export const keyUp = (key: string) => ({
   type: 'KEY_UP',
   payload: key

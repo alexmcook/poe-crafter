@@ -2,27 +2,22 @@ import { connect } from 'react-redux';
 import { State } from '../reducers';
 import * as currency from '../actions/currencyActions';
 import * as input from '../actions/inputActions';
-import * as refs from '../actions/refsActions';
 import CurrencyTab from '../components/CurrencyTab';
 
 const mapStateToProps = (state: State) => ({
-  currentTab: state.tab.currentTab,
   count: state.item.currencyCount,
   itemArt: state.item.currentItem.artPath,
   itemSockets: state.item.currentItem.socketColors,
   itemLinks: state.item.currentItem.socketLinks,
-  verticalSockets: state.item.currentItem.verticalSockets
+  verticalSockets: state.item.currentItem.verticalSockets,
+  anchorItemBox: state.input.anchorItemBox
 });
 
 const mapDispatchToProps = {
   orbClick: currency.orbClick,
   itemClick: currency.itemClick,
   mouseMove: input.mouseMove,
-  mouseLeave: input.mouseLeave,
-  itemRectMouseEnter: input.itemRectMouseEnter,
-  itemRectMouseLeave: input.itemRectMouseLeave,
-  setCurrentTab: refs.setCurrentTab,
-  setItemRect: refs.setItemRect
+  mouseLeave: input.mouseLeave
 };
 
 const CurrencyTabContainer = connect(mapStateToProps, mapDispatchToProps)(

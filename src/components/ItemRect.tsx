@@ -9,6 +9,7 @@ interface ItemRectProps {
   width: number;
   height: number;
   onClick: (e: MouseEvent) => { type: string; payload: boolean };
+  alwaysOn?: boolean;
 }
 
 interface ItemRectState {
@@ -90,6 +91,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
           </svg>
         </svg>
         }
+        alwaysOn={this.props.alwaysOn}
       >
         <ItemContainer />
       </Tooltip>

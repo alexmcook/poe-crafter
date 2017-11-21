@@ -17,7 +17,6 @@ const scrollBar = require('../assets/craftingbench/scrollbar.png');
 const scroller = require('../assets/craftingbench/scroller.png');
 
 interface CraftingTabProps {
-  currentTab: string;
   item: Item;
   itemSockets: string;
   itemLinks: string;
@@ -27,14 +26,6 @@ interface CraftingTabProps {
     e: MouseEvent
   ) => { type: string; payload: { x: number; y: number } };
   mouseLeave: () => { type: string; payload: {} };
-  itemRectMouseEnter: () => { type: string; payload: {} };
-  itemRectMouseLeave: () => { type: string; payload: {} };
-  setCurrentTab: (
-    currentTab: SVGSVGElement
-  ) => { type: string; payload: SVGSVGElement };
-  setItemRect: (
-    rect: SVGRectElement
-  ) => { type: string; payload: SVGRectElement };
   craftClick: (
     option: CraftingOption
   ) => { type: string; payload: CraftingOption };
@@ -53,6 +44,7 @@ interface CraftingTabProps {
   selectedOption: CraftingOption;
   cursorX: number;
   cursorY: number;
+  anchorItemBox: boolean;
 }
 
 interface CraftingTabState {
@@ -197,7 +189,6 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
             className="game-tab no-select"
             viewBox="0 0 1282 1736"
             preserveAspectRatio="xMinYMin meet"
-            ref={ref => (ref !== null ? this.props.setCurrentTab(ref) : null)}
             onContextMenu={e => e.preventDefault()}
             onMouseMove={e => this.props.mouseMove(e.nativeEvent)}
           >
@@ -384,6 +375,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={418}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={() => ({ type: '', payload: false })}
+              alwaysOn={this.props.anchorItemBox}
             />
             <ItemSockets
               x={537}
