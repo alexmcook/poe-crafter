@@ -23,3 +23,6 @@ yarn-error.log*
 # VS Code
 /.vscode
 /.vs
+
+# TODO
+todo.txt
