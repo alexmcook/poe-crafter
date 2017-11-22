@@ -12,8 +12,6 @@ const mapStateToProps = (state: State) => ({
   verticalSockets: state.item.currentItem.verticalSockets,
   craftingOptions: state.craftingOptions,
   selectedOption: state.item.selectedOption,
-  cursorX: state.input.clientX,
-  cursorY: state.input.clientY,
   anchorItemBox: state.input.anchorItemBox
 });
 

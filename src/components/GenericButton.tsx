@@ -63,7 +63,7 @@ class CraftButton extends React.Component<
         x={this.props.x + this.props.width / 2}
         y={this.props.y + this.props.height / 2}
         textAnchor="middle"
-        alignmentBaseline="central"
+        dominantBaseline="central"
       >
         {this.props.text}
       </text>

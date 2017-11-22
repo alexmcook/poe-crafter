@@ -243,19 +243,21 @@ class Stat extends React.Component<CurrencyCursorProps, CurrencyCursorState> {
     };
 
     return (
-      <div>
-        <img
-          className="no-pointer-events"
-          style={style}
-          src={this.getSource(
-            this.props.selected.name,
-            this.props.selected.tier
-          )}
-          width="24"
-          height="24"
-          alt=""
-        />
-      </div>
+      this.state.mounted && (
+        <div>
+          <img
+            className="no-select no-pointer-events"
+            style={style}
+            src={this.getSource(
+              this.props.selected.name,
+              this.props.selected.tier
+            )}
+            width="24"
+            height="24"
+            alt=""
+          />
+        </div>
+      )
     );
   }
 }

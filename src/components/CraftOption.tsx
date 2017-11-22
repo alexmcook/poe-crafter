@@ -1,7 +1,5 @@
 import * as React from 'react';
-import CraftOptionTooltip from '../components/CraftOptionTooltip';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
-import Tooltip from '../components/Tooltip';
 const option = require('../assets/craftingbench/craftingbenchslot.png');
 const optionHighlight = require('../assets/craftingbench/craftingbenchslothighlight.png');
 
@@ -11,15 +9,13 @@ interface CraftOptionProps {
   available: number;
   x: number;
   y: number;
-  cursorX: number;
-  cursorY: number;
   optionClick: (
     option?: CraftingOption
   ) => { type: string; payload: CraftingOption };
   handleScroll: (e: WheelEvent) => void;
 }
 
-class CraftButton extends React.Component<CraftOptionProps> {
+class CraftOption extends React.Component<CraftOptionProps> {
   getSource(name: string) {
     switch (name) {
       //#region regular currency
@@ -122,65 +118,49 @@ class CraftButton extends React.Component<CraftOptionProps> {
         ? this.createTextElement(90, 78, 1)
         : null;
     return (
-      <Tooltip
-        trigger={
-          <svg>
-            <image
-              xlinkHref={
-                this.props.selectedOption === this.props.option
-                  ? optionHighlight
-                  : option
-              }
-              onClick={() => this.props.optionClick(this.props.option)}
-              onWheel={e => this.props.handleScroll(e.nativeEvent)}
-              width="880"
-              height="173"
-              x={this.props.x}
-              y={this.props.y}
-            />
-            {singleOptionText}
-            {doubleOptionText1}
-            {doubleOptionText2}
-            <text
-              key={'leveltext' + this.props.option.order}
-              className="crafting-text-gray no-pointer-events"
-              x={this.props.x + 90}
-              y={this.props.y + 142}
-            >
-              {this.props.option.mod
-                ? 'lvl: ' + this.props.option.mod.level
-                : null}
-            </text>
-            <text
-              key={'costtext' + this.props.option.order}
-              className="crafting-text-gray no-pointer-events"
-              textAnchor="end"
-              x={this.props.x + 742}
-              y={this.props.y + 142}
-            >
-              cost: {this.props.option.costValue}x
-            </text>
-            <image
-              key={'costorb' + this.props.option.order}
-              className="no-pointer-events"
-              xlinkHref={this.getSource(this.props.option.costItem)}
-              width="48"
-              height="48"
-              x={this.props.x + 746}
-              y={this.props.y + 108}
-            />
-          </svg>
-        }
-        x={this.props.cursorX + 40}
-        y={this.props.cursorY}
-      >
-        <CraftOptionTooltip
-          types={this.props.option.itemTypes}
-          error={this.props.available}
+      <svg>
+        <image
+          xlinkHref={
+            this.props.selectedOption === this.props.option
+              ? optionHighlight
+              : option
+          }
+          onClick={() => this.props.optionClick(this.props.option)}
+          onWheel={e => this.props.handleScroll(e.nativeEvent)}
+          width="880"
+          height="173"
+          x={this.props.x}
+          y={this.props.y}
         />
-      </Tooltip>
+        {singleOptionText}
+        {doubleOptionText1}
+        {doubleOptionText2}
+        <text
+          className="crafting-text-gray no-pointer-events"
+          x={this.props.x + 90}
+          y={this.props.y + 142}
+        >
+          {this.props.option.mod ? 'lvl: ' + this.props.option.mod.level : null}
+        </text>
+        <text
+          className="crafting-text-gray no-pointer-events"
+          textAnchor="end"
+          x={this.props.x + 742}
+          y={this.props.y + 142}
+        >
+          cost: {this.props.option.costValue}
+        </text>
+        <image
+          className="no-pointer-events"
+          xlinkHref={this.getSource(this.props.option.costItem)}
+          width="48"
+          height="48"
+          x={this.props.x + 746}
+          y={this.props.y + 108}
+        />
+      </svg>
     );
   }
 }
 
-export default CraftButton;
+export default CraftOption;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ItemContainer from '../containers/ItemContainer';
-import Tooltip from '../components/Tooltip';
+import TooltipContainer from '../containers/TooltipContainer';
 
 interface ItemRectProps {
   xlinkHref: string;
@@ -56,7 +56,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
 
   render() {
     return (
-      <Tooltip
+      <TooltipContainer
         trigger={
           <svg
             viewBox="0 0 166 340"
@@ -87,9 +87,10 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
             />
           </svg>
         }
+        alwaysOn={this.props.alwaysOn}
       >
         <ItemContainer />
-      </Tooltip>
+      </TooltipContainer>
     );
   }
 }

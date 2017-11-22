@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Tooltip from '../components/Tooltip';
-import ItemContainer from '../containers/ItemContainer';
+import TooltipContainer from '../containers/TooltipContainer';
+import CurrencyTooltip from '../components/CurrencyTooltip';
 
 interface TabRectProps {
   name: string;
@@ -17,7 +17,7 @@ interface TabRectProps {
 class TabRect extends React.Component<TabRectProps> {
   render() {
     return (
-      <Tooltip
+      <TooltipContainer
         trigger={
           <a>
             <rect
@@ -51,8 +51,18 @@ class TabRect extends React.Component<TabRectProps> {
           </a>
         }
       >
-        <ItemContainer />
-      </Tooltip>
+        <CurrencyTooltip
+          name={this.props.name}
+          text={
+            this.props.currencyText
+              ? this.props.currencyText
+              : this.props.essenceText
+                ? this.props.essenceText
+                : this.props.name
+          }
+          stackSize={this.props.stackSize ? this.props.stackSize : undefined}
+        />
+      </TooltipContainer>
     );
   }
 }
