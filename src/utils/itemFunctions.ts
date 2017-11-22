@@ -175,14 +175,24 @@ export function checkAvailability(
       if (!correctType) {
         return CraftingError.BASE;
       }
-      let result1 = craftOption.customAction.links <= item.sockets;
-      let result2 = craftOption.customAction.links !== item.socketLinks.length;
-      if (result1 && result2) {
-        return CraftingError.NONE;
-      } else if (!result1) {
-        return CraftingError.NUMSOCKETS;
-      } else if (!result2) {
+      if (
+        craftOption.customAction.links === 5 &&
+        item.socketLinks.indexOf('LLLL') >= 0 &&
+        item.socketLinks !== 'LLLLL'
+      ) {
         return CraftingError.LINKS;
+      } else if (
+        craftOption.customAction.links === 6 &&
+        item.socketLinks.indexOf('LLLLL') >= 0
+      ) {
+        return CraftingError.LINKS;
+      }
+
+      let result = craftOption.customAction.links <= item.sockets;
+      if (result) {
+        return CraftingError.NONE;
+      } else {
+        return CraftingError.NUMSOCKETS;
       }
     } else if (craftOption.customAction.sockets) {
       let correctType =

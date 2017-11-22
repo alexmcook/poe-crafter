@@ -59,10 +59,8 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
       let deltaX = Math.abs(nextProps.cursorX - this.state.x);
       let deltaY = Math.abs(nextProps.cursorY - this.state.y);
       if (deltaX === 0 && deltaY === 0) {
-        console.log('update fail');
         return false;
       } else {
-        console.log('update success');
         return true;
       }
     } else {

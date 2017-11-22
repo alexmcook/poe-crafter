@@ -43,7 +43,7 @@ export function craftItem(item: Item, option: CraftingOption) {
         for (let i = 0; i < option.customAction.links - 1; i++) {
           newLinks += 'L';
         }
-        for (let i = option.customAction.links - 1; i < item.sockets; i++) {
+        for (let i = option.customAction.links; i < item.sockets; i++) {
           newLinks += 'X';
         }
         item.socketLinks = newLinks;
@@ -54,14 +54,11 @@ export function craftItem(item: Item, option: CraftingOption) {
         item = new Item(item);
         let previousColors = item.socketColors.slice(0, item.sockets);
         let previousLinks = item.socketLinks.slice(0, item.sockets - 1);
-        console.log(previousColors);
         item.sockets = option.customAction.sockets;
         item.rerollSocketColors();
         item.rerollSocketLinks();
-        console.log(item.socketColors);
         item.socketColors = previousColors.slice(0, item.sockets) + item.socketColors.slice(previousColors.length);
         item.socketLinks = previousLinks.slice(0, item.sockets - 1) + item.socketLinks.slice(previousLinks.length);
-        console.log(item.socketColors);
         return { item: item, result: true };
       }
     }
