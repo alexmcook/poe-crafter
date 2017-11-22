@@ -74,6 +74,7 @@ class BaseSelector extends React.Component<
         max="100"
         onChange={e => this.handleChange(e)}
         value={this.props.currentItem.itemLevel}
+        style={{ marginLeft: '10px' }}
       />
     )];
   }

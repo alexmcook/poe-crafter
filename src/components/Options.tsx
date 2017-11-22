@@ -55,7 +55,11 @@ class Options extends React.Component<OptionsProps, OptionsState> {
 
   render() {
     const resetBtn = (
-      <Button color="red" onClick={() => this.openNested()}>
+      <Button
+        color="red"
+        onClick={() => this.openNested()}
+        style={{ marginTop: '20px' }}
+      >
         Reset
       </Button>
     );
@@ -90,59 +94,66 @@ class Options extends React.Component<OptionsProps, OptionsState> {
       >
         <Modal.Header>Options</Modal.Header>
         <Modal.Content className="no-select">
-          <Grid padded="horizontally">
-            <Grid.Row columns={16}>
-              <Grid.Column width={16}>
-                <p style={{ fontSize: '12pt' }}>Base Selection</p>
-                <BaseSelectorContainer />
-                <br />
-              </Grid.Column>
-              <Grid.Column width={16}>
-                <span
-                  onClick={() => this.toggle('forceShift')}
-                  className="no-select"
-                  style={{ fontSize: '12pt', cursor: 'pointer' }}
-                >
-                  <Icon
-                    name={
-                      this.props.forceShiftState ? 'toggle on' : 'toggle off'
-                    }
-                    fitted={true}
+          <Modal.Description>
+            <Grid padded="horizontally">
+              <Grid.Row columns={16}>
+                <Grid.Column width={16}>
+                  <p style={{ fontSize: '14pt', marginBottom: '5px' }}>Base Selection</p>
+                  <BaseSelectorContainer />
+                </Grid.Column>
+                <Grid.Column width={16} style={{ marginTop: '5px' }}>
+                  <p style={{ fontSize: '14pt', marginTop: '10px', marginBottom: '5px' }}>Options</p>
+                  <span
+                    onClick={() => this.toggle('forceShift')}
+                    className="no-select"
                     style={{
-                      fontSize: '17pt',
-                      verticalAlign: 'top',
-                      lineHeight: 1.1
+                      fontSize: '12pt',
+                      cursor: 'pointer',
+                      marginTop: '5px'
                     }}
-                  />
-                  {' Force use shift key'}
-                </span>
-              </Grid.Column>
-              <Grid.Column width={16}>
-                <span
-                  onClick={() => this.toggle('anchorItemBox')}
-                  className="no-select"
-                  style={{ fontSize: '12pt', cursor: 'pointer' }}
-                >
-                  <Icon
-                    name={
-                      this.props.anchorItemBoxState ? 'toggle on' : 'toggle off'
-                    }
-                    fitted={true}
+                  >
+                    <Icon
+                      name={
+                        this.props.forceShiftState ? 'toggle on' : 'toggle off'
+                      }
+                      fitted={true}
+                      style={{
+                        fontSize: '17pt',
+                        verticalAlign: 'top',
+                        lineHeight: 1.1
+                      }}
+                    />
+                    {' Force use shift key'}
+                  </span>
+                </Grid.Column>
+                <Grid.Column width={16}>
+                  <span
+                    onClick={() => this.toggle('anchorItemBox')}
+                    className="no-select"
                     style={{
-                      fontSize: '17pt',
-                      verticalAlign: 'top',
-                      lineHeight: 1.1
+                      fontSize: '12pt',
+                      cursor: 'pointer',
+                      marginTop: '5px'
                     }}
-                  />
-                  {' Anchor item display window'}
-                </span>
-              </Grid.Column>
-              <Grid.Column width={16}>
-                <br />
-                {nestedModal}
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+                  >
+                    <Icon
+                      name={
+                        this.props.anchorItemBoxState ? 'toggle on' : 'toggle off'
+                      }
+                      fitted={true}
+                      style={{
+                        fontSize: '17pt',
+                        verticalAlign: 'top',
+                        lineHeight: 1.1
+                      }}
+                    />
+                    {' Anchor item display window'}
+                  </span>
+                </Grid.Column>
+                <Grid.Column width={16}>{nestedModal}</Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={() => this.close()}>Close</Button>
