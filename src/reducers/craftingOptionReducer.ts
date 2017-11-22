@@ -35,6 +35,7 @@ export interface CraftingOption {
 }
 
 export interface CraftingOptionsState {
+  currentMaster: string;
   haku: CraftingOption[];
   elreon: CraftingOption[];
   catarina: CraftingOption[];
@@ -45,6 +46,7 @@ export interface CraftingOptionsState {
 }
 
 const initialState = {
+  currentMaster: 'haku',
   haku: _.filter(craftingOptions, option => {
     return option.master === Master.HAKU;
   }),
@@ -70,6 +72,8 @@ const initialState = {
 
 export default (state: CraftingOptionsState = initialState, action: Action) => {
   switch (action.type) {
+    case 'MASTER_CLICK':
+      return { ...state, currentMaster: action.payload };
     default:
       return state;
   }

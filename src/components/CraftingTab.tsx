@@ -32,7 +32,9 @@ interface CraftingTabProps {
   optionClick: (
     option?: CraftingOption
   ) => { type: string; payload: CraftingOption };
+  masterClick: (master: string) => { type: string; payload: string };
   craftingOptions: {
+    currentMaster: string;
     haku: CraftingOption[];
     elreon: CraftingOption[];
     catarina: CraftingOption[];
@@ -60,75 +62,33 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
     this.state = {
       scrollerPos: 0,
       optionsPos: 0,
-      options: this.props.craftingOptions.haku,
-      optionsSlice: this.props.craftingOptions.haku.slice(0, 5)
+      options: this.props.craftingOptions[
+        this.props.craftingOptions.currentMaster
+      ],
+      optionsSlice: this.props.craftingOptions[
+        this.props.craftingOptions.currentMaster
+      ].slice(0, 5)
     };
   }
 
-  handleChangeMaster(master: string) {
-    this.props.optionClick(undefined);
-    switch (master) {
-      case 'HAKU':
-        this.setState({
-          scrollerPos: 0,
-          optionsPos: 0,
-          options: this.props.craftingOptions.haku,
-          optionsSlice: this.props.craftingOptions.haku.slice(0, 5)
-        });
-        break;
-      case 'ELREON':
-        this.setState({
-          scrollerPos: 0,
-          optionsPos: 0,
-          options: this.props.craftingOptions.elreon,
-          optionsSlice: this.props.craftingOptions.elreon.slice(0, 5)
-        });
-        break;
-      case 'CATARINA':
-        this.setState({
-          scrollerPos: 0,
-          optionsPos: 0,
-          options: this.props.craftingOptions.catarina,
-          optionsSlice: this.props.craftingOptions.catarina.slice(0, 5)
-        });
-        break;
-      case 'VAGAN':
-        this.setState({
-          scrollerPos: 0,
-          optionsPos: 0,
-          options: this.props.craftingOptions.vagan,
-          optionsSlice: this.props.craftingOptions.vagan.slice(0, 5)
-        });
-        break;
-      case 'TORA':
-        this.setState({
-          scrollerPos: 0,
-          optionsPos: 0,
-          options: this.props.craftingOptions.tora,
-          optionsSlice: this.props.craftingOptions.tora.slice(0, 5)
-        });
-        break;
-      case 'LEO':
-        this.setState({
-          scrollerPos: 0,
-          optionsPos: 0,
-          options: this.props.craftingOptions.leo,
-          optionsSlice: this.props.craftingOptions.leo.slice(0, 5)
-        });
-        break;
-      case 'VORICI':
-        this.setState({
-          scrollerPos: 0,
-          optionsPos: 0,
-          options: this.props.craftingOptions.vorici,
-          optionsSlice: this.props.craftingOptions.vorici.slice(0, 5)
-        });
-        break;
-      default:
-        break;
+  componentWillReceiveProps(nextProps: CraftingTabProps) {
+    if (
+      nextProps.craftingOptions.currentMaster !==
+      this.props.craftingOptions.currentMaster
+    ) {
+      this.setState({
+        scrollerPos: 0,
+        optionsPos: 0,
+        options: this.props.craftingOptions[
+          nextProps.craftingOptions.currentMaster
+        ],
+        optionsSlice: this.props.craftingOptions[
+          nextProps.craftingOptions.currentMaster
+        ].slice(0, 5)
+      });
     }
   }
-
+  
   handleScroll(e?: WheelEvent, delta?: number) {
     let scrollDown = (n: number) => {
       // SCROLL DOWN
@@ -324,7 +284,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               width={240}
               height={100}
               text={'Haku'}
-              onClick={() => this.handleChangeMaster('HAKU')}
+              onClick={() => this.props.masterClick('haku')}
             />
             <GenericButton
               x={200}
@@ -332,7 +292,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               width={240}
               height={100}
               text={'Elreon'}
-              onClick={() => this.handleChangeMaster('ELREON')}
+              onClick={() => this.props.masterClick('elreon')}
             />
             <GenericButton
               x={200}
@@ -340,7 +300,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               width={240}
               height={100}
               text={'Catarina'}
-              onClick={() => this.handleChangeMaster('CATARINA')}
+              onClick={() => this.props.masterClick('catarina')}
             />
             <GenericButton
               x={200}
@@ -348,7 +308,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               width={240}
               height={100}
               text={'Vagan'}
-              onClick={() => this.handleChangeMaster('VAGAN')}
+              onClick={() => this.props.masterClick('vagan')}
             />
             <GenericButton
               x={842}
@@ -356,7 +316,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               width={240}
               height={100}
               text={'Tora'}
-              onClick={() => this.handleChangeMaster('TORA')}
+              onClick={() => this.props.masterClick('tora')}
             />
             <GenericButton
               x={842}
@@ -364,7 +324,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               width={240}
               height={100}
               text={'Leo'}
-              onClick={() => this.handleChangeMaster('LEO')}
+              onClick={() => this.props.masterClick('leo')}
             />
             <GenericButton
               x={842}
@@ -372,7 +332,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               width={240}
               height={100}
               text={'Vorici'}
-              onClick={() => this.handleChangeMaster('VORICI')}
+              onClick={() => this.props.masterClick('vorici')}
             />
             <CraftButton
               item={this.props.item}

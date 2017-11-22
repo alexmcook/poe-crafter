@@ -653,7 +653,10 @@ export default (state: ItemState = initialState, action: Action) => {
       };
     case 'OPTION_CLICK':
       if (
-        checkAvailability(state.currentItem, action.payload as CraftingOption) === 0
+        checkAvailability(
+          state.currentItem,
+          action.payload as CraftingOption
+        ) === 0
       ) {
         return {
           ...state,
@@ -665,6 +668,8 @@ export default (state: ItemState = initialState, action: Action) => {
           selectedOption: undefined
         };
       }
+    case 'MASTER_CLICK':
+      return { ...state, selectedOption: undefined };
     case 'KEY_UP':
       return {
         ...state,

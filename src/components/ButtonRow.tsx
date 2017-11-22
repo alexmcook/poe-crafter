@@ -10,7 +10,7 @@ class ButtonRow extends React.Component<ButtonRowProps> {
   render() {
     return (
       <Grid.Row centered={true}>
-        <Button.Group size="large">
+        <Button.Group size="large" style={{ marginTop: '10px' }}>
           <Button onClick={() => this.props.changeTab('Currency')}>
             Currency
           </Button>

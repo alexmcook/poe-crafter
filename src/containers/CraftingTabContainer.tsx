@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { State } from '../reducers';
-import * as currency from '../actions/currencyActions';
+import * as craft from '../actions/craftActions';
 import * as input from '../actions/inputActions';
 import CraftingTab from '../components/CraftingTab';
 
@@ -18,8 +18,9 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = {
   mouseMove: input.mouseMove,
   mouseLeave: input.mouseLeave,
-  craftClick: currency.craftClick,
-  optionClick: currency.optionClick
+  craftClick: craft.craftClick,
+  optionClick: craft.optionClick,
+  masterClick: craft.masterClick
 };
 
 const CraftingTabContainer = connect(mapStateToProps, mapDispatchToProps)(

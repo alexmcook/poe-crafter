@@ -41,7 +41,6 @@ class App extends React.Component<AppProps> {
     return (
       <Grid columns={16}>
         <CurrencyCursorContainer />
-        <br />
         <ButtonRowContainer />
         {this.getTab(this.props.currentTab)}
       </Grid>
