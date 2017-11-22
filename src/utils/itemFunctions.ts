@@ -3,6 +3,22 @@ import Item, { Rarity } from './item';
 import Mod, { GenerationType, Domain } from './mod';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
 
+enum CraftingError {
+  NONE = 0,
+  BASE = 1,
+  CORRUPT = 2,
+  CRAFTED = 3,
+  NOTCRAFTED = 4,
+  GROUP = 5,
+  PREFIX = 6,
+  SUFFIX = 7,
+  SOCKETS = 8,
+  LINKS = 9,
+  NUMSOCKETS = 10,
+  MAXSOCKETS = 11,
+  NOSOCKETS = 12
+}
+
 /* Filter mods to include only mods with a shared tag that have a spawnWeight greater than value */
 export function filterSpawnWeightTagsMatch(mods: Mod[], tags: string[]): Mod[] {
   return _.filter(mods, mod => {
@@ -113,7 +129,7 @@ export function checkAvailability(
   craftOption: CraftingOption
 ): number {
   if (!craftOption || item.corrupted) {
-    return 2;
+    return CraftingError.CORRUPT;
   } else if (craftOption.mod) {
     let affixSpace = checkAffixCount(item, craftOption.mod.generationType);
     let match = _.some(item.mods, (mod: Mod) => {
@@ -123,64 +139,68 @@ export function checkAvailability(
       craftOption.itemTypes.length === 0 ||
       _.includes(craftOption.itemTypes, item.type);
     if (!correctType) {
-      return 1;
+      return CraftingError.BASE;
     } else if (item.crafted && !item.multiMod) {
-      return 3;
+      return CraftingError.CRAFTED;
     } else if (!affixSpace) {
-      return craftOption.mod.generationType === GenerationType.PREFIX ? 6 : 7;
+      return craftOption.mod.generationType === GenerationType.PREFIX
+        ? CraftingError.PREFIX
+        : CraftingError.SUFFIX;
     }
     let result = !match;
-    return result ? 0 : 5;
+    return result ? CraftingError.NONE : CraftingError.GROUP;
   } else if (craftOption.customAction) {
     if (craftOption.customAction.removeMod) {
       let correctType =
         craftOption.itemTypes.length === 0 ||
         _.includes(craftOption.itemTypes, item.type);
       if (!correctType) {
-        return 1;
+        return CraftingError.BASE;
       }
       let result = item.crafted;
-      return result ? 0 : 4;
+      return result ? CraftingError.NONE : CraftingError.NOTCRAFTED;
     } else if (craftOption.customAction.colors) {
       let correctType =
         craftOption.itemTypes.length === 0 ||
         _.includes(craftOption.itemTypes, item.type);
       if (!correctType) {
-        return 1;
+        return CraftingError.BASE;
       }
       let result = craftOption.customAction.colors.length <= item.sockets;
-      return result ? 0 : 10;
+      return result ? CraftingError.NONE : CraftingError.NUMSOCKETS;
     } else if (craftOption.customAction.links) {
       let correctType =
         craftOption.itemTypes.length === 0 ||
         _.includes(craftOption.itemTypes, item.type);
       if (!correctType) {
-        return 1;
+        return CraftingError.BASE;
       }
       let result1 = craftOption.customAction.links <= item.sockets;
       let result2 = craftOption.customAction.links !== item.socketLinks.length;
       if (result1 && result2) {
-        return 0;
+        return CraftingError.NONE;
       } else if (!result1) {
-        return 10;
+        return CraftingError.NUMSOCKETS;
       } else if (!result2) {
-        return 9;
+        return CraftingError.LINKS;
       }
     } else if (craftOption.customAction.sockets) {
       let correctType =
         craftOption.itemTypes.length === 0 ||
         _.includes(craftOption.itemTypes, item.type);
       if (!correctType) {
-        return 1;
+        return CraftingError.BASE;
       }
       let result1 = craftOption.customAction.sockets <= item.maxSockets;
       let result2 = item.sockets !== craftOption.customAction.sockets;
       if (result1 && result2) {
-        return 0;
+        return CraftingError.NONE;
       } else if (!result1) {
-        return 11;
+        return item.maxSockets === CraftingError.NONE
+          ? CraftingError.NOSOCKETS
+          : CraftingError.MAXSOCKETS;
       } else if (!result2) {
-        return 8;
+        return CraftingError.SOCKETS;
       }
     }
   }

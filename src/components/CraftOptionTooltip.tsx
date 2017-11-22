@@ -8,7 +8,7 @@ interface CraftOptionTooltipProps {
 
 class CraftOptionTooltip extends React.Component<CraftOptionTooltipProps> {
   private errors = [
-    'DO NOT USE 0 INDEX',
+    'NONE (Unused)',
     'Item has the wrong base type.',
     'Target is corrupted.',
     'This item already has a crafted Mod.',
