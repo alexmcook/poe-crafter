@@ -7,6 +7,9 @@ import Separator from '../components/Separator';
 interface CurrencyTooltipProps {
   name: string;
   text: string[] | string;
+  imprintName?: string;
+  imprintBase?: string;
+  imprintRarity?: Rarity;
   stackSize?: number;
 }
 
@@ -44,6 +47,23 @@ class CurrencyTooltip extends React.Component<CurrencyTooltipProps> {
     );
   }
 
+  createComma() {
+    return <span className="text--descriptor">, </span>;
+  }
+
+  createImprint(base: string, name?: string, rarity?: Rarity) {
+    return (
+      <span className="text--descriptor">
+        Imprinted:{' '}
+        <span className={'text--' + (rarity ? rarity : 'normal')}>
+          {rarity !== Rarity.NORMAL ? name : null}
+          {rarity !== Rarity.NORMAL ? this.createComma() : null}
+          {base}
+        </span>
+      </span>
+    );
+  }
+
   render() {
     return (
       <div className="currency-tooltip no-select no-pointer-events">
@@ -55,6 +75,13 @@ class CurrencyTooltip extends React.Component<CurrencyTooltipProps> {
         <div className="item-stats">
           {this.props.stackSize
             ? this.createStackSize(this.props.stackSize)
+            : null}
+          {this.props.imprintBase
+            ? this.createImprint(
+                this.props.imprintBase,
+                this.props.imprintName,
+                this.props.imprintRarity
+              )
             : null}
           {this.props.stackSize ? this.createSeparator(0, 'currency') : null}
           {this.reduceText()}

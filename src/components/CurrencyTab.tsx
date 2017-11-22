@@ -3,6 +3,7 @@ import TabRect from './TabRect';
 import ItemRect from './ItemRect';
 import ItemSockets from './ItemSockets';
 import { Grid } from 'semantic-ui-react';
+import { Rarity } from '../utils/item';
 const background = require('../assets/currencytab.png');
 
 interface CurrencyTabProps {
@@ -18,6 +19,9 @@ interface CurrencyTabProps {
   ) => { type: string; payload: { x: number; y: number } };
   mouseLeave: () => { type: string; payload: {} };
   anchorItemBox: boolean;
+  imprintName: string;
+  imprintBase: string;
+  imprintRarity: Rarity;
 }
 
 interface CurrencyTabState {
@@ -301,6 +305,9 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               }}
               name="Imprint"
               currencyText="Restores an imprinted item onto the original"
+              imprintName={this.props.imprintName}
+              imprintBase={this.props.imprintBase}
+              imprintRarity={this.props.imprintRarity}
             />
             <ItemRect
               x={565}

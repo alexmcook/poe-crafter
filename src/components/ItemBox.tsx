@@ -70,10 +70,7 @@ class ItemBox extends React.Component<ItemBoxProps> {
 
     if (header.length > 0) {
       elements.push(header);
-      console.log('header');
     }
-
-    console.log(header);
 
     if (
       this.props.item.requirement &&
@@ -131,7 +128,6 @@ class ItemBox extends React.Component<ItemBoxProps> {
       output = elements;
     }
 
-    console.log(output);
     return (
       <Grid.Row className="no-pointer-events">
         <Grid.Column>

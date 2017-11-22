@@ -72,7 +72,7 @@ class CraftButton extends React.Component<
         key={this.props.text + 'text'}
         className={
           'no-pointer-events ' +
-          (this.props.disabled ? 'crafting-text-gray' : 'crafting-text')
+          (this.props.disabled ? 'crafting-text-disabled' : 'crafting-text')
         }
         x={this.props.x + this.props.width / 2}
         y={this.props.y + this.props.height / 2}

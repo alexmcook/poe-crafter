@@ -1,9 +1,10 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import TabRect from './TabRect';
 import ItemRect from './ItemRect';
 import ItemSockets from './ItemSockets';
 import { Grid } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import { Rarity } from '../utils/item';
 const background = require('../assets/essencetab.png');
 const essenceTexts: EssenceText[] = require('../data/essenceText.json');
 
@@ -30,6 +31,9 @@ interface EssenceTabProps {
   ) => { type: string; payload: { x: number; y: number } };
   mouseLeave: () => { type: string; payload: {} };
   anchorItemBox: boolean;
+  imprintName: string;
+  imprintBase: string;
+  imprintRarity: Rarity;
 }
 
 interface EssenceTabState {
@@ -1511,6 +1515,9 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
               }}
               name="Imprint"
               currencyText="Restores an imprinted item onto the original"
+              imprintName={this.props.imprintName}
+              imprintBase={this.props.imprintBase}
+              imprintRarity={this.props.imprintRarity}
             />
             //#endregion
             <ItemRect

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import TooltipContainer from '../containers/TooltipContainer';
 import CurrencyTooltip from '../components/CurrencyTooltip';
+import { Rarity } from '../utils/item';
 
 interface TabRectProps {
   name: string;
@@ -11,6 +12,9 @@ interface TabRectProps {
   count: number;
   currencyText?: string;
   essenceText?: string[];
+  imprintName?: string;
+  imprintBase?: string;
+  imprintRarity?: Rarity;
   stackSize?: number;
 }
 
@@ -59,6 +63,15 @@ class TabRect extends React.Component<TabRectProps> {
               : this.props.essenceText
                 ? this.props.essenceText
                 : this.props.name
+          }
+          imprintName={
+            this.props.imprintName ? this.props.imprintName : undefined
+          }
+          imprintBase={
+            this.props.imprintBase ? this.props.imprintBase : undefined
+          }
+          imprintRarity={
+            this.props.imprintRarity ? this.props.imprintRarity : undefined
           }
           stackSize={this.props.stackSize ? this.props.stackSize : undefined}
         />
