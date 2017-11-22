@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Tooltip from '../components/Tooltip';
-import CurrencyTooltip from '../components/CurrencyTooltip';
+import ItemContainer from '../containers/ItemContainer';
 
 interface TabRectProps {
   name: string;
@@ -51,17 +51,7 @@ class TabRect extends React.Component<TabRectProps> {
           </a>
         }
       >
-        <CurrencyTooltip
-          name={this.props.name}
-          text={
-            this.props.currencyText
-              ? this.props.currencyText
-              : this.props.essenceText
-                ? this.props.essenceText
-                : this.props.name
-          }
-          stackSize={this.props.stackSize ? this.props.stackSize : undefined}
-        />
+        <ItemContainer />
       </Tooltip>
     );
   }

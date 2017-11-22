@@ -6,6 +6,7 @@ import Requirements from './Requirements';
 import Stat from './Stat';
 import Separator from './Separator';
 import Item from '../utils/item';
+import { Grid } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
 
@@ -128,19 +129,23 @@ class ItemBox extends React.Component<ItemBoxProps> {
     }
 
     return (
-      <div className="item-box no-select">
-        <Title
-          itemName={this.props.item.getName()}
-          baseName={this.props.item.name}
-          rarity={this.props.item.rarity}
-        />
-        <div className="item-stats">
-          {output}
-          {this.props.item.corrupted ? (
-            <span className="text--corrupt">Corrupted</span>
-          ) : null}
-        </div>
-      </div>
+      <Grid.Row className="no-pointer-events">
+        <Grid.Column>
+          <div className="item-box no-select">
+            <Title
+              itemName={this.props.item.getName()}
+              baseName={this.props.item.name}
+              rarity={this.props.item.rarity}
+            />
+            <div className="item-stats">
+              {output}
+              {this.props.item.corrupted ? (
+                <span className="text--corrupt">Corrupted</span>
+              ) : null}
+            </div>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
     );
   }
 }

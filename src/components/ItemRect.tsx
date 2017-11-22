@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Tooltip from '../components/Tooltip';
 import ItemContainer from '../containers/ItemContainer';
+import Tooltip from '../components/Tooltip';
 
 interface ItemRectProps {
   xlinkHref: string;
@@ -58,20 +58,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
     return (
       <Tooltip
         trigger={
-        <svg>
-          <rect
-            key={'rect' + this.props.x + this.props.y}
-            className="rect-capture"
-            onClick={e => this.props.onClick(e.nativeEvent)}
-            x={this.props.x}
-            y={this.props.y}
-            opacity="0.7"
-            fill="#04041E"
-            width={this.props.width}
-            height={this.props.height}
-          />,
           <svg
-            key={'img' + this.props.x + this.props.y}
             viewBox="0 0 166 340"
             width={this.props.width}
             height={this.props.height}
@@ -79,6 +66,16 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
             y={this.props.y}
             preserveAspectRatio="xMinYMin meet"
           >
+            <rect
+              className="rect-capture"
+              onClick={e => this.props.onClick(e.nativeEvent)}
+              x={0}
+              y={0}
+              opacity="0.7"
+              fill="#04041E"
+              width={166}
+              height={340}
+            />
             <image
               className="no-pointer-events"
               xlinkHref={this.props.xlinkHref}
@@ -89,9 +86,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
               onLoad={() => this.getImg()}
             />
           </svg>
-        </svg>
         }
-        alwaysOn={this.props.alwaysOn}
       >
         <ItemContainer />
       </Tooltip>
