@@ -88,7 +88,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
       });
     }
   }
-  
+
   handleScroll(e?: WheelEvent, delta?: number) {
     let scrollDown = (n: number) => {
       // SCROLL DOWN
@@ -285,6 +285,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Haku'}
               onClick={() => this.props.masterClick('haku')}
+              disabled={this.props.craftingOptions.currentMaster === 'haku'}
             />
             <GenericButton
               x={200}
@@ -293,6 +294,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Elreon'}
               onClick={() => this.props.masterClick('elreon')}
+              disabled={this.props.craftingOptions.currentMaster === 'elreon'}
             />
             <GenericButton
               x={200}
@@ -301,6 +303,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Catarina'}
               onClick={() => this.props.masterClick('catarina')}
+              disabled={this.props.craftingOptions.currentMaster === 'catarina'}
             />
             <GenericButton
               x={200}
@@ -309,6 +312,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Vagan'}
               onClick={() => this.props.masterClick('vagan')}
+              disabled={this.props.craftingOptions.currentMaster === 'vagan'}
             />
             <GenericButton
               x={842}
@@ -317,6 +321,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Tora'}
               onClick={() => this.props.masterClick('tora')}
+              disabled={this.props.craftingOptions.currentMaster === 'tora'}
             />
             <GenericButton
               x={842}
@@ -325,6 +330,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Leo'}
               onClick={() => this.props.masterClick('leo')}
+              disabled={this.props.craftingOptions.currentMaster === 'leo'}
             />
             <GenericButton
               x={842}
@@ -333,6 +339,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Vorici'}
               onClick={() => this.props.masterClick('vorici')}
+              disabled={this.props.craftingOptions.currentMaster === 'vorici'}
             />
             <CraftButton
               item={this.props.item}

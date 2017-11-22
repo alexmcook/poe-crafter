@@ -2,6 +2,7 @@ import * as React from 'react';
 const genericBtn = require('../assets/button/genericbutton.png');
 const genericBtnHighlight = require('../assets/button/genericbuttonhighlight.png');
 const genericBtnActive = require('../assets/button/genericbuttonactive.png');
+const genericBtnDisabled = require('../assets/button/genericbuttongrayscale.png');
 
 interface GenericButtonProps {
   x: number;
@@ -10,6 +11,10 @@ interface GenericButtonProps {
   height: number;
   text: string;
   onClick: () => void;
+}
+
+interface GenericButtonProps {
+  disabled?: boolean;
 }
 
 interface GenericButtonState {
@@ -22,7 +27,9 @@ class CraftButton extends React.Component<
 > {
   constructor(props: GenericButtonProps) {
     super(props);
-    this.state = { buttonState: genericBtn };
+    this.state = {
+      buttonState: genericBtn
+    };
   }
 
   handleMouseEnter() {
@@ -35,7 +42,9 @@ class CraftButton extends React.Component<
 
   handleMouseDown() {
     this.setState({ buttonState: genericBtnActive });
-    this.props.onClick();
+    if (!this.props.disabled) {
+      this.props.onClick();
+    }
   }
 
   handleMouseUp() {
@@ -46,7 +55,9 @@ class CraftButton extends React.Component<
     return [(
       <image
         key={this.props.text + 'btn'}
-        xlinkHref={this.state.buttonState}
+        xlinkHref={
+          this.props.disabled ? genericBtnDisabled : this.state.buttonState
+        }
         width={this.props.width}
         height={this.props.height}
         x={this.props.x}
@@ -59,7 +70,10 @@ class CraftButton extends React.Component<
     ), (
       <text
         key={this.props.text + 'text'}
-        className="no-pointer-events crafting-text"
+        className={
+          'no-pointer-events ' +
+          (this.props.disabled ? 'crafting-text-gray' : 'crafting-text')
+        }
         x={this.props.x + this.props.width / 2}
         y={this.props.y + this.props.height / 2}
         textAnchor="middle"
