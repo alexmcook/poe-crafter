@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
+import TooltipContainer from '../containers/TooltipContainer';
+import CraftOptionTooltip from '../components/CraftOptionTooltip';
 const option = require('../assets/craftingbench/craftingbenchslot.png');
 const optionHighlight = require('../assets/craftingbench/craftingbenchslothighlight.png');
 
@@ -118,47 +120,60 @@ class CraftOption extends React.Component<CraftOptionProps> {
         ? this.createTextElement(90, 78, 1)
         : null;
     return (
-      <svg>
-        <image
-          xlinkHref={
-            this.props.selectedOption === this.props.option
-              ? optionHighlight
-              : option
-          }
-          onClick={() => this.props.optionClick(this.props.option)}
-          onWheel={e => this.props.handleScroll(e.nativeEvent)}
-          width="880"
-          height="173"
-          x={this.props.x}
-          y={this.props.y}
+      <TooltipContainer
+        trigger={
+          <svg>
+            <image
+              xlinkHref={
+                this.props.selectedOption === this.props.option
+                  ? optionHighlight
+                  : option
+              }
+              onClick={() => this.props.optionClick(this.props.option)}
+              onWheel={e => this.props.handleScroll(e.nativeEvent)}
+              width="880"
+              height="173"
+              x={this.props.x}
+              y={this.props.y}
+            />
+            {singleOptionText}
+            {doubleOptionText1}
+            {doubleOptionText2}
+            <text
+              className="crafting-text-gray no-pointer-events"
+              x={this.props.x + 90}
+              y={this.props.y + 142}
+            >
+              {this.props.option.mod
+                ? 'lvl: ' + this.props.option.mod.level
+                : null}
+            </text>
+            <text
+              className="crafting-text-gray no-pointer-events"
+              textAnchor="end"
+              x={this.props.x + 742}
+              y={this.props.y + 142}
+            >
+              cost: {this.props.option.costValue}
+            </text>
+            <image
+              className="no-pointer-events"
+              xlinkHref={this.getSource(this.props.option.costItem)}
+              width="48"
+              height="48"
+              x={this.props.x + 746}
+              y={this.props.y + 108}
+            />
+          </svg>
+        }
+        mountToCursor={true}
+        mountOffset={{ x: 40, y: 0 }}
+      >
+        <CraftOptionTooltip
+          types={this.props.option.itemTypes}
+          error={this.props.available}
         />
-        {singleOptionText}
-        {doubleOptionText1}
-        {doubleOptionText2}
-        <text
-          className="crafting-text-gray no-pointer-events"
-          x={this.props.x + 90}
-          y={this.props.y + 142}
-        >
-          {this.props.option.mod ? 'lvl: ' + this.props.option.mod.level : null}
-        </text>
-        <text
-          className="crafting-text-gray no-pointer-events"
-          textAnchor="end"
-          x={this.props.x + 742}
-          y={this.props.y + 142}
-        >
-          cost: {this.props.option.costValue}
-        </text>
-        <image
-          className="no-pointer-events"
-          xlinkHref={this.getSource(this.props.option.costItem)}
-          width="48"
-          height="48"
-          x={this.props.x + 746}
-          y={this.props.y + 108}
-        />
-      </svg>
+      </TooltipContainer>
     );
   }
 }

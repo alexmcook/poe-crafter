@@ -10,13 +10,11 @@ interface TooltipProps {
   alwaysOn?: boolean;
   mountToCursor?: boolean;
   mountOffset?: { x: number; y: number };
-  closeOnWheel?: boolean;
 }
 
 interface TooltipState {
   x: number;
   y: number;
-  open?: boolean;
 }
 
 class Tooltip extends React.Component<TooltipProps, TooltipState> {
@@ -55,12 +53,16 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
     nextProps: TooltipProps,
     nextState: TooltipState
   ): boolean {
-    if (nextProps.mountToCursor) {
+    if (nextProps.trigger !== this.props.trigger) {
+      return true;
+    } else if (nextProps.mountToCursor) {
       let deltaX = Math.abs(nextProps.cursorX - this.state.x);
       let deltaY = Math.abs(nextProps.cursorY - this.state.y);
       if (deltaX === 0 && deltaY === 0) {
+        console.log('update fail');
         return false;
       } else {
+        console.log('update success');
         return true;
       }
     } else {
@@ -123,7 +125,7 @@ class Tooltip extends React.Component<TooltipProps, TooltipState> {
           trigger={this.props.trigger}
           openOnTriggerMouseEnter={true}
           closeOnTriggerMouseLeave={true}
-          open={this.props.alwaysOn ? this.props.alwaysOn : this.state.open}
+          open={this.props.alwaysOn ? this.props.alwaysOn : undefined}
         >
           {tooltip}
         </Portal>

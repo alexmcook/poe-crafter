@@ -43,15 +43,16 @@ class CraftOptionTooltip extends React.Component<CraftOptionTooltipProps> {
 
   getError() {
     if (this.props.error > 0 && this.props.types.length > 0) {
-      return [(
-        <br id={'br1' + this.props.error} />
-      ), (
-        <br id={'br2' + this.props.error} />
-      ), (
-        <div id="error" className="text--corrupt">{this.errors[this.props.error]}</div>
-      )];
+      return (
+        <div>
+          <br />
+          <div className="text--corrupt">{this.errors[this.props.error]}</div>
+        </div>
+      );
     } else if (this.props.error > 0) {
-      return (<div className="text--corrupt">{this.errors[this.props.error]}</div>);
+      return (
+        <div className="text--corrupt">{this.errors[this.props.error]}</div>
+      );
     } else {
       return null;
     }

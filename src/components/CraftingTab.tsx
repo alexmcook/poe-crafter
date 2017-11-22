@@ -5,7 +5,6 @@ import ItemRect from '../components/ItemRect';
 import ItemSockets from '../components/ItemSockets';
 import { Grid } from 'semantic-ui-react';
 import CraftOption from '../components/CraftOption';
-import CraftOptionRect from '../components/CraftOptionRect';
 import CraftButton from '../components/CraftButton';
 import GenericButton from '../components/GenericButton';
 import Item from '../utils/item';
@@ -223,16 +222,6 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               x={169}
               y={172}
             />
-            <CraftOptionRect
-              x={169}
-              y={172}
-              types={this.state.optionsSlice[0].itemTypes}
-              error={checkAvailability(
-                this.props.item,
-                this.state.optionsSlice[0]
-              )}
-              handleScroll={e => this.handleScroll(e)}
-            />
             <CraftOption
               option={this.state.optionsSlice[1]}
               selectedOption={this.props.selectedOption}
@@ -244,16 +233,6 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               handleScroll={e => this.handleScroll(e)}
               x={169}
               y={344}
-            />
-            <CraftOptionRect
-              x={169}
-              y={344}
-              types={this.state.optionsSlice[1].itemTypes}
-              error={checkAvailability(
-                this.props.item,
-                this.state.optionsSlice[1]
-              )}
-              handleScroll={e => this.handleScroll(e)}
             />
             <CraftOption
               option={this.state.optionsSlice[2]}
@@ -267,16 +246,6 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               x={169}
               y={516}
             />
-            <CraftOptionRect
-              x={169}
-              y={516}
-              types={this.state.optionsSlice[2].itemTypes}
-              error={checkAvailability(
-                this.props.item,
-                this.state.optionsSlice[2]
-              )}
-              handleScroll={e => this.handleScroll(e)}
-            />
             <CraftOption
               option={this.state.optionsSlice[3]}
               selectedOption={this.props.selectedOption}
@@ -289,16 +258,6 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               x={169}
               y={688}
             />
-            <CraftOptionRect
-              x={169}
-              y={688}
-              types={this.state.optionsSlice[3].itemTypes}
-              error={checkAvailability(
-                this.props.item,
-                this.state.optionsSlice[3]
-              )}
-              handleScroll={e => this.handleScroll(e)}
-            />
             <CraftOption
               option={this.state.optionsSlice[4]}
               selectedOption={this.props.selectedOption}
@@ -310,16 +269,6 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               handleScroll={e => this.handleScroll(e)}
               x={169}
               y={860}
-            />
-            <CraftOptionRect
-              x={169}
-              y={860}
-              types={this.state.optionsSlice[4].itemTypes}
-              error={checkAvailability(
-                this.props.item,
-                this.state.optionsSlice[4]
-              )}
-              handleScroll={e => this.handleScroll(e)}
             />
             <image
               xlinkHref={scrollBar}
