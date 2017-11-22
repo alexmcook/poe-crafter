@@ -154,7 +154,7 @@ class CraftOption extends React.Component<CraftOptionProps> {
               x={this.props.x + 742}
               y={this.props.y + 142}
             >
-              cost: {this.props.option.costValue}
+              cost: {this.props.option.costValue}x
             </text>
             <image
               className="no-pointer-events"
