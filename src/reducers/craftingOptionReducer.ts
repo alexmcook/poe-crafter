@@ -1,4 +1,4 @@
-import { Action } from '../actions';
+import { Action, CraftScrollAction, DefaultAction } from '../actions';
 import Mod from '../utils/mod';
 import * as _ from 'lodash';
 const craftingOptions: CraftingOption[] = require('../data/craftingOptions.json');
@@ -14,39 +14,7 @@ enum Master {
   LEO = 7
 }
 
-export interface CustomAction {
-  removeMod: boolean;
-  sockets: number;
-  colors: string;
-  links: number;
-}
-
-export interface CraftingOption {
-  name: string;
-  text: string;
-  order: number;
-  mod: Mod;
-  costItem: string;
-  costValue: number;
-  master: number;
-  masterLevel: number;
-  itemTypes: string[];
-  customAction: CustomAction;
-}
-
-export interface CraftingOptionsState {
-  currentMaster: string;
-  haku: CraftingOption[];
-  elreon: CraftingOption[];
-  catarina: CraftingOption[];
-  vagan: CraftingOption[];
-  tora: CraftingOption[];
-  leo: CraftingOption[];
-  vorici: CraftingOption[];
-}
-
-const initialState = {
-  currentMaster: 'haku',
+const masterOptions = {
   haku: _.filter(craftingOptions, option => {
     return option.master === Master.HAKU;
   }),
@@ -70,10 +38,65 @@ const initialState = {
   })
 };
 
+export interface CustomAction {
+  removeMod: boolean;
+  sockets: number;
+  colors: string;
+  links: number;
+}
+
+export interface CraftingOption {
+  name: string;
+  text: string;
+  order: number;
+  mod: Mod;
+  costItem: string;
+  costValue: number;
+  master: number;
+  masterLevel: number;
+  itemTypes: string[];
+  customAction: CustomAction;
+}
+
+export interface CraftingOptionsState {
+  currentMaster: string;
+  options: CraftingOption[];
+  optionsSlice: CraftingOption[];
+  scrollerPos: number;
+  optionsPos: number;
+}
+
+const initialState = {
+  currentMaster: 'haku',
+  options: masterOptions.haku,
+  optionsSlice: masterOptions.haku.slice(0, 5),
+  scrollerPos: 0,
+  optionsPos: 0
+};
+
 export default (state: CraftingOptionsState = initialState, action: Action) => {
   switch (action.type) {
     case 'MASTER_CLICK':
-      return { ...state, currentMaster: action.payload };
+      let masterAction = action as DefaultAction;
+      return {
+        ...state,
+        currentMaster: action.payload,
+        options: masterOptions[masterAction.payload],
+        optionsSlice: masterOptions[masterAction.payload].slice(0, 5),
+        scrollerPos: 0,
+        optionsPos: 0
+      };
+    case 'SCROLL':
+      let scrollAction = action as CraftScrollAction;
+      return {
+        ...state,
+        optionsSlice: state.options.slice(
+          scrollAction.payload.optionsPos,
+          scrollAction.payload.optionsPos + 5
+        ),
+        scrollerPos: scrollAction.payload.scrollerPos,
+        optionsPos: scrollAction.payload.optionsPos
+      };
     default:
       return state;
   }

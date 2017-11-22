@@ -16,10 +16,10 @@ interface EssenceText {
 interface EssenceTabProps {
   count: { [key: string]: number };
   essenceCount: { [key: string]: { [key: number]: number } };
+  itemArt: string;
   itemSockets: string;
   itemLinks: string;
   verticalSockets: boolean;
-  itemArt: string;
   orbClick: (orb: string) => { type: string; payload: string };
   essenceClick: (
     essence: string,

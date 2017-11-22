@@ -18,10 +18,10 @@ const scroller = require('../assets/craftingbench/scroller.png');
 
 interface CraftingTabProps {
   item: Item;
+  itemArt: string;
   itemSockets: string;
   itemLinks: string;
   verticalSockets: boolean;
-  itemArt: string;
   mouseMove: (
     e: MouseEvent
   ) => { type: string; payload: { x: number; y: number } };
@@ -33,17 +33,16 @@ interface CraftingTabProps {
     option?: CraftingOption
   ) => { type: string; payload: CraftingOption };
   masterClick: (master: string) => { type: string; payload: string };
-  craftingOptions: {
-    currentMaster: string;
-    haku: CraftingOption[];
-    elreon: CraftingOption[];
-    catarina: CraftingOption[];
-    vagan: CraftingOption[];
-    tora: CraftingOption[];
-    leo: CraftingOption[];
-    vorici: CraftingOption[];
-  };
+  craftScroll: (
+    scrollerPos: number,
+    optionsPos: number
+  ) => { type: string; payload: { scrollerPos: number; optionsPos: number } };
   selectedOption: CraftingOption;
+  currentMaster: string;
+  craftingOptions: CraftingOption[];
+  craftingOptionsSlice: CraftingOption[];
+  scrollerPos: number;
+  optionsPos: number;
   anchorItemBox: boolean;
 }
 
@@ -57,80 +56,35 @@ interface CraftingTabState {
 class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
   private scroller: SVGImageElement;
   private scrollBar: SVGImageElement;
-  constructor(props: CraftingTabProps) {
-    super(props);
-    this.state = {
-      scrollerPos: 0,
-      optionsPos: 0,
-      options: this.props.craftingOptions[
-        this.props.craftingOptions.currentMaster
-      ],
-      optionsSlice: this.props.craftingOptions[
-        this.props.craftingOptions.currentMaster
-      ].slice(0, 5)
-    };
-  }
-
-  componentWillReceiveProps(nextProps: CraftingTabProps) {
-    if (
-      nextProps.craftingOptions.currentMaster !==
-      this.props.craftingOptions.currentMaster
-    ) {
-      this.setState({
-        scrollerPos: 0,
-        optionsPos: 0,
-        options: this.props.craftingOptions[
-          nextProps.craftingOptions.currentMaster
-        ],
-        optionsSlice: this.props.craftingOptions[
-          nextProps.craftingOptions.currentMaster
-        ].slice(0, 5)
-      });
-    }
-  }
 
   handleScroll(e?: WheelEvent, delta?: number) {
     let scrollDown = (n: number) => {
       // SCROLL DOWN
       let nextScrollerPos =
-        this.state.scrollerPos + 706 / (this.state.options.length - 5) * n;
+        this.props.scrollerPos + 706 / (this.props.craftingOptions.length - 5) * n;
       if (nextScrollerPos === Infinity) {
         nextScrollerPos = 0;
       } else if (nextScrollerPos > 706) {
         nextScrollerPos = 706;
       }
-      let nextOptionsPos = this.state.optionsPos + 1 * n;
-      if (nextOptionsPos > this.state.options.length - 5) {
-        nextOptionsPos = this.state.options.length - 5;
+      let nextOptionsPos = this.props.optionsPos + 1 * n;
+      if (nextOptionsPos > this.props.craftingOptions.length - 5) {
+        nextOptionsPos = this.props.craftingOptions.length - 5;
       }
-      this.setState({
-        scrollerPos: nextScrollerPos,
-        optionsPos: nextOptionsPos,
-        optionsSlice: this.state.options.slice(
-          nextOptionsPos,
-          nextOptionsPos + 5
-        )
-      });
+      this.props.craftScroll(nextScrollerPos, nextOptionsPos);
     };
     let scrollUp = (n: number) => {
       // SCROLL UP
       let nextScrollerPos =
-        this.state.scrollerPos - 706 / (this.state.options.length - 5) * n;
+        this.props.scrollerPos - 706 / (this.props.craftingOptions.length - 5) * n;
       if (nextScrollerPos < 0) {
         nextScrollerPos = 0;
       }
-      let nextOptionsPos = this.state.optionsPos - 1 * n;
+      let nextOptionsPos = this.props.optionsPos - 1 * n;
       if (nextOptionsPos < 0) {
         nextOptionsPos = 0;
       }
-      this.setState({
-        scrollerPos: nextScrollerPos,
-        optionsPos: nextOptionsPos,
-        optionsSlice: this.state.options.slice(
-          nextOptionsPos,
-          nextOptionsPos + 5
-        )
-      });
+      this.props.craftScroll(nextScrollerPos, nextOptionsPos);
     };
     if (e) {
       e.preventDefault();
@@ -171,11 +125,11 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               y="75"
             />
             <CraftOption
-              option={this.state.optionsSlice[0]}
+              option={this.props.craftingOptionsSlice[0]}
               selectedOption={this.props.selectedOption}
               available={checkAvailability(
                 this.props.item,
-                this.state.optionsSlice[0]
+                this.props.craftingOptionsSlice[0]
               )}
               optionClick={this.props.optionClick}
               handleScroll={e => this.handleScroll(e)}
@@ -183,11 +137,11 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               y={172}
             />
             <CraftOption
-              option={this.state.optionsSlice[1]}
+              option={this.props.craftingOptionsSlice[1]}
               selectedOption={this.props.selectedOption}
               available={checkAvailability(
                 this.props.item,
-                this.state.optionsSlice[1]
+                this.props.craftingOptionsSlice[1]
               )}
               optionClick={this.props.optionClick}
               handleScroll={e => this.handleScroll(e)}
@@ -195,11 +149,11 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               y={344}
             />
             <CraftOption
-              option={this.state.optionsSlice[2]}
+              option={this.props.craftingOptionsSlice[2]}
               selectedOption={this.props.selectedOption}
               available={checkAvailability(
                 this.props.item,
-                this.state.optionsSlice[2]
+                this.props.craftingOptionsSlice[2]
               )}
               optionClick={this.props.optionClick}
               handleScroll={e => this.handleScroll(e)}
@@ -207,11 +161,11 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               y={516}
             />
             <CraftOption
-              option={this.state.optionsSlice[3]}
+              option={this.props.craftingOptionsSlice[3]}
               selectedOption={this.props.selectedOption}
               available={checkAvailability(
                 this.props.item,
-                this.state.optionsSlice[3]
+                this.props.craftingOptionsSlice[3]
               )}
               optionClick={this.props.optionClick}
               handleScroll={e => this.handleScroll(e)}
@@ -219,11 +173,11 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               y={688}
             />
             <CraftOption
-              option={this.state.optionsSlice[4]}
+              option={this.props.craftingOptionsSlice[4]}
               selectedOption={this.props.selectedOption}
               available={checkAvailability(
                 this.props.item,
-                this.state.optionsSlice[4]
+                this.props.craftingOptionsSlice[4]
               )}
               optionClick={this.props.optionClick}
               handleScroll={e => this.handleScroll(e)}
@@ -249,7 +203,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               }}
               onClick={e => this.handleClick(e.nativeEvent)}
               onWheel={e => this.handleScroll(e.nativeEvent)}
-              transform={'translate(0, ' + this.state.scrollerPos + ')'}
+              transform={'translate(0, ' + this.props.scrollerPos + ')'}
               width="33"
               height="84"
               x="1065"
@@ -285,7 +239,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Haku'}
               onClick={() => this.props.masterClick('haku')}
-              disabled={this.props.craftingOptions.currentMaster === 'haku'}
+              disabled={this.props.currentMaster === 'haku'}
             />
             <GenericButton
               x={200}
@@ -294,7 +248,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Elreon'}
               onClick={() => this.props.masterClick('elreon')}
-              disabled={this.props.craftingOptions.currentMaster === 'elreon'}
+              disabled={this.props.currentMaster === 'elreon'}
             />
             <GenericButton
               x={200}
@@ -303,7 +257,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Catarina'}
               onClick={() => this.props.masterClick('catarina')}
-              disabled={this.props.craftingOptions.currentMaster === 'catarina'}
+              disabled={this.props.currentMaster === 'catarina'}
             />
             <GenericButton
               x={200}
@@ -312,7 +266,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Vagan'}
               onClick={() => this.props.masterClick('vagan')}
-              disabled={this.props.craftingOptions.currentMaster === 'vagan'}
+              disabled={this.props.currentMaster === 'vagan'}
             />
             <GenericButton
               x={842}
@@ -321,7 +275,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Tora'}
               onClick={() => this.props.masterClick('tora')}
-              disabled={this.props.craftingOptions.currentMaster === 'tora'}
+              disabled={this.props.currentMaster === 'tora'}
             />
             <GenericButton
               x={842}
@@ -330,7 +284,7 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Leo'}
               onClick={() => this.props.masterClick('leo')}
-              disabled={this.props.craftingOptions.currentMaster === 'leo'}
+              disabled={this.props.currentMaster === 'leo'}
             />
             <GenericButton
               x={842}
@@ -339,14 +293,14 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               height={100}
               text={'Vorici'}
               onClick={() => this.props.masterClick('vorici')}
-              disabled={this.props.craftingOptions.currentMaster === 'vorici'}
+              disabled={this.props.currentMaster === 'vorici'}
             />
             <CraftButton
               item={this.props.item}
               selectedOption={this.props.selectedOption}
               onClick={this.props.craftClick}
               disabled={
-                _.includes(this.state.optionsSlice, this.props.selectedOption)
+                _.includes(this.props.craftingOptionsSlice, this.props.selectedOption)
                   ? false
                   : true
               }

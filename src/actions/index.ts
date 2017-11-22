@@ -1,5 +1,12 @@
 import { CraftingOption } from '../reducers/craftingOptionReducer';
-export type Action = DefaultAction | NumberAction | EssenceAction | MouseAction | CraftAction | OptionAction;
+export type Action =
+  | DefaultAction
+  | NumberAction
+  | EssenceAction
+  | MouseAction
+  | CraftAction
+  | CraftScrollAction
+  | OptionAction;
 
 export type DefaultAction = {
   type: string;
@@ -13,7 +20,7 @@ export type NumberAction = {
 
 export type EssenceAction = {
   type: string;
-  payload: { essence: string, tier: number };
+  payload: { essence: string; tier: number };
 };
 
 export type MouseAction = {
@@ -24,6 +31,11 @@ export type MouseAction = {
 export type CraftAction = {
   type: string;
   payload: CraftingOption;
+};
+
+export type CraftScrollAction = {
+  type: string;
+  payload: { scrollerPos: number; optionsPos: number };
 };
 
 export type OptionAction = {

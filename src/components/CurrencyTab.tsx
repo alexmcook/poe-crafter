@@ -8,10 +8,10 @@ const background = require('../assets/currencytab.png');
 
 interface CurrencyTabProps {
   count: { [key: string]: number };
+  itemArt: string;
   itemSockets: string;
   itemLinks: string;
   verticalSockets: boolean;
-  itemArt: string;
   orbClick: (orb: string) => { type: string; payload: string };
   itemClick: (e: MouseEvent) => { type: string; payload: boolean };
   mouseMove: (

@@ -10,8 +10,12 @@ const mapStateToProps = (state: State) => ({
   itemSockets: state.item.currentItem.socketColors,
   itemLinks: state.item.currentItem.socketLinks,
   verticalSockets: state.item.currentItem.verticalSockets,
-  craftingOptions: state.craftingOptions,
   selectedOption: state.item.selectedOption,
+  currentMaster: state.craftingOptions.currentMaster,
+  craftingOptions: state.craftingOptions.options,
+  craftingOptionsSlice: state.craftingOptions.optionsSlice,
+  scrollerPos: state.craftingOptions.scrollerPos,
+  optionsPos: state.craftingOptions.optionsPos,
   anchorItemBox: state.input.anchorItemBox
 });
 
@@ -20,7 +24,8 @@ const mapDispatchToProps = {
   mouseLeave: input.mouseLeave,
   craftClick: craft.craftClick,
   optionClick: craft.optionClick,
-  masterClick: craft.masterClick
+  masterClick: craft.masterClick,
+  craftScroll: input.scroll
 };
 
 const CraftingTabContainer = connect(mapStateToProps, mapDispatchToProps)(
