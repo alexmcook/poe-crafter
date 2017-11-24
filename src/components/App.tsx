@@ -5,6 +5,7 @@ import CurrencyTabContainer from '../containers/CurrencyTabContainer';
 import EssenceTabContainer from '../containers/EssenceTabContainer';
 import CurrencyCursorContainer from '../containers/CurrencyCursorContainer';
 import CraftingTabContainer from '../containers/CraftingTabContainer';
+import ItemInfoContainer from '../containers/ItemInfoContainer';
 import '../css/style.css';
 
 interface AppProps {
@@ -43,6 +44,7 @@ class App extends React.Component<AppProps> {
         <CurrencyCursorContainer />
         <ButtonRowContainer />
         {this.getTab(this.props.currentTab)}
+        <ItemInfoContainer />
       </Grid>
     );
   }

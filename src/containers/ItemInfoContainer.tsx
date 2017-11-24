@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { State } from '../reducers';
-import ItemBox from '../components/ItemBox';
+import ItemInfo from '../components/ItemInfo';
 
 const mapStateToProps = (state: State) => ({
   item: state.item.currentItem
@@ -8,6 +8,6 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = {};
 
-const ItemContainer = connect(mapStateToProps, mapDispatchToProps)(ItemBox);
+const ItemInfoContainer = connect(mapStateToProps, mapDispatchToProps)(ItemInfo);
 
-export default ItemContainer;
+export default ItemInfoContainer;

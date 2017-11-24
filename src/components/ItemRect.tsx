@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ItemContainer from '../containers/ItemContainer';
+import ItemBoxContainer from '../containers/ItemBoxContainer';
 import TooltipContainer from '../containers/TooltipContainer';
 
 interface ItemRectProps {
@@ -89,7 +89,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
         }
         alwaysOn={this.props.alwaysOn}
       >
-        <ItemContainer />
+        <ItemBoxContainer />
       </TooltipContainer>
     );
   }

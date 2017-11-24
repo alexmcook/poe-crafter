@@ -87,7 +87,7 @@ export default class Item extends Base {
       this.modPool = item.modPool;
       this.corruptionPool = item.corruptionPool;
       this.currentModPool = item.currentModPool;
-      this.currentTags = item.currentTags;
+      this.currentTags = item.currentTags.slice();
       this.mods = copyMods(item.mods);
       this.prefixCount = item.prefixCount;
       this.suffixCount = item.suffixCount;

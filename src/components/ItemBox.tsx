@@ -30,7 +30,7 @@ class ItemBox extends React.Component<ItemBoxProps> {
     if (this.props.item.weapon) {
       weaponType = (
         <div key="weaponType" className="text--descriptor">
-          {this.props.item.type.replace('Thrusting ', '')}
+          {this.props.item.type.replace('Thrusting ', '').replace(' Hand ', ' Handed ')}
         </div>
       );
       header.push(weaponType);
