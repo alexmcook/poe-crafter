@@ -495,16 +495,16 @@ export function essence(
     let itemLevel = item.itemLevel;
     switch (tier) {
       case 1:
-        item.itemLevel = 35;
+        item.itemLevel = item.itemLevel < 35 ? item.itemLevel : 35;
         break;
       case 2:
-        item.itemLevel = 45;
+        item.itemLevel = item.itemLevel < 45 ? item.itemLevel : 45;
         break;
       case 3:
-        item.itemLevel = 60;
+        item.itemLevel = item.itemLevel < 60 ? item.itemLevel : 60;
         break;
       case 4:
-        item.itemLevel = 75;
+        item.itemLevel = item.itemLevel < 75 ? item.itemLevel : 75;
         break;
       default:
         break;

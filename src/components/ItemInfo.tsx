@@ -53,7 +53,6 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
       let chaos =
         (weapon.chaosMin ? weapon.chaosMin : 0) +
         (weapon.chaosMax ? weapon.chaosMax : 0);
-      console.log(weapon.incPhys);
       let cdpsValue = chaos / 2 * parseFloat(weapon.aps);
       let cdps = Math.round(cdpsValue * 100) / 100;
       let tdps = Math.round((pdps + edps + cdps) * 100) / 100;
@@ -66,7 +65,7 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
       let max;
       switch (type) {
         case 'pdps':
-          max = this.props.item.category === 'One Handed Weapon' ? 500 : 700;
+          max = this.props.item.category === 'One Handed Weapon' ? 450 : 700;
           break;
         case 'edps':
           max = this.props.item.category === 'One Handed Weapon' ? 350 : 500;
@@ -75,8 +74,7 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
           max = 500;
           break;
       }
-      let percentage = Math.round((value / max > 1 ? 180 : value / max) * 180);
-      console.log(percentage);
+      let percentage = Math.round((value / max > 1 ? 1 : value / max) * 180);
       return 'hsl(' + percentage + ', 75%, 50%';
     } else {
       return 'white';
