@@ -128,8 +128,6 @@ export function checkAvailability(
   item: Item,
   craftOption: CraftingOption
 ): number {
-  console.log(item.type);
-  console.log(craftOption.itemTypes);
   if (!craftOption || item.corrupted) {
     return CraftingError.CORRUPT;
   } else if (craftOption.mod) {

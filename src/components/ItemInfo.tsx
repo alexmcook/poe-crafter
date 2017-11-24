@@ -69,7 +69,7 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
           max = this.props.item.category === 'One Handed Weapon' ? 500 : 700;
           break;
         case 'edps':
-          max = this.props.item.category === 'One Handed Weapon' ? 500 : 700;
+          max = this.props.item.category === 'One Handed Weapon' ? 350 : 500;
           break;
         default:
           max = 500;
@@ -163,9 +163,9 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
 
   render() {
     const style: {} = {
-      position: this.state.windowWidth < 1200 ? 'relative' : 'absolute',
-      left: this.state.windowWidth < 1200 ? '0px' : '20px',
-      margin: this.state.windowWidth < 1200 ? '0 auto' : '',
+      position: this.state.windowWidth < 1350 ? 'relative' : 'absolute',
+      left: this.state.windowWidth < 1350 ? '0px' : '10px',
+      margin: this.state.windowWidth < 1350 ? '0 auto' : '',
       top: '79.13px',
       padding: '0px 0px 0px 0px'
     };

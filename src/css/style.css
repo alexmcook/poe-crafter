@@ -222,7 +222,7 @@
   background-color: rgba(0, 0, 0, 0.85);
   text-align: left;
   font-size: 10.875pt;
-  z-index: 2;
+  z-index: 0;
   white-space: nowrap;
   border-radius: 15px;
 }
