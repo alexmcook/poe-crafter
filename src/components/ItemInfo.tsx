@@ -96,6 +96,11 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
                 >
                   [P]{' '}
                 </span>
+                <span
+                  style={i === 0 ? { color: 'pink' } : { display: 'none' }}
+                >
+                  {' ' + mod.name + ' '}
+                </span>
                 {description[i].text}
               </span>
             </div>
@@ -121,6 +126,11 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
                   style={i === 0 ? { color: 'cyan' } : { visibility: 'hidden' }}
                 >
                   [S]{' '}
+                </span>
+                <span
+                  style={i === 0 ? { color: 'pink' } : { display: 'none' }}
+                >
+                  {' ' + mod.name + ' '}
                 </span>
                 {description[i].text}
               </span>
