@@ -40,7 +40,7 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
       <Grid.Row centered={true}>
         <Grid.Column computer={6} tablet={10} mobile={12}>
           <svg
-            className="game-tab no-select"
+            className="game-tab drop-shadow no-select"
             viewBox="0 0 1282 1282"
             preserveAspectRatio="xMinYMin meet"
             onMouseMove={e => this.props.mouseMove(e.nativeEvent)}

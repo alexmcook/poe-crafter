@@ -60,13 +60,22 @@ class Options extends React.Component<OptionsProps, OptionsState> {
 
   render() {
     const resetBtn = (
-      <Button
-        color="red"
-        onClick={() => this.openNested()}
-        style={{ marginTop: '20px' }}
+      <div
+        className="drop-shadow"
+        style={{
+          display: 'inline-block',
+          borderRadius: '5px',
+          marginTop: '20px'
+        }}
       >
-        Reset
-      </Button>
+        <Button
+          color="red"
+          onClick={() => this.openNested()}
+          style={{ marginRight: '0px' }}
+        >
+          Reset
+        </Button>
+      </div>
     );
     const nestedModal = (
       <Modal
@@ -77,15 +86,31 @@ class Options extends React.Component<OptionsProps, OptionsState> {
       >
         <Modal.Header>Are you sure?</Modal.Header>
         <Modal.Content>
-          <Button
-            onClick={() => {
-              this.props.reset();
-              this.close();
-            }}
+          <div
+            className="drop-shadow"
+            style={{ display: 'inline-block', borderRadius: '5px' }}
           >
-            Yes
-          </Button>
-          <Button onClick={() => this.closeNested()}>No</Button>
+            <Button
+              onClick={() => {
+                this.props.reset();
+                this.close();
+              }}
+              style={{ marginRight: '0px' }}
+            >
+              Yes
+            </Button>
+          </div>
+          <div
+            className="drop-shadow"
+            style={{ display: 'inline-block', borderRadius: '5px', marginLeft: '15px' }}
+          >
+            <Button
+              onClick={() => this.closeNested()}
+              style={{ marginRight: '0px' }}
+            >
+              No
+            </Button>
+          </div>
         </Modal.Content>
       </Modal>
     );
@@ -94,7 +119,10 @@ class Options extends React.Component<OptionsProps, OptionsState> {
         open={this.state.open}
         trigger={
           <Button
-            style={{ fontFamily: 'Fontin-SmallCaps' }}
+            style={{
+              fontFamily: 'Fontin-SmallCaps',
+              borderRadius: '0 5px 5px 0'
+            }}
             onClick={() => this.open()}
           >
             options
@@ -206,7 +234,14 @@ class Options extends React.Component<OptionsProps, OptionsState> {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={() => this.close()}>Close</Button>
+          <div
+            className="drop-shadow"
+            style={{ display: 'inline-block', borderRadius: '5px' }}
+          >
+            <Button onClick={() => this.close()} style={{ marginRight: '0px' }}>
+              Close
+            </Button>
+          </div>
         </Modal.Actions>
       </Modal>
     );

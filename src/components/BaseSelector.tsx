@@ -52,31 +52,46 @@ class BaseSelector extends React.Component<
   }
 
   render() {
-    return [(
-      <Dropdown
-        key="dropdown"
-        placeholder="Select Base"
-        search={true}
-        selection={true}
-        selectOnNavigation={false}
-        selectOnBlur={false}
-        options={this.state.baseOptions}
-        onChange={(event, target) =>
-          this.props.selectBase(target.value as string)}
-        defaultValue={this.state.initialBase.value}
-      />
-    ), (
-      <Input
-        key="input"
-        label="Level"
-        type="number"
-        min="1"
-        max="100"
-        onChange={e => this.handleChange(e)}
-        value={this.props.currentItem.itemLevel}
-        style={{ marginLeft: '10px' }}
-      />
-    )];
+    return (
+      <div>
+        <div
+          className="drop-shadow"
+          style={{ display: 'inline-block', borderRadius: '5px' }}
+        >
+          <Dropdown
+            key="dropdown"
+            placeholder="Select Base"
+            search={true}
+            selection={true}
+            selectOnNavigation={false}
+            selectOnBlur={false}
+            options={this.state.baseOptions}
+            onChange={(event, target) =>
+              this.props.selectBase(target.value as string)
+            }
+            defaultValue={this.state.initialBase.value}
+          />
+        </div>
+        <div
+          className="drop-shadow"
+          style={{
+            display: 'inline-block',
+            borderRadius: '5px',
+            marginLeft: '10px'
+          }}
+        >
+          <Input
+            key="input"
+            label="Level"
+            type="number"
+            min="1"
+            max="100"
+            onChange={e => this.handleChange(e)}
+            value={this.props.currentItem.itemLevel}
+          />
+        </div>
+      </div>
+    );
   }
 }
 
