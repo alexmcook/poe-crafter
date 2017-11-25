@@ -8,6 +8,11 @@ export const setAnchorItemBox = (value: boolean) => ({
   payload: value
 });
 
+export const setDisplayItemInfo = (value: boolean) => ({
+  type: 'SET_DISPLAY_ITEM_INFO',
+  payload: value
+});
+
 export const reset = () => ({
   type: 'RESET',
   payload: {}

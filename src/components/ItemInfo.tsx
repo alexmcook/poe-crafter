@@ -6,6 +6,7 @@ import { filterPrefix, filterSuffix } from '../utils/itemFunctions';
 
 interface ItemInfoProps {
   item: Item;
+  display: boolean;
 }
 
 interface ItemInfoState {
@@ -171,21 +172,21 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
 
   render() {
     const style: {} = {
-      position: this.state.windowWidth < 1350 ? 'relative' : 'absolute',
-      left: this.state.windowWidth < 1350 ? '0px' : '10px',
-      margin: this.state.windowWidth < 1350 ? '0 auto' : '',
-      top: '79.13px',
+      position: this.state.windowWidth < 1700 ? 'relative' : 'absolute',
+      left: this.state.windowWidth < 1700 ? '0px' : '10px',
+      margin: this.state.windowWidth < 1700 ? '0 auto' : '',
+      top: this.state.windowWidth < 1700 ? '0px' : '79.13px',
       padding: '0px 0px 0px 0px'
     };
     const prefixes = this.getPrefixes();
     const suffixes = this.getSuffixes();
-    return (
+    return this.props.display && (
       <div className="item-info-box" style={style}>
         {this.props.item.weapon ? (
           <div style={{ padding: '20px 20px 20px 20px' }}>
             <div className="text--normal">
               <span style={{ fontSize: '20pt', color: 'white' }}>DPS</span>
-              {this.props.item.weapon ? this.getDps() : <div>N/A</div>}
+              {this.getDps()}
             </div>
           </div>
         ) : null}

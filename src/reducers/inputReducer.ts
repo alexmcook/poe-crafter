@@ -1,12 +1,11 @@
-import { Action, MouseAction, OptionAction } from '../actions';
+import { Action, MouseAction } from '../actions';
 
 export interface InputState {
   clientX?: number;
   clientY?: number;
-  anchorItemBox: boolean;
 }
 
-const initialState = { hoverItemRect: false, anchorItemBox: false };
+const initialState = {};
 
 export default (state: InputState = initialState, action: Action) => {
   switch (action.type) {
@@ -21,12 +20,6 @@ export default (state: InputState = initialState, action: Action) => {
         };
       }
       return nextState;
-    case 'SET_ANCHOR_ITEMBOX':
-      action = action as OptionAction;
-      return {
-        ...state,
-        anchorItemBox: action.payload
-      };
     default:
       return state;
   }

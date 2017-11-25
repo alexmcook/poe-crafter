@@ -5,8 +5,10 @@ import BaseSelectorContainer from '../containers/BaseSelectorContainer';
 interface OptionsProps {
   forceShiftState: boolean;
   anchorItemBoxState: boolean;
+  displayItemInfoState: boolean;
   setForceShift: (value: boolean) => { type: string; payload: boolean };
   setAnchorItemBox: (value: boolean) => { type: string; payload: boolean };
+  setDisplayItemInfo: (value: boolean) => { type: string; payload: boolean };
   reset: () => { type: string; payload: {} };
 }
 
@@ -48,6 +50,9 @@ class Options extends React.Component<OptionsProps, OptionsState> {
       case 'anchorItemBox':
         this.props.setAnchorItemBox(!this.props.anchorItemBoxState);
         break;
+      case 'displayItemInfo':
+        this.props.setDisplayItemInfo(!this.props.displayItemInfoState);
+        break;
       default:
         break;
     }
@@ -87,7 +92,14 @@ class Options extends React.Component<OptionsProps, OptionsState> {
     return (
       <Modal
         open={this.state.open}
-        trigger={<Button onClick={() => this.open()}>Options</Button>}
+        trigger={
+          <Button
+            style={{ fontFamily: 'Fontin-SmallCaps' }}
+            onClick={() => this.open()}
+          >
+            options
+          </Button>
+        }
         size="tiny"
         dimmer="blurring"
         onClose={() => this.close()}
@@ -98,11 +110,21 @@ class Options extends React.Component<OptionsProps, OptionsState> {
             <Grid padded="horizontally">
               <Grid.Row columns={16}>
                 <Grid.Column width={16}>
-                  <p style={{ fontSize: '14pt', marginBottom: '5px' }}>Base Selection</p>
+                  <p style={{ fontSize: '14pt', marginBottom: '5px' }}>
+                    Base Selection
+                  </p>
                   <BaseSelectorContainer />
                 </Grid.Column>
                 <Grid.Column width={16} style={{ marginTop: '5px' }}>
-                  <p style={{ fontSize: '14pt', marginTop: '10px', marginBottom: '5px' }}>Options</p>
+                  <p
+                    style={{
+                      fontSize: '14pt',
+                      marginTop: '10px',
+                      marginBottom: '5px'
+                    }}
+                  >
+                    Options
+                  </p>
                   <span
                     onClick={() => this.toggle('forceShift')}
                     className="no-select"
@@ -138,7 +160,9 @@ class Options extends React.Component<OptionsProps, OptionsState> {
                   >
                     <Icon
                       name={
-                        this.props.anchorItemBoxState ? 'toggle on' : 'toggle off'
+                        this.props.anchorItemBoxState
+                          ? 'toggle on'
+                          : 'toggle off'
                       }
                       fitted={true}
                       style={{
@@ -148,6 +172,32 @@ class Options extends React.Component<OptionsProps, OptionsState> {
                       }}
                     />
                     {' Anchor item display window'}
+                  </span>
+                </Grid.Column>
+                <Grid.Column width={16}>
+                  <span
+                    onClick={() => this.toggle('displayItemInfo')}
+                    className="no-select"
+                    style={{
+                      fontSize: '12pt',
+                      cursor: 'pointer',
+                      marginTop: '5px'
+                    }}
+                  >
+                    <Icon
+                      name={
+                        this.props.displayItemInfoState
+                          ? 'toggle on'
+                          : 'toggle off'
+                      }
+                      fitted={true}
+                      style={{
+                        fontSize: '17pt',
+                        verticalAlign: 'top',
+                        lineHeight: 1.1
+                      }}
+                    />
+                    {' Display detailed item info'}
                   </span>
                 </Grid.Column>
                 <Grid.Column width={16}>{nestedModal}</Grid.Column>

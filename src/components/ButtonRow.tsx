@@ -11,14 +11,14 @@ class ButtonRow extends React.Component<ButtonRowProps> {
     return (
       <Grid.Row centered={true}>
         <Button.Group size="large" style={{ marginTop: '10px' }}>
-          <Button onClick={() => this.props.changeTab('Currency')}>
-            Currency
+          <Button style={{ fontFamily: 'Fontin-SmallCaps' }} onClick={() => this.props.changeTab('Currency')}>
+            currency
           </Button>
-          <Button onClick={() => this.props.changeTab('Essence')}>
-            Essence
+          <Button style={{ fontFamily: 'Fontin-SmallCaps' }} onClick={() => this.props.changeTab('Essence')}>
+            essence
           </Button>
-          <Button onClick={() => this.props.changeTab('Crafting')}>
-            Crafting
+          <Button style={{ fontFamily: 'Fontin-SmallCaps' }} onClick={() => this.props.changeTab('Crafting')}>
+            crafting
           </Button>
           <OptionsContainer />
         </Button.Group>

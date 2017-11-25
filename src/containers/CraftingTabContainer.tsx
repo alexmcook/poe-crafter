@@ -16,7 +16,7 @@ const mapStateToProps = (state: State) => ({
   craftingOptionsSlice: state.craftingOptions.optionsSlice,
   scrollerPos: state.craftingOptions.scrollerPos,
   optionsPos: state.craftingOptions.optionsPos,
-  anchorItemBox: state.input.anchorItemBox
+  anchorItemBox: state.options.anchorItemBox
 });
 
 const mapDispatchToProps = {

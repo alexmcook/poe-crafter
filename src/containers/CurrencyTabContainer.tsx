@@ -10,7 +10,7 @@ const mapStateToProps = (state: State) => ({
   itemSockets: state.item.currentItem.socketColors,
   itemLinks: state.item.currentItem.socketLinks,
   verticalSockets: state.item.currentItem.verticalSockets,
-  anchorItemBox: state.input.anchorItemBox,
+  anchorItemBox: state.options.anchorItemBox,
   imprintName: state.item.imprint ? state.item.imprint.itemName : undefined,
   imprintBase: state.item.imprint ? state.item.imprint.name : undefined,
   imprintRarity: state.item.imprint ? state.item.imprint.rarity : undefined
