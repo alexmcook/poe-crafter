@@ -220,7 +220,7 @@
   font-family: 'Fontin-SmallCaps';
   font-variant-ligatures: none;
   background-color: rgb(38, 38, 38);
-  box-shadow: 0px 5px 10px rgb(0, 0, 0);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.85);
   text-align: left;
   font-size: 10.875pt;
   z-index: 0;
@@ -253,7 +253,11 @@
 }
 
 .drop-shadow {
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+.drop-shadow--btn {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .game-tab {

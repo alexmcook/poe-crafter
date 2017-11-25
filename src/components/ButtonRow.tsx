@@ -10,7 +10,7 @@ class ButtonRow extends React.Component<ButtonRowProps> {
   render() {
     return (
       <Grid.Row centered={true}>
-        <div className="drop-shadow" style={{ marginTop: '10px', borderRadius: '5px' }}>
+        <div className="drop-shadow--btn" style={{ marginTop: '10px', borderRadius: '5px' }}>
           <Button.Group size="large" style={{ borderRadius: '5px' }}>
             <Button
               style={{ fontFamily: 'Fontin-SmallCaps', borderRadius: '5px 0 0 5px' }}

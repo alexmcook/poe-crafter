@@ -61,7 +61,7 @@ class Options extends React.Component<OptionsProps, OptionsState> {
   render() {
     const resetBtn = (
       <div
-        className="drop-shadow"
+        className="drop-shadow--btn"
         style={{
           display: 'inline-block',
           borderRadius: '5px',
@@ -87,7 +87,7 @@ class Options extends React.Component<OptionsProps, OptionsState> {
         <Modal.Header>Are you sure?</Modal.Header>
         <Modal.Content>
           <div
-            className="drop-shadow"
+            className="drop-shadow--btn"
             style={{ display: 'inline-block', borderRadius: '5px' }}
           >
             <Button
@@ -101,7 +101,7 @@ class Options extends React.Component<OptionsProps, OptionsState> {
             </Button>
           </div>
           <div
-            className="drop-shadow"
+            className="drop-shadow--btn"
             style={{ display: 'inline-block', borderRadius: '5px', marginLeft: '15px' }}
           >
             <Button
@@ -235,7 +235,7 @@ class Options extends React.Component<OptionsProps, OptionsState> {
         </Modal.Content>
         <Modal.Actions>
           <div
-            className="drop-shadow"
+            className="drop-shadow--btn"
             style={{ display: 'inline-block', borderRadius: '5px' }}
           >
             <Button onClick={() => this.close()} style={{ marginRight: '0px' }}>

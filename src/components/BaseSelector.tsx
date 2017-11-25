@@ -55,7 +55,7 @@ class BaseSelector extends React.Component<
     return (
       <div>
         <div
-          className="drop-shadow"
+          className="drop-shadow--btn"
           style={{ display: 'inline-block', borderRadius: '5px' }}
         >
           <Dropdown
@@ -73,7 +73,7 @@ class BaseSelector extends React.Component<
           />
         </div>
         <div
-          className="drop-shadow"
+          className="drop-shadow--btn"
           style={{
             display: 'inline-block',
             borderRadius: '5px',
