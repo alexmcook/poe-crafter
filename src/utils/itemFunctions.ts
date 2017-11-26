@@ -22,28 +22,29 @@ enum CraftingError {
 /* Filter mods to include only mods with a shared tag that have a spawnWeight greater than value */
 export function filterSpawnWeightTagsMatch(mods: Mod[], tags: string[]): Mod[] {
   return _.filter(mods, mod => {
-    let tag = _.intersection(Object.keys(mod.spawnWeights), tags)[0];
-    if (tag) {
+    let matches = _.intersection(Object.keys(mod.spawnWeights), tags);
+    return _.some(matches, tag => {
       return mod.spawnWeights[tag] > 0;
-    } else {
-      return false;
-    }
+    });
   });
 }
 
 /* Filter mods to exclude mods with a shared tag (except default) that has a weight of 0 */
+/* Matches item tags to each mod spawnweight in order, looking for a non default tag that is greater than 0 */
 export function filterSpawnWeightAnyIsZero(mods: Mod[], tags: string[]): Mod[] {
   return _.filter(mods, mod => {
-    let bool = true;
-    _.each(mod.spawnWeights, (value, key) => {
-      if (_.includes(tags, key) && value === 0 && key !== 'default') {
-        bool = false;
-        return false;
-      } else {
+    let keys = Object.keys(mod.spawnWeights);
+    keys.splice(keys.indexOf('default'), 1);
+    for (let i = 0; i < keys.length; i++) {
+      let weight = mod.spawnWeights[keys[i]];
+      if (_.includes(tags, keys[i]) && weight > 0) {
         return true;
+      } else if (_.includes(tags, keys[i]) && weight === 0) {
+        return false;
       }
-    });
-    return bool;
+    }
+    let defaultTag = 'default';
+    return mod.spawnWeights[defaultTag] > 0;
   });
 }
 

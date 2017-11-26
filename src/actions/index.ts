@@ -1,4 +1,6 @@
 import { CraftingOption } from '../reducers/craftingOptionReducer';
+import Mod from '../utils/mod';
+
 export type Action =
   | DefaultAction
   | NumberAction
@@ -41,4 +43,9 @@ export type CraftScrollAction = {
 export type OptionAction = {
   type: string;
   payload: boolean;
+};
+
+export type AffixAction = {
+  type: string;
+  payload: Mod;
 };

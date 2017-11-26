@@ -13,6 +13,16 @@ export const itemClick = (e: MouseEvent) => ({
   payload: e.shiftKey
 });
 
+export const affixClickAdd = (id: string) => ({
+  type: 'AFFIX_CLICK_ADD',
+  payload: id
+});
+
+export const affixClickRemove = (id: string) => ({
+  type: 'AFFIX_CLICK_REMOVE',
+  payload: id
+});
+
 export const keyUp = (e: KeyboardEvent) => ({
   type: 'KEY_UP',
   payload: e.keyCode

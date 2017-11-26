@@ -1,19 +1,22 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
-import Item from '../utils/item';
+import AffixModal from '../components/AffixModal';
+import Item, { Rarity } from '../utils/item';
 import { filterPrefix, filterSuffix } from '../utils/itemFunctions';
 
 interface ItemInfoProps {
   item: Item;
   display: boolean;
+  affixClickAdd: (id: string) => { type: string; payload: string };
+  affixClickRemove: (id: string) => { type: string; payload: string };
 }
 
 interface ItemInfoState {
   windowWidth: number;
 }
 
-class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
+class ItemInfo extends React.Component<ItemInfoProps, ItemInfoState> {
   constructor(props: ItemInfoProps) {
     super(props);
     this.state = { windowWidth: window.innerWidth };
@@ -88,25 +91,33 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
       prefixes,
       (result: JSX.Element[], mod) => {
         let description = poe.getDescriptions([mod], true);
+        let modText: JSX.Element[] = [];
         for (let i = 0; i < description.length; i++) {
-          result.push(
-            <div key={mod.id + i}>
-              <span>
-                <span
-                  style={i === 0 ? { color: 'cyan' } : { visibility: 'hidden' }}
-                >
-                  [P]{' '}
-                </span>
-                <span
-                  style={i === 0 ? { color: 'pink' } : { display: 'none' }}
-                >
-                  {' ' + mod.name + ' '}
-                </span>
-                {description[i].text}
+          modText.push(
+            <div key={'text' + i}>
+              <span
+                style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}
+              >
+                [?]{' '}
               </span>
+              <span style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}>
+                {' ' + mod.name + ' '}
+              </span>
+              {description[i].text}
             </div>
           );
         }
+        let mergedModText = (
+          <span
+            key={mod.id}
+            className="item-info-affix"
+            onClick={() => this.props.affixClickRemove(mod.id)}
+            style={{ display: 'table' }}
+          >
+            {modText}
+          </span>
+        );
+        result.push(mergedModText);
         return result;
       },
       []
@@ -119,25 +130,33 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
       suffixes,
       (result: JSX.Element[], mod) => {
         let description = poe.getDescriptions([mod], true);
+        let modText: JSX.Element[] = [];
         for (let i = 0; i < description.length; i++) {
-          result.push(
-            <div key={mod.id + i}>
-              <span>
-                <span
-                  style={i === 0 ? { color: 'cyan' } : { visibility: 'hidden' }}
-                >
-                  [S]{' '}
-                </span>
-                <span
-                  style={i === 0 ? { color: 'pink' } : { display: 'none' }}
-                >
-                  {' ' + mod.name + ' '}
-                </span>
-                {description[i].text}
+          modText.push(
+            <div key={'text' + i}>
+              <span
+                style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}
+              >
+                [?]{' '}
               </span>
+              <span style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}>
+                {' ' + mod.name + ' '}
+              </span>
+              {description[i].text}
             </div>
           );
         }
+        let mergedModText = (
+          <span
+            key={mod.id}
+            className="item-info-affix"
+            onClick={() => this.props.affixClickRemove(mod.id)}
+            style={{ display: 'table' }}
+          >
+            {modText}
+          </span>
+        );
+        result.push(mergedModText);
         return result;
       },
       []
@@ -180,35 +199,51 @@ class ItemBox extends React.Component<ItemInfoProps, ItemInfoState> {
     };
     const prefixes = this.getPrefixes();
     const suffixes = this.getSuffixes();
-    return this.props.display && (
-      <div className="item-info-box" style={style}>
-        {this.props.item.weapon ? (
-          <div style={{ padding: '20px 20px 20px 20px' }}>
+    return (
+      this.props.display && (
+        <div className="item-info-box no-select" style={style}>
+          {this.props.item.weapon ? (
+            <div style={{ padding: '20px 20px 20px 20px' }}>
+              <div className="text--normal">
+                <span style={{ fontSize: '20pt', color: 'white' }}>DPS</span>
+                {this.getDps()}
+              </div>
+            </div>
+          ) : null}
+          <div
+            style={{
+              padding: (this.props.item.weapon ? 0 : 20) + 'px 20px 20px 20px'
+            }}
+          >
             <div className="text--normal">
-              <span style={{ fontSize: '20pt', color: 'white' }}>DPS</span>
-              {this.getDps()}
+              <AffixModal
+                prefixes={
+                  this.props.item.rarity === Rarity.NORMAL
+                    ? filterSuffix(this.props.item.modPool)
+                    : filterSuffix(this.props.item.currentModPool)
+                }
+                affixClickAdd={(id: string) => this.props.affixClickAdd(id)}
+              />
+              <div>{prefixes.length > 0 ? prefixes : 'None'}</div>
             </div>
           </div>
-        ) : null}
-        <div
-          style={{
-            padding: (this.props.item.weapon ? 0 : 20) + 'px 20px 20px 20px'
-          }}
-        >
-          <div className="text--normal">
-            <span style={{ fontSize: '20pt', color: 'white' }}>Prefixes</span>
-            {prefixes.length > 0 ? prefixes : <div>None</div>}
+          <div style={{ padding: '0px 20px 20px 20px' }}>
+            <div className="text--normal">
+              <AffixModal
+                suffixes={
+                  this.props.item.rarity === Rarity.NORMAL
+                    ? filterPrefix(this.props.item.modPool)
+                    : filterPrefix(this.props.item.currentModPool)
+                }
+                affixClickAdd={(id: string) => this.props.affixClickAdd(id)}
+              />
+              <div>{suffixes.length > 0 ? suffixes : 'None'}</div>
+            </div>
           </div>
         </div>
-        <div style={{ padding: '0px 20px 20px 20px' }}>
-          <div className="text--normal">
-            <span style={{ fontSize: '20pt', color: 'white' }}>Suffixes</span>
-            {suffixes.length > 0 ? suffixes : <div>None</div>}
-          </div>
-        </div>
-      </div>
+      )
     );
   }
 }
 
-export default ItemBox;
+export default ItemInfo;

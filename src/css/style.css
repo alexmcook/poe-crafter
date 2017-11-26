@@ -316,3 +316,29 @@
   font-size: 28pt;
   fill: rgb(255, 0, 0);
 }
+
+.item-info-affix:hover {
+  text-shadow: 0 0 3px white;
+}
+
+.item-info-affix--header {
+  font-size: 20pt;
+  color: white;
+}
+
+.item-info-affix--header:hover {
+  font-size: 20pt;
+  color: white;
+  text-shadow: 0 0 3px white;
+}
+
+.affix-modal-text {
+  font-family: 'Fontin-SmallCaps';
+  font-size: 12pt;
+  margin-left: 24px;
+}
+
+.affix-modal-text--title {
+  font-family: 'Fontin-SmallCaps';
+  font-size: 14pt;
+}

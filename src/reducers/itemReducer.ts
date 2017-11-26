@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { Action, NumberAction, EssenceAction, OptionAction } from '../actions';
-import Item from '../utils/item';
+import Item, { Rarity } from '../utils/item';
+import Mod from '../utils/mod';
 import { checkAvailability } from '../utils/itemFunctions';
 import Base from '../utils/base';
 import { CraftingOption } from '../reducers/craftingOptionReducer';
@@ -670,6 +671,36 @@ export default (state: ItemState = initialState, action: Action) => {
       }
     case 'MASTER_CLICK':
       return { ...state, selectedOption: undefined };
+    case 'AFFIX_CLICK_REMOVE':
+      let item = new Item(state.currentItem);
+      let match = _.find(item.mods, (mod: Mod) => {
+        return mod.id === action.payload;
+      });
+      if (match) {
+        item.removeMod(match);
+        return { ...state, prevState: state, currentItem: item };
+      } else {
+        return state;
+      }
+    case 'AFFIX_CLICK_ADD':
+      console.log('ADD');
+      item = new Item(state.currentItem);
+      if (item.rarity === Rarity.NORMAL) {
+        item.rarity = Rarity.MAGIC;
+        match = _.find(item.modPool, (mod: Mod) => {
+          return mod.id === action.payload;
+        });
+      } else {
+        match = _.find(item.currentModPool, (mod: Mod) => {
+          return mod.id === action.payload;
+        });
+      }
+      if (match) {
+        item.addMod(match);
+        return { ...state, prevState: state, currentItem: item };
+      } else {
+        return state;
+      }
     case 'KEY_UP':
       return {
         ...state,
@@ -679,8 +710,9 @@ export default (state: ItemState = initialState, action: Action) => {
     case 'SET_LEVEL':
       action = action as NumberAction;
       if (action.payload >= 1 && action.payload <= 100) {
-        let item = new Item(state.currentItem);
+        item = new Item(state.currentItem);
         item.itemLevel = action.payload;
+        item.updateModPool();
         return {
           ...state,
           currentItem: item
