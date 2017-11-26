@@ -77,9 +77,15 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
       (result: JSX.Element[], group, key) => {
         result.push(
           <Accordion.Title
+            className="affix-modal-title-box"
             key={'title' + key}
             active={this.state.active.indexOf(keys.indexOf(key)) >= 0}
             onClick={() => this.handleTitleClick(keys.indexOf(key))}
+            style={
+              this.state.active.indexOf(keys.indexOf(key)) >= 0
+                ? { textShadow: '0 0 1px black' }
+                : {}
+            }
           >
             <Icon name="dropdown" />
             <span className="affix-modal-text--title no-select">{key}</span>

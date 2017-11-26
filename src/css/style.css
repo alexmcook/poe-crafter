@@ -318,7 +318,7 @@
 }
 
 .item-info-affix:hover {
-  text-shadow: 0 0 3px white;
+  text-shadow: 0 0 2px white;
   cursor: pointer;
 }
 
@@ -330,7 +330,7 @@
 .item-info-affix--header:hover {
   font-size: 20pt;
   color: white;
-  text-shadow: 0 0 3px white;
+  text-shadow: 0 0 2px white;
   cursor: pointer;
 }
 
@@ -347,7 +347,7 @@
   font-variant-ligatures: none;
   font-size: 12pt;
   margin-left: 24px;
-  text-shadow: 0 0 3px black;
+  text-shadow: 0 0 1px black;
   cursor: pointer;
 }
 
@@ -355,4 +355,8 @@
   font-family: 'Fontin-SmallCaps';
   font-variant-ligatures: none;
   font-size: 14pt;
+}
+
+.affix-modal-title-box:hover {
+  text-shadow: 0 0 1px black;
 }
