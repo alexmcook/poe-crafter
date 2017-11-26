@@ -683,7 +683,6 @@ export default (state: ItemState = initialState, action: Action) => {
         return state;
       }
     case 'AFFIX_CLICK_ADD':
-      console.log('ADD');
       item = new Item(state.currentItem);
       if (item.rarity === Rarity.NORMAL) {
         item.rarity = Rarity.MAGIC;

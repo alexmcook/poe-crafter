@@ -319,6 +319,7 @@
 
 .item-info-affix:hover {
   text-shadow: 0 0 3px white;
+  cursor: pointer;
 }
 
 .item-info-affix--header {
@@ -330,15 +331,28 @@
   font-size: 20pt;
   color: white;
   text-shadow: 0 0 3px white;
+  cursor: pointer;
 }
 
 .affix-modal-text {
   font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
   font-size: 12pt;
   margin-left: 24px;
+  cursor: pointer;
+}
+
+.affix-modal-text:hover {
+  font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
+  font-size: 12pt;
+  margin-left: 24px;
+  text-shadow: 0 0 3px black;
+  cursor: pointer;
 }
 
 .affix-modal-text--title {
   font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
   font-size: 14pt;
 }

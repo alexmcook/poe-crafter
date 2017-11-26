@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, Accordion, Icon } from 'semantic-ui-react';
+import { Modal, Accordion, Icon, Button } from 'semantic-ui-react';
 import Mod from '../utils/mod';
 import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
@@ -11,13 +11,14 @@ interface AffixModalProps {
 }
 
 interface AffixModalState {
+  open: boolean;
   active: number[];
 }
 
 class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
   constructor(props: AffixModalProps) {
     super(props);
-    this.state = { active: [] };
+    this.state = { open: false, active: [] };
   }
 
   getModText(mods: Mod[]): JSX.Element[] {
@@ -52,7 +53,7 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
         result.push(
           <span
             key={'text' + index}
-            className="affix-modal-text"
+            className="affix-modal-text no-select"
             onClick={() => this.handleAffixClick(index, text.id)}
           >
             iLvl {text.level}: {text.text} ({text.name})
@@ -67,7 +68,7 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
   getAccordion(): JSX.Element[] | JSX.Element {
     let mods = this.props.prefixes ? this.props.prefixes : this.props.suffixes;
     if (!mods || mods.length === 0) {
-      return <span>None</span>;
+      return <span className="affix-modal-text no-select">None</span>;
     }
     let groups = _.groupBy(mods, 'modType');
     let keys = Object.keys(groups);
@@ -81,11 +82,12 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
             onClick={() => this.handleTitleClick(keys.indexOf(key))}
           >
             <Icon name="dropdown" />
-            <span className="affix-modal-text--title">{key}</span>
+            <span className="affix-modal-text--title no-select">{key}</span>
           </Accordion.Title>
         );
         result.push(
           <Accordion.Content
+            className="no-select"
             key={'content' + key}
             active={this.state.active.indexOf(keys.indexOf(key)) >= 0}
           >
@@ -112,22 +114,48 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
 
   handleAffixClick(index: number, id: string) {
     this.props.affixClickAdd(id);
-    let next = this.state.active.slice();
-    next.splice(next.indexOf(index), 1);
-    this.setState({ active: next });
+    this.setState({ open: false, active: [] });
+  }
+
+  open() {
+    this.setState({ open: true });
+  }
+
+  close() {
+    this.setState({ open: false, active: [] });
   }
 
   render() {
     const trigger = (
-      <span className="item-info-affix--header">
+      <span className="item-info-affix--header" onClick={() => this.open()}>
         {this.props.prefixes ? 'Prefixes' : 'Suffixes'}
       </span>
     );
     return (
-      <Modal trigger={trigger} dimmer="blurring">
+      <Modal
+        open={this.state.open}
+        trigger={trigger}
+        dimmer="blurring"
+        onClose={() => this.close()}
+      >
+        <Modal.Header>
+          <span className="affix-modal-text--title no-select">
+            Available {this.props.prefixes ? 'Prefixes' : 'Suffixes'}
+          </span>
+        </Modal.Header>
         <Modal.Content>
           <Accordion>{this.getAccordion()}</Accordion>
         </Modal.Content>
+        <Modal.Actions>
+          <div
+            className="drop-shadow--btn"
+            style={{ display: 'inline-block', borderRadius: '5px' }}
+          >
+            <Button onClick={() => this.close()} style={{ marginRight: '0px' }}>
+              Close
+            </Button>
+          </div>
+        </Modal.Actions>
       </Modal>
     );
   }
