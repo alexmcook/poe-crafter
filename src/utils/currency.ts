@@ -488,7 +488,8 @@ export function essence(
   if (
     (item.rarity === Rarity.NORMAL ||
       (tier > 5 && item.rarity === Rarity.RARE)) &&
-    item.type !== 'Jewel'
+    item.type !== 'Jewel' &&
+    !item.corrupted
   ) {
     result = true;
     item = new Item(item);
