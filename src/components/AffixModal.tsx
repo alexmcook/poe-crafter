@@ -68,7 +68,7 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
   getAccordion(): JSX.Element[] | JSX.Element {
     let mods = this.props.prefixes ? this.props.prefixes : this.props.suffixes;
     if (!mods || mods.length === 0) {
-      return <span className="affix-modal-text no-select">None</span>;
+      return <span className="affix-modal-text--none no-select">None</span>;
     }
     let groups = _.groupBy(mods, 'modType');
     let keys = Object.keys(groups);

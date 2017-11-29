@@ -2,8 +2,13 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
 import AffixModal from '../components/AffixModal';
+import AffixSwitch from '../components/AffixSwitch';
 import Item, { Rarity } from '../utils/item';
-import { filterPrefix, filterSuffix } from '../utils/itemFunctions';
+import {
+  filterPrefix,
+  filterSuffix,
+  getSameType
+} from '../utils/itemFunctions';
 
 interface ItemInfoProps {
   item: Item;
@@ -100,24 +105,25 @@ class ItemInfo extends React.Component<ItemInfoProps, ItemInfoState> {
               >
                 [?]{' '}
               </span>
-              <span style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}>
+              <span
+                style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}
+              >
                 {' ' + mod.name + ' '}
               </span>
               {description[i].text}
             </div>
           );
         }
-        let mergedModText = (
-          <span
-            key={mod.id}
-            className="item-info-affix"
-            onClick={() => this.props.affixClickRemove(mod.id)}
-            style={{ display: 'table' }}
-          >
-            {modText}
-          </span>
+        result.push(
+          <AffixSwitch
+            modId={mod.id}
+            modType={mod.modType}
+            modText={modText}
+            mods={getSameType(this.props.item.modPool, mod.modType)}
+            affixClickAdd={id => this.props.affixClickAdd(id)}
+            affixClickRemove={id => this.props.affixClickRemove(id)}
+          />
         );
-        result.push(mergedModText);
         return result;
       },
       []
@@ -139,24 +145,25 @@ class ItemInfo extends React.Component<ItemInfoProps, ItemInfoState> {
               >
                 [?]{' '}
               </span>
-              <span style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}>
+              <span
+                style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}
+              >
                 {' ' + mod.name + ' '}
               </span>
               {description[i].text}
             </div>
           );
         }
-        let mergedModText = (
-          <span
-            key={mod.id}
-            className="item-info-affix"
-            onClick={() => this.props.affixClickRemove(mod.id)}
-            style={{ display: 'table' }}
-          >
-            {modText}
-          </span>
+        result.push(
+          <AffixSwitch
+            modId={mod.id}
+            modType={mod.modType}
+            modText={modText}
+            mods={getSameType(this.props.item.modPool, mod.modType)}
+            affixClickAdd={id => this.props.affixClickAdd(id)}
+            affixClickRemove={id => this.props.affixClickRemove(id)}
+          />
         );
-        result.push(mergedModText);
         return result;
       },
       []

@@ -347,8 +347,15 @@
   font-variant-ligatures: none;
   font-size: 12pt;
   margin-left: 24px;
-  text-shadow: 0 0 1px black;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
   cursor: pointer;
+}
+
+.affix-modal-text--none {
+  font-family: 'Fontin-SmallCaps';
+  font-variant-ligatures: none;
+  font-size: 12pt;
+  margin-left: 24px;
 }
 
 .affix-modal-text--title {
@@ -358,5 +365,5 @@
 }
 
 .affix-modal-title-box:hover {
-  text-shadow: 0 0 1px black;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }

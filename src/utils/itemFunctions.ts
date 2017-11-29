@@ -91,14 +91,20 @@ export function filterGroup(mods: Mod[], currentMods: Mod[]): Mod[] {
 }
 
 export function filterPrefix(mods: Mod[]): Mod[] {
-  return _.filter(mods, mod => {
+  let suffixes = _.filter(mods, mod => {
     return mod.generationType !== GenerationType.PREFIX;
+  });
+  return _.orderBy(suffixes, (mod: Mod) => {
+    return mod.stats[0].key;
   });
 }
 
 export function filterSuffix(mods: Mod[]): Mod[] {
-  return _.filter(mods, mod => {
+  let prefixes = _.filter(mods, mod => {
     return mod.generationType !== GenerationType.SUFFIX;
+  });
+  return _.orderBy(prefixes, (mod: Mod) => {
+    return mod.stats[0].key;
   });
 }
 
@@ -216,4 +222,10 @@ export function checkAvailability(
     }
   }
   return -1;
+}
+
+export function getSameType(modPool: Mod[], modType: string): Mod[] {
+  return _.filter(modPool, mod => {
+    return mod.modType === modType;
+  });
 }
