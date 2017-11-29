@@ -113,7 +113,9 @@ class AffixSwitch extends React.Component<AffixSwitchProps, AffixSwitchState> {
             {this.props.modType}
           </span>
         </Modal.Header>
-        <Modal.Content>{this.getModText(this.props.mods)}</Modal.Content>
+        {this.getModText(this.props.mods).length > 0 ? (
+          <Modal.Content>{this.getModText(this.props.mods)}</Modal.Content>
+        ) : null}
         <Modal.Actions>
           <div
             className="drop-shadow--btn"
