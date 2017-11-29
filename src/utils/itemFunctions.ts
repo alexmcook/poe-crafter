@@ -240,3 +240,29 @@ export function getTierArray(mods: Mod[]): string[] {
     []
   );
 }
+
+export function getWeight(mod: Mod, tags: string[]): number {
+  let weight = _.find(mod.spawnWeights, spawnWeight => {
+    return spawnWeight.valueOf() > 0;
+  });      
+  let modifier = 1;
+  let values: number[] = _.reduce(
+    mod.generationWeights,
+    (result: number[], value, key) => {
+      if (_.includes(tags, key)) {
+        result.push(value);
+      }
+      return result;
+    },
+    []
+  );
+  let max: number | undefined = _.max(values);
+  if (max) {
+    modifier *= max / 100;
+  }
+  if (weight) {
+    return weight * modifier;
+  } else {
+    throw new Error('No weight found for ' + mod.id);
+  }
+}

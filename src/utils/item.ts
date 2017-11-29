@@ -270,61 +270,16 @@ export default class Item extends Base {
 
   getMod(modPool?: Mod[]) {
     let currentModPool = modPool ? modPool : this.currentModPool;
-    let itemTags = this.currentTags;
     let weightTotal = 0;
     _.each(currentModPool, mod => {
-      let weight = _.find(mod.spawnWeights, spawnWeight => {
-        return spawnWeight.valueOf() > 0;
-      });
-      let modifier = 1;
-      let values: number[] = _.reduce(
-        mod.generationWeights,
-        (result: number[], value, key) => {
-          if (_.includes(itemTags, key)) {
-            result.push(value);
-          }
-          return result;
-        },
-        []
-      );
-      let max: number | undefined = _.max(values);
-      if (max) {
-        modifier *= max / 100;
-      }
-      if (weight) {
-        weightTotal += weight * modifier;
-      } else {
-        throw new Error('No weight found for ' + mod.id);
-      }
+      weightTotal += _item.getWeight(mod, this.currentTags);
     });
 
     let selected: Mod | undefined;
     let variate = Math.random() * weightTotal;
     let cumulative = 0;
     _.each(currentModPool, mod => {
-      let weight = _.find(mod.spawnWeights, spawnWeight => {
-        return spawnWeight.valueOf() > 0;
-      });
-      let modifier = 1;
-      let values: number[] = _.reduce(
-        mod.generationWeights,
-        (result: number[], value, key) => {
-          if (_.includes(itemTags, key)) {
-            result.push(value);
-          }
-          return result;
-        },
-        []
-      );
-      let max: number | undefined = _.max(values);
-      if (max) {
-        modifier *= max / 100;
-      }
-      if (weight) {
-        cumulative += weight * modifier;
-      } else {
-        throw new Error('No weight found for ' + mod.id);
-      }
+      cumulative += _item.getWeight(mod, this.currentTags);
       if (variate <= cumulative) {
         selected = mod;
         return false;

@@ -255,6 +255,9 @@ class ItemInfo extends React.Component<ItemInfoProps, ItemInfoState> {
                     : filterSuffix(this.props.item.currentModPool)
                 }
                 affixClickAdd={(id: string) => this.props.affixClickAdd(id)}
+                currentModPool={this.props.item.currentModPool}
+                modPool={this.props.item.modPool}
+                tags={this.props.item.currentTags}
               />
               <div>{prefixes.length > 0 ? prefixes : 'None'}</div>
             </div>
@@ -268,6 +271,9 @@ class ItemInfo extends React.Component<ItemInfoProps, ItemInfoState> {
                     : filterPrefix(this.props.item.currentModPool)
                 }
                 affixClickAdd={(id: string) => this.props.affixClickAdd(id)}
+                currentModPool={this.props.item.currentModPool}
+                modPool={this.props.item.modPool}
+                tags={this.props.item.currentTags}
               />
               <div>{suffixes.length > 0 ? suffixes : 'None'}</div>
             </div>

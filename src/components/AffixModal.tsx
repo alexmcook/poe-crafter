@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { Modal, Accordion, Icon, Button } from 'semantic-ui-react';
 import Mod from '../utils/mod';
+import { getWeight } from '../utils/itemFunctions';
 import * as _ from 'lodash';
 import * as poe from 'poe-mod-descriptions';
 
 interface AffixModalProps {
   prefixes?: Mod[];
   suffixes?: Mod[];
+  currentModPool: Mod[];
+  modPool: Mod[];
+  tags: string[];
   affixClickAdd: (id: string) => { type: string; payload: string };
 }
 
@@ -50,13 +54,37 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
         if (index > 0) {
           result.push(<br key={'br' + index} />);
         }
+        let modPool =
+          this.props.currentModPool.length > 0
+            ? this.props.currentModPool
+            : this.props.modPool;
+        let totalWeight = _.reduce(
+          modPool,
+          (total, mod) => {
+            total += getWeight(mod, this.props.tags);
+            return total;
+          },
+          0
+        );
+        let currentMods = this.props.prefixes
+          ? this.props.prefixes
+          : this.props.suffixes;
+        let currentMod = _.find(currentMods, mod => {
+          return mod.id === text.id;
+        });
+        let spawnChance = 0;
+        if (currentMod) {
+          spawnChance = Math.round((getWeight(currentMod, this.props.tags) / totalWeight * 100) * 100) / 100;
+        } else {
+          throw new Error('No mod found for ' + text.id);
+        }
         result.push(
           <span
             key={'text' + index}
             className="affix-modal-text no-select"
             onClick={() => this.handleAffixClick(index, text.id)}
           >
-            iLvl {text.level}: {text.text} ({text.name})
+            [{spawnChance}%] iLvl {text.level}: {text.text} ({text.name})
           </span>
         );
         return result;
