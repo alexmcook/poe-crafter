@@ -7,7 +7,8 @@ import Item, { Rarity } from '../utils/item';
 import {
   filterPrefix,
   filterSuffix,
-  getSameType
+  getSameType,
+  getTierArray
 } from '../utils/itemFunctions';
 
 interface ItemInfoProps {
@@ -92,18 +93,30 @@ class ItemInfo extends React.Component<ItemInfoProps, ItemInfoState> {
 
   getPrefixes(): JSX.Element[] {
     const prefixes = filterSuffix(this.props.item.mods);
+    const tiers = _.reduce(
+      prefixes,
+      (result: string[][], mod) => {
+        let sameType = getSameType(this.props.item.modPool, mod.modType);
+        let tierArray = _.reverse(getTierArray(sameType));
+        result.push(tierArray);
+        return result;
+      },
+      []
+    );
     return _.reduce(
       prefixes,
-      (result: JSX.Element[], mod) => {
+      (result: JSX.Element[], mod, index) => {
         let description = poe.getDescriptions([mod], true);
         let modText: JSX.Element[] = [];
         for (let i = 0; i < description.length; i++) {
           modText.push(
             <div key={'text' + i}>
               <span
-                style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}
+                style={i > 0 ? { visibility: 'hidden' } : { color: '#97ed97' }}
               >
-                [?]{' '}
+                {tiers[index].indexOf(mod.id) < 0
+                  ? 'T?'
+                  : 'T' + (tiers[index].indexOf(mod.id) + 1)}
               </span>
               <span
                 style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}
@@ -132,18 +145,30 @@ class ItemInfo extends React.Component<ItemInfoProps, ItemInfoState> {
 
   getSuffixes(): JSX.Element[] {
     const suffixes = filterPrefix(this.props.item.mods);
+    const tiers = _.reduce(
+      suffixes,
+      (result: string[][], mod) => {
+        let sameType = getSameType(this.props.item.modPool, mod.modType);
+        let tierArray = _.reverse(getTierArray(sameType));
+        result.push(tierArray);
+        return result;
+      },
+      []
+    );
     return _.reduce(
       suffixes,
-      (result: JSX.Element[], mod) => {
+      (result: JSX.Element[], mod, index) => {
         let description = poe.getDescriptions([mod], true);
         let modText: JSX.Element[] = [];
         for (let i = 0; i < description.length; i++) {
           modText.push(
             <div key={'text' + i}>
               <span
-                style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}
+                style={i > 0 ? { visibility: 'hidden' } : { color: '#97ed97' }}
               >
-                [?]{' '}
+                {tiers[index].indexOf(mod.id) < 0
+                  ? 'T?'
+                  : 'T' + (tiers[index].indexOf(mod.id) + 1)}
               </span>
               <span
                 style={i > 0 ? { visibility: 'hidden' } : { color: '#8cdcdc' }}

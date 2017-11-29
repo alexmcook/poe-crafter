@@ -229,3 +229,14 @@ export function getSameType(modPool: Mod[], modType: string): Mod[] {
     return mod.modType === modType;
   });
 }
+
+export function getTierArray(mods: Mod[]): string[] {
+  return _.reduce(
+    mods,
+    (result: string[], mod) => {
+      result.push(mod.id);
+      return result;
+    },
+    []
+  );
+}
