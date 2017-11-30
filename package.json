@@ -5,9 +5,9 @@
   "homepage": "https://alexmcook.github.io/poe-crafter",
   "dependencies": {
     "gh-pages": "^1.1.0",
-    "poe-mod-descriptions": "^1.3.1",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
+    "poe-mod-descriptions": "^1.3.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-scripts-ts": "2.8.0",
     "redux": "^3.7.2",
@@ -24,11 +24,11 @@
   },
   "devDependencies": {
     "@types/jest": "^21.1.8",
-    "@types/lodash": "^4.14.85",
+    "@types/lodash": "^4.14.86",
     "@types/node": "^8.0.53",
     "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
-    "@types/react-redux": "^5.0.13",
+    "@types/react-redux": "^5.0.14",
     "@types/webpack": "^3.8.1",
     "@types/webpack-env": "^1.13.2"
   }

@@ -152,6 +152,8 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
   }
 
   open() {
+    // Fix for multiple modals causing the scrollbar to be removed if they do not need it
+    document.body.className += 'scrolling';
     this.setState({ open: true });
   }
 
