@@ -129,7 +129,6 @@ class Options extends React.Component<OptionsProps, OptionsState> {
           </Button>
         }
         size="tiny"
-        dimmer="blurring"
         onClose={() => this.close()}
       >
         <Modal.Header>Options</Modal.Header>

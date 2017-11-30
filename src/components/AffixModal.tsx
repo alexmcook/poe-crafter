@@ -171,7 +171,6 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
       <Modal
         open={this.state.open}
         trigger={trigger}
-        dimmer="blurring"
         onClose={() => this.close()}
       >
         <Modal.Header>

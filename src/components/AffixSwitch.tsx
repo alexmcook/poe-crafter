@@ -105,7 +105,6 @@ class AffixSwitch extends React.Component<AffixSwitchProps, AffixSwitchState> {
       <Modal
         open={this.state.open}
         trigger={trigger}
-        dimmer="blurring"
         onClose={() => this.close()}
       >
         <Modal.Header>
