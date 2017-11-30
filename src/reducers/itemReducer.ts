@@ -134,10 +134,7 @@ export default (state: ItemState = initialState, action: Action) => {
     case 'MOUSE_LEAVE':
       return {
         ...state,
-        selectedCurrency:
-          action.payload === state.selectedCurrency.name
-            ? none
-            : { ...state.selectedCurrency, name: action.payload }
+        selectedCurrency: action.payload ? none : { ...state.selectedCurrency }
       };
     case 'ORB_CLICK':
       if (action.payload === 'REGRET') {

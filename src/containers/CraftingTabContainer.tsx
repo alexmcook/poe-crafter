@@ -21,7 +21,6 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = {
   mouseMove: input.mouseMove,
-  mouseLeave: input.mouseLeave,
   craftClick: craft.craftClick,
   optionClick: craft.optionClick,
   masterClick: craft.masterClick,

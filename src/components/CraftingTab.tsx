@@ -25,7 +25,6 @@ interface CraftingTabProps {
   mouseMove: (
     e: MouseEvent
   ) => { type: string; payload: { x: number; y: number } };
-  mouseLeave: () => { type: string; payload: {} };
   craftClick: (
     option: CraftingOption
   ) => { type: string; payload: CraftingOption };

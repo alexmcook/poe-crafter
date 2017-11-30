@@ -3,9 +3,9 @@ export const mouseMove = (e: { clientX: number; clientY: number }) => ({
   payload: { x: e.clientX, y: e.clientY }
 });
 
-export const mouseLeave = () => ({
+export const mouseLeave = (e: MouseEvent) => ({
   type: 'MOUSE_LEAVE',
-  payload: {}
+  payload: e.screenX === 0 && e.screenY === 0 ? false : true
 });
 
 export const keyUp = (key: string) => ({

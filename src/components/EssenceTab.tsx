@@ -29,7 +29,7 @@ interface EssenceTabProps {
   mouseMove: (
     e: MouseEvent
   ) => { type: string; payload: { x: number; y: number } };
-  mouseLeave: () => { type: string; payload: {} };
+  mouseLeave: (e: MouseEvent) => { type: string; payload: boolean };
   anchorItemBox: boolean;
   imprintName: string;
   imprintBase: string;
@@ -54,6 +54,12 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
     return match as EssenceText;
   }
 
+  handleMouseLeave(e: MouseEvent) {
+    if (e.screenX !== 0 && e.screenY !== 0) {
+      this.props.mouseLeave(e);
+    }
+  }
+
   render() {
     return (
       <Grid.Row centered={true}>
@@ -63,7 +69,7 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
             viewBox="0 0 1282 1282"
             preserveAspectRatio="xMinYMin meet"
             onMouseMove={e => this.props.mouseMove(e.nativeEvent)}
-            onMouseLeave={() => this.props.mouseLeave()}
+            onMouseLeave={e => this.handleMouseLeave(e.nativeEvent)}
             onContextMenu={e => e.preventDefault()}
           >
             <image xlinkHref={background} height="1282" width="1282" />
