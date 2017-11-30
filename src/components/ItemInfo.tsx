@@ -181,6 +181,7 @@ class ItemInfo extends React.Component<ItemInfoProps, ItemInfoState> {
         }
         result.push(
           <AffixSwitch
+            key={'affix' + index}
             modId={mod.id}
             modType={mod.modType}
             modText={modText}
