@@ -75,13 +75,24 @@ export function armorScrap(item: Item): { item: Item; result: boolean } {
 export function transmute(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (item.rarity === Rarity.NORMAL && !item.corrupted) {
+    let oldItem = item;
     result = true;
     item = new Item(item);
     item.rarity = Rarity.MAGIC;
     item.updateModPool();
-    item.addMod(item.getMod());
+    let mod = item.getMod();
+    if (mod) {
+      item.addMod(mod);
+    } else {
+      return { item: oldItem, result: false };
+    }
     if (Math.random() < 0.5) {
-      item.addMod(item.getMod());
+      mod = item.getMod();
+      if (mod) {
+        item.addMod(mod);
+      } else {
+        return { item: oldItem, result: false };
+      }
     }
   }
   return { item: item, result: result };
@@ -90,12 +101,23 @@ export function transmute(item: Item): { item: Item; result: boolean } {
 export function alteration(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (item.rarity === Rarity.MAGIC && !item.corrupted) {
+    let oldItem = item;
     result = true;
     item = new Item(item);
     item.reset();
-    item.addMod(item.getMod());
+    let mod = item.getMod();
+    if (mod) {
+      item.addMod(mod);
+    } else {
+      return { item: oldItem, result: false };
+    }
     if (Math.random() < 0.5) {
-      item.addMod(item.getMod());
+      mod = item.getMod();
+      if (mod) {
+        item.addMod(mod);
+      } else {
+        return { item: oldItem, result: false };
+      }
     }
   }
   return { item: item, result: result };
@@ -129,9 +151,15 @@ export function exalted(item: Item): { item: Item; result: boolean } {
       maxCount = 4;
     }
     if (item.mods.length < maxCount) {
+      let oldItem = item;
       result = true;
       item = new Item(item);
-      item.addMod(item.getMod());
+      let mod = item.getMod();
+      if (mod) {
+        item.addMod(mod);
+      } else {
+        return { item: oldItem, result: false };
+      }
     }
   }
   return { item: item, result: result };
@@ -140,12 +168,18 @@ export function exalted(item: Item): { item: Item; result: boolean } {
 export function regal(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (item.rarity === Rarity.MAGIC && !item.corrupted) {
+    let oldItem = item;
     result = true;
     item = new Item(item);
     item.rarity = Rarity.RARE;
     item.itemName = item.generateName();
     item.updateModPool();
-    item.addMod(item.getMod());
+    let mod = item.getMod();
+    if (mod) {
+      item.addMod(mod);
+    } else {
+      return { item: oldItem, result: false };
+    }
   }
   return { item: item, result: result };
 }
@@ -153,6 +187,7 @@ export function regal(item: Item): { item: Item; result: boolean } {
 export function alchemy(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (item.rarity === Rarity.NORMAL && !item.corrupted) {
+    let oldItem = item;
     result = true;
     item = new Item(item);
     item.rarity = Rarity.RARE;
@@ -160,19 +195,44 @@ export function alchemy(item: Item): { item: Item; result: boolean } {
     item.updateModPool();
     if (item.type === 'Jewel') {
       for (let i = 0; i < 3; i++) {
-        item.addMod(item.getMod());
+        let mod = item.getMod();
+        if (mod) {
+          item.addMod(mod);
+        } else {
+          return { item: oldItem, result: false };
+        }
       }
       if (Math.random() < 0.5) {
-        item.addMod(item.getMod());
+        let mod = item.getMod();
+        if (mod) {
+          item.addMod(mod);
+        } else {
+          return { item: oldItem, result: false };
+        }
       }
     } else {
       for (let i = 0; i < 4; i++) {
-        item.addMod(item.getMod());
+        let mod = item.getMod();
+        if (mod) {
+          item.addMod(mod);
+        } else {
+          return { item: oldItem, result: false };
+        }
       }
       if (Math.random() < 0.5) {
-        item.addMod(item.getMod());
+        let mod = item.getMod();
+        if (mod) {
+          item.addMod(mod);
+        } else {
+          return { item: oldItem, result: false };
+        }
         if (Math.random() < 0.5) {
-          item.addMod(item.getMod());
+          mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
       }
     }
@@ -183,6 +243,7 @@ export function alchemy(item: Item): { item: Item; result: boolean } {
 export function chaos(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (item.rarity === Rarity.RARE && !item.corrupted) {
+    let oldItem = item;
     result = true;
     item = new Item(item);
     item.itemName = item.generateName();
@@ -195,19 +256,44 @@ export function chaos(item: Item): { item: Item; result: boolean } {
       });
       if (item.type === 'Jewel') {
         for (let i = item.mods.length; i < 3; i++) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
         if (Math.random() < 0.5) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
       } else {
         for (let i = item.mods.length; i < 4; i++) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
         if (Math.random() < 0.5) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
           if (Math.random() < 0.5) {
-            item.addMod(item.getMod());
+            mod = item.getMod();
+            if (mod) {
+              item.addMod(mod);
+            } else {
+              return { item: oldItem, result: false };
+            }
           }
         }
       }
@@ -218,19 +304,44 @@ export function chaos(item: Item): { item: Item; result: boolean } {
       });
       if (item.type === 'Jewel') {
         for (let i = item.mods.length; i < 3; i++) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
         if (Math.random() < 0.5) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
       } else {
         for (let i = item.mods.length; i < 4; i++) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
         if (Math.random() < 0.5) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
           if (Math.random() < 0.5) {
-            item.addMod(item.getMod());
+            mod = item.getMod();
+            if (mod) {
+              item.addMod(mod);
+            } else {
+              return { item: oldItem, result: false };
+            }
           }
         }
       }
@@ -238,19 +349,44 @@ export function chaos(item: Item): { item: Item; result: boolean } {
       item.reset();
       if (item.type === 'Jewel') {
         for (let i = 0; i < 3; i++) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
         if (Math.random() < 0.5) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
       } else {
         for (let i = 0; i < 4; i++) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
         }
         if (Math.random() < 0.5) {
-          item.addMod(item.getMod());
+          let mod = item.getMod();
+          if (mod) {
+            item.addMod(mod);
+          } else {
+            return { item: oldItem, result: false };
+          }
           if (Math.random() < 0.5) {
-            item.addMod(item.getMod());
+            mod = item.getMod();
+            if (mod) {
+              item.addMod(mod);
+            } else {
+              return { item: oldItem, result: false };
+            }
           }
         }
       }
@@ -281,9 +417,15 @@ export function blessed(item: Item): { item: Item; result: boolean } {
 export function augment(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (item.rarity === Rarity.MAGIC && item.mods.length < 2 && !item.corrupted) {
+    let oldItem = item;
     result = true;
     item = new Item(item);
-    item.addMod(item.getMod());
+    let mod = item.getMod();
+    if (mod) {
+      item.addMod(mod);
+    } else {
+      return { item: oldItem, result: false };
+    }
   }
   return { item: item, result: result };
 }
@@ -330,7 +472,8 @@ export function jeweller(item: Item): { item: Item; result: boolean } {
 export function fusing(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (
-    (item.socketLinks.indexOf('X') > -1 || (item.socketLinks.length < 5 && item.sockets > 1)) &&
+    (item.socketLinks.indexOf('X') > -1 ||
+      (item.socketLinks.length < 5 && item.sockets > 1)) &&
     !item.corrupted
   ) {
     result = true;
@@ -378,6 +521,7 @@ export function scouring(item: Item): { item: Item; result: boolean } {
 export function vaal(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (!item.corrupted) {
+    let oldItem = item;
     result = true;
     item = new Item(item);
     item.corrupted = true;
@@ -391,11 +535,21 @@ export function vaal(item: Item): { item: Item; result: boolean } {
         item.itemName = item.generateName();
         if (item.type === 'Jewel') {
           for (let i = 0; i < 4; i++) {
-            item.addMod(item.getMod());
+            let mod = item.getMod();
+            if (mod) {
+              item.addMod(mod);
+            } else {
+              return { item: oldItem, result: false };
+            }
           }
         } else {
           for (let i = 0; i < 6; i++) {
-            item.addMod(item.getMod());
+            let mod = item.getMod();
+            if (mod) {
+              item.addMod(mod);
+            } else {
+              return { item: oldItem, result: false };
+            }
           }
         }
       } else {
@@ -429,11 +583,21 @@ export function vaal(item: Item): { item: Item; result: boolean } {
         item.itemName = item.generateName();
         if (item.type === 'Jewel') {
           for (let i = 0; i < 4; i++) {
-            item.addMod(item.getMod());
+            let mod = item.getMod();
+            if (mod) {
+              item.addMod(mod);
+            } else {
+              return { item: oldItem, result: false };
+            }
           }
         } else {
           for (let i = 0; i < 6; i++) {
-            item.addMod(item.getMod());
+            let mod = item.getMod();
+            if (mod) {
+              item.addMod(mod);
+            } else {
+              return { item: oldItem, result: false };
+            }
           }
         }
         item.rerollSockets();
@@ -491,6 +655,7 @@ export function essence(
     item.type !== 'Jewel' &&
     !item.corrupted
   ) {
+    let oldItem = item;
     result = true;
     item = new Item(item);
     let itemLevel = item.itemLevel;
@@ -567,12 +732,27 @@ export function essence(
     }
 
     for (let i = 0; i < 3; i++) {
-      item.addMod(item.getMod());
+      let mod = item.getMod();
+      if (mod) {
+        item.addMod(mod);
+      } else {
+        return { item: oldItem, result: false };
+      }
     }
     if (Math.random() < 0.5) {
-      item.addMod(item.getMod());
+      let mod = item.getMod();
+      if (mod) {
+        item.addMod(mod);
+      } else {
+        return { item: oldItem, result: false };
+      }
       if (Math.random() < 0.5) {
-        item.addMod(item.getMod());
+        mod = item.getMod();
+        if (mod) {
+          item.addMod(mod);
+        } else {
+          return { item: oldItem, result: false };
+        }
       }
     }
     item.itemLevel = itemLevel;

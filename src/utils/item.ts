@@ -268,7 +268,7 @@ export default class Item extends Base {
     this.rerollImplicit();
   }
 
-  getMod(modPool?: Mod[]) {
+  getMod(modPool?: Mod[]): Mod | undefined {
     let currentModPool = modPool ? modPool : this.currentModPool;
     let weightTotal = 0;
     _.each(currentModPool, mod => {
@@ -287,14 +287,13 @@ export default class Item extends Base {
       return true;
     });
 
-    if (selected) {
-      return selected;
-    } else {
-      throw new Error('No mod found');
-    }
+    return selected;
   }
 
   addMod(mod: Mod) {
+    if (!mod) {
+      return;
+    }
     initMod(mod);
     if (mod.generationType === GenerationType.PREFIX) {
       this.prefixCount++;
