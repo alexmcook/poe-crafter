@@ -123,10 +123,13 @@ const essenceNames: string[] = [
 export default (state: ItemState = initialState, action: Action) => {
   switch (action.type) {
     case 'SELECT_BASE':
+      let level = state.currentItem.itemLevel;
+      let item = new Item(findBase(<string> action.payload));
+      item.itemLevel = level;      
       return {
         ...state,
         prevState: state,
-        currentItem: new Item(findBase(<string> action.payload)),
+        currentItem: item,
         imprint: undefined
       };
     case 'MOUSE_LEAVE':
@@ -667,7 +670,7 @@ export default (state: ItemState = initialState, action: Action) => {
     case 'MASTER_CLICK':
       return { ...state, selectedOption: undefined };
     case 'AFFIX_CLICK_REMOVE':
-      let item = new Item(state.currentItem);
+      item = new Item(state.currentItem);
       let match = _.find(item.mods, (mod: Mod) => {
         return mod.id === action.payload;
       });
@@ -728,7 +731,16 @@ export default (state: ItemState = initialState, action: Action) => {
         forceShift: state.forceShift
       };
     case 'SET_ATLAS_TYPE':
+      if (
+        state.currentItem.type === 'Jewel' || 
+        state.currentItem.type === 'AbyssJewel' || 
+        state.currentItem.name === 'Stygian Vise'
+      ) {
+        return state;
+      }
+      level = state.currentItem.itemLevel;
       item = new Item(findBase(state.currentItem.id));
+      item.itemLevel = level;      
       item.setAtlasType(<string> action.payload);
       return {
         ...state,
