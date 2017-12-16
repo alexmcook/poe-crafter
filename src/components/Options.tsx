@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Button, Modal, Icon, Radio } from 'semantic-ui-react';
+import { Grid, Button, Modal, Icon } from 'semantic-ui-react';
 import BaseSelectorContainer from '../containers/BaseSelectorContainer';
 
 interface OptionsProps {
@@ -150,30 +150,82 @@ class Options extends React.Component<OptionsProps, OptionsState> {
                 </Grid.Column>
                 <Grid.Column width={16}>
                   <br />
-                  <Radio
-                    label={'Elder'}
-                    checked={this.props.atlasType === 'ELDER'}
-                    onChange={() => this.props.setAtlasType('ELDER')}
-                  />
-                  <Radio
-                    style={{ paddingLeft: '10px' }}
-                    label={'Shaper'}
-                    checked={this.props.atlasType === 'SHAPER'}
-                    onChange={() => this.props.setAtlasType('SHAPER')}
-                  />
-                  <Radio
-                    style={{ paddingLeft: '10px' }}
-                    label={'None'}
-                    checked={this.props.atlasType === 'NONE'}
-                    onChange={() => this.props.setAtlasType('NONE')}
-                  />
+                  <span
+                    onClick={() =>
+                      this.props.atlasType !== 'ELDER'
+                        ? this.props.setAtlasType('ELDER')
+                        : null
+                    }
+                    className="no-select"
+                    style={{
+                      fontSize: '12pt',
+                      cursor: 'pointer',
+                      marginTop: '5px'
+                    }}
+                  >
+                    <Icon
+                      name={
+                        this.props.atlasType === 'ELDER'
+                          ? 'selected radio'
+                          : 'radio'
+                      }
+                    />
+                    {'Elder'}
+                  </span>
+                  <span
+                    onClick={() =>
+                      this.props.atlasType !== 'SHAPER'
+                        ? this.props.setAtlasType('SHAPER')
+                        : null
+                    }
+                    className="no-select"
+                    style={{
+                      fontSize: '12pt',
+                      cursor: 'pointer',
+                      marginTop: '5px',
+                      marginLeft: '10px'
+                    }}
+                  >
+                    <Icon
+                      name={
+                        this.props.atlasType === 'SHAPER'
+                          ? 'selected radio'
+                          : 'radio'
+                      }
+                    />
+                    {'Shaper'}
+                  </span>
+                  <span
+                    onClick={() =>
+                      this.props.atlasType !== 'NONE'
+                        ? this.props.setAtlasType('NONE')
+                        : null
+                    }
+                    className="no-select"
+                    style={{
+                      fontSize: '12pt',
+                      cursor: 'pointer',
+                      marginTop: '5px',
+                      marginLeft: '10px'
+                    }}
+                  >
+                    <Icon
+                      name={
+                        this.props.atlasType === 'NONE'
+                          ? 'selected radio'
+                          : 'radio'
+                      }
+                    />
+                    {'None'}
+                  </span>
                 </Grid.Column>
                 <Grid.Column width={16} style={{ marginTop: '5px' }}>
                   <p
                     style={{
                       fontSize: '14pt',
                       marginTop: '10px',
-                      marginBottom: '5px'
+                      marginBottom: '5px',
+                      marginLeft: '10px'
                     }}
                   >
                     Options

@@ -39,6 +39,8 @@ export default class Base {
   requirement: Requirement;
   defense?: Defense;
   weapon?: Weapon;
+  w: number;
+  h: number;
   constructor(base: Base | Item) {
     this.id = base.id;
     this.name = base.name;
@@ -72,5 +74,7 @@ export default class Base {
     if (base.weapon != null) {
       this.weapon = base.weapon;
     }
+    this.w = base.w;
+    this.h = base.h;
   }
 }

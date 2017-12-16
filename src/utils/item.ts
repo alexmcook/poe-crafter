@@ -107,7 +107,7 @@ export default class Item extends Base {
       this.itemLevel = 100;
       this.quality = 0;
       this.rarity = Rarity.NORMAL;
-      this.modPool = generateModPool(this);
+      this.modPool = generateModPool(this, this.tags);
       this.corruptionPool = generateCorruptionPool(this);
       this.currentModPool = this.modPool.slice();
       this.currentTags = item.tags.slice();
@@ -405,52 +405,42 @@ export default class Item extends Base {
   }
 
   setAtlasType(type: string) {
-    console.log(this.currentTags);
     switch (type) {
       case 'ELDER':
         if (
-          !_.includes(this.tags[0].toLowerCase(), 'elder')
+          !_.includes(this.currentTags[0], 'elder')
         ) {
-          if (_.includes(this.tags[0].toLowerCase(), 'shaper')) {
-            this.tags.splice(0, 1);
+          if (_.includes(this.currentTags[0], 'shaper')) {
+            this.currentTags.splice(0, 1);
           }
-          this.tags.unshift(this.type.toLowerCase() + '_' + type.toLowerCase());
-          this.currentTags = this.tags;
+          addTag(this, type.toLowerCase());
           this.atlasType = 'ELDER';
-          this.modPool = generateModPool(this);
+          this.modPool = generateModPool(this, this.currentTags);
           this.updateModPool();
         }
         break;
       case 'SHAPER':
         if (
-          !_.includes(this.tags[0].toLowerCase(), 'shaper')
+          !_.includes(this.currentTags[0], 'shaper')
         ) {
-          if (_.includes(this.tags[0].toLowerCase(), 'elder')) {
-            this.tags.splice(0, 1);
+          if (_.includes(this.currentTags[0], 'elder')) {
+            this.currentTags.splice(0, 1);
           }
-          this.tags.unshift(this.type.toLowerCase() + '_' + type.toLowerCase());
-          this.currentTags = this.tags;
+          addTag(this, type.toLowerCase());
           this.atlasType = 'SHAPER';
-          this.modPool = generateModPool(this);
+          this.modPool = generateModPool(this, this.currentTags);
           this.updateModPool();
         }
         break;
       case 'NONE':
-        if (
-          _.includes(this.tags[0].toLowerCase(), 'elder') || 
-          _.includes(this.tags[0].toLowerCase(), 'shaper')
-        ) {
-          this.tags.splice(0, 1);
-          this.currentTags = this.tags;
-          this.atlasType = 'NONE';
-          this.modPool = generateModPool(this);
-          this.updateModPool();
-        }
+        this.currentTags = this.tags;
+        this.atlasType = 'NONE';
+        this.modPool = generateModPool(this, this.tags);
+        this.updateModPool();
         break;
       default:
         break;
     }
-    console.log(this.currentTags);
   }
 
   calcLevel(): number {
@@ -736,9 +726,9 @@ export default class Item extends Base {
   }
 }
 
-function generateModPool(item: Item): Mod[] {
-  let modPool = _item.filterSpawnWeightTagsMatch(mods, item.tags);
-  modPool = _item.filterSpawnWeightAnyIsZero(modPool, item.tags);
+function generateModPool(item: Item, tags: string[]): Mod[] {
+  let modPool = _item.filterSpawnWeightTagsMatch(mods, tags);
+  modPool = _item.filterSpawnWeightAnyIsZero(modPool, tags);
   modPool = _item.filterGenerationType(modPool);
   modPool = _item.filterDomain(modPool, item.type);
   modPool = _item.filterLevel(modPool, item.itemLevel);
@@ -766,4 +756,18 @@ function initMod(mod: Mod) {
   _.each(mod.stats, stat => {
     stat.value = randomRange(stat.valueMin, stat.valueMax + 1);
   });
+}
+
+function addTag(item: Item, type: string) {
+  if (_.includes(item.type.toLowerCase(), 'one hand ')) {
+    let weaponClass = item.type.slice(9).toLowerCase();
+    item.currentTags.unshift(weaponClass + '_' + type);
+  } else if (_.includes(item.type.toLowerCase(), 'two hand ')) {
+    let weaponClass = item.type.slice(9).toLowerCase();
+    item.currentTags.unshift('2h_' + weaponClass + '_' + type);
+  } else if (_.includes(item.type.toLowerCase(), 'body armour')) {
+    item.currentTags.unshift('body_armour_' + type);
+  } else {
+    item.currentTags.unshift(item.type.toLowerCase() + '_' + type);
+  }
 }

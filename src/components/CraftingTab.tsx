@@ -21,6 +21,9 @@ interface CraftingTabProps {
   itemArt: string;
   itemSockets: string;
   itemLinks: string;
+  itemWidth: number;
+  itemHeight: number;
+  atlasType: string;
   verticalSockets: boolean;
   mouseMove: (
     e: MouseEvent
@@ -309,6 +312,9 @@ class CraftingTab extends React.Component<CraftingTabProps, CraftingTabState> {
               y={1084}
               width={212}
               height={418}
+              itemWidth={this.props.itemWidth}
+              itemHeight={this.props.itemHeight}
+              atlasType={this.props.atlasType}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={() => ({ type: '', payload: false })}
               alwaysOn={this.props.anchorItemBox}

@@ -11,6 +11,9 @@ interface CurrencyTabProps {
   itemArt: string;
   itemSockets: string;
   itemLinks: string;
+  itemWidth: number;
+  itemHeight: number;
+  atlasType: string;
   verticalSockets: boolean;
   orbClick: (orb: string) => { type: string; payload: string };
   itemClick: (e: MouseEvent) => { type: string; payload: boolean };
@@ -320,6 +323,9 @@ class CurrencyTab extends React.Component<CurrencyTabProps, CurrencyTabState> {
               y={561}
               width={166}
               height={340}
+              itemWidth={this.props.itemWidth}
+              itemHeight={this.props.itemHeight}
+              atlasType={this.props.atlasType}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={this.props.itemClick}
               alwaysOn={this.props.anchorItemBox}

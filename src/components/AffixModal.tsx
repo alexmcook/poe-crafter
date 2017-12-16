@@ -36,7 +36,6 @@ class AffixModal extends React.Component<AffixModalProps, AffixModalState> {
       level: number;
     }[] = [];
     _.each(mods, mod => {
-      console.log(mod);
       let description = poe.getDescriptions([mod], true);
       let texts: string[] = [];
       _.each(description, text => {

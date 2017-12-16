@@ -8,6 +8,9 @@ interface ItemRectProps {
   y: number;
   width: number;
   height: number;
+  itemWidth: number;
+  itemHeight: number;
+  atlasType: string;
   onClick: (e: MouseEvent) => { type: string; payload: boolean };
   alwaysOn?: boolean;
 }
@@ -55,6 +58,27 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
   }
 
   render() {
+    const atlasBackground = (
+      <image
+        className="no-pointer-events"
+        xlinkHref={
+          this.props.atlasType === 'SHAPER'
+            ? 'http://web.poecdn.com/image/inventory/ShaperBackground.png?w=' +
+              this.props.itemWidth +
+              '&h=' +
+              this.props.itemHeight +
+              '&x=0&y=0'
+            : 'http://web.poecdn.com/image/inventory/ElderBackground.png?w=' +
+              this.props.itemWidth +
+              '&h=' +
+              this.props.itemHeight
+        }
+        x={this.state.dimensions.x}
+        y={this.state.dimensions.y}
+        width={this.state.dimensions.width}
+        height={this.state.dimensions.height}
+      />
+    );
     return (
       <TooltipContainer
         trigger={
@@ -76,6 +100,7 @@ class ItemRect extends React.Component<ItemRectProps, ItemRectState> {
               width={166}
               height={340}
             />
+            {this.props.atlasType !== 'NONE' ? atlasBackground : null}
             <image
               className="no-pointer-events"
               xlinkHref={this.props.xlinkHref}

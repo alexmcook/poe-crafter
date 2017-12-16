@@ -126,9 +126,7 @@ export default (state: ItemState = initialState, action: Action) => {
       return {
         ...state,
         prevState: state,
-        currentItem: new Item(_.find(bases, base => {
-          return base.id === action.payload;
-        }) as Base),
+        currentItem: new Item(findBase(<string> action.payload)),
         imprint: undefined
       };
     case 'MOUSE_LEAVE':
@@ -723,9 +721,10 @@ export default (state: ItemState = initialState, action: Action) => {
         forceShift: action.payload
       };
     case 'RESET':
+      item = new Item(findBase(state.currentItem.id));
       return {
         ...initialState,
-        currentItem: new Item(findBase(state.currentItem.id)),
+        currentItem: item,
         forceShift: state.forceShift
       };
     case 'SET_ATLAS_TYPE':
@@ -733,10 +732,9 @@ export default (state: ItemState = initialState, action: Action) => {
       item.setAtlasType(<string> action.payload);
       return {
         ...state,
+        prevState: state,
         currentItem: item,
-        atlasType: <string> action.payload,
-        prevState:
-          state.currentItem.atlasType !== <string> action.payload ? state : state.prevState
+        imprint: undefined
       };
     default:
       return state;

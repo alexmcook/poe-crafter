@@ -19,6 +19,9 @@ interface EssenceTabProps {
   itemArt: string;
   itemSockets: string;
   itemLinks: string;
+  itemWidth: number;
+  itemHeight: number;
+  atlasType: string;
   verticalSockets: boolean;
   orbClick: (orb: string) => { type: string; payload: string };
   essenceClick: (
@@ -1531,6 +1534,9 @@ class EssenceTab extends React.Component<EssenceTabProps, EssenceTabState> {
               y={886}
               width={166}
               height={340}
+              itemWidth={this.props.itemWidth}
+              itemHeight={this.props.itemHeight}
+              atlasType={this.props.atlasType}
               xlinkHref={'https://' + this.props.itemArt}
               onClick={this.props.itemClick}
               alwaysOn={this.props.anchorItemBox}
