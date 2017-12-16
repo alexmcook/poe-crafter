@@ -733,8 +733,7 @@ export default (state: ItemState = initialState, action: Action) => {
     case 'SET_ATLAS_TYPE':
       if (
         state.currentItem.type === 'Jewel' || 
-        state.currentItem.type === 'AbyssJewel' || 
-        state.currentItem.name === 'Stygian Vise'
+        state.currentItem.type === 'AbyssJewel'
       ) {
         return state;
       }
