@@ -728,6 +728,16 @@ export default (state: ItemState = initialState, action: Action) => {
         currentItem: new Item(findBase(state.currentItem.id)),
         forceShift: state.forceShift
       };
+    case 'SET_ATLAS_TYPE':
+      item = new Item(findBase(state.currentItem.id));
+      item.setAtlasType(<string> action.payload);
+      return {
+        ...state,
+        currentItem: item,
+        atlasType: <string> action.payload,
+        prevState:
+          state.currentItem.atlasType !== <string> action.payload ? state : state.prevState
+      };
     default:
       return state;
   }

@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { Grid, Button, Modal, Icon } from 'semantic-ui-react';
+import { Grid, Button, Modal, Icon, Radio } from 'semantic-ui-react';
 import BaseSelectorContainer from '../containers/BaseSelectorContainer';
 
 interface OptionsProps {
   forceShiftState: boolean;
   anchorItemBoxState: boolean;
   displayItemInfoState: boolean;
+  atlasType: string;
   setForceShift: (value: boolean) => { type: string; payload: boolean };
   setAnchorItemBox: (value: boolean) => { type: string; payload: boolean };
   setDisplayItemInfo: (value: boolean) => { type: string; payload: boolean };
+  setAtlasType: (value: string) => { type: string; payload: string };
   reset: () => { type: string; payload: {} };
 }
 
@@ -102,7 +104,11 @@ class Options extends React.Component<OptionsProps, OptionsState> {
           </div>
           <div
             className="drop-shadow--btn"
-            style={{ display: 'inline-block', borderRadius: '5px', marginLeft: '15px' }}
+            style={{
+              display: 'inline-block',
+              borderRadius: '5px',
+              marginLeft: '15px'
+            }}
           >
             <Button
               onClick={() => this.closeNested()}
@@ -141,6 +147,26 @@ class Options extends React.Component<OptionsProps, OptionsState> {
                     Base Selection
                   </p>
                   <BaseSelectorContainer />
+                </Grid.Column>
+                <Grid.Column width={16}>
+                  <br />
+                  <Radio
+                    label={'Elder'}
+                    checked={this.props.atlasType === 'ELDER'}
+                    onChange={() => this.props.setAtlasType('ELDER')}
+                  />
+                  <Radio
+                    style={{ paddingLeft: '10px' }}
+                    label={'Shaper'}
+                    checked={this.props.atlasType === 'SHAPER'}
+                    onChange={() => this.props.setAtlasType('SHAPER')}
+                  />
+                  <Radio
+                    style={{ paddingLeft: '10px' }}
+                    label={'None'}
+                    checked={this.props.atlasType === 'NONE'}
+                    onChange={() => this.props.setAtlasType('NONE')}
+                  />
                 </Grid.Column>
                 <Grid.Column width={16} style={{ marginTop: '5px' }}>
                   <p

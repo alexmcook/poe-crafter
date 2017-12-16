@@ -147,7 +147,7 @@ export function exalted(item: Item): { item: Item; result: boolean } {
   let result = false;
   if (item.rarity === Rarity.RARE && !item.corrupted) {
     let maxCount = 6;
-    if (item.type === 'Jewel') {
+    if (item.type === 'Jewel' || item.type === 'AbyssJewel') {
       maxCount = 4;
     }
     if (item.mods.length < maxCount) {
@@ -193,7 +193,7 @@ export function alchemy(item: Item): { item: Item; result: boolean } {
     item.rarity = Rarity.RARE;
     item.itemName = item.generateName();
     item.updateModPool();
-    if (item.type === 'Jewel') {
+    if (item.type === 'Jewel' || item.type === 'AbyssJewel') {
       for (let i = 0; i < 3; i++) {
         let mod = item.getMod();
         if (mod) {
@@ -254,7 +254,7 @@ export function chaos(item: Item): { item: Item; result: boolean } {
       _.each(suffixes, mod => {
         item.removeMod(mod);
       });
-      if (item.type === 'Jewel') {
+      if (item.type === 'Jewel' || item.type === 'AbyssJewel') {
         for (let i = item.mods.length; i < 3; i++) {
           let mod = item.getMod();
           if (mod) {
@@ -302,7 +302,7 @@ export function chaos(item: Item): { item: Item; result: boolean } {
       _.each(prefixes, mod => {
         item.removeMod(mod);
       });
-      if (item.type === 'Jewel') {
+      if (item.type === 'Jewel' || item.type === 'AbyssJewel') {
         for (let i = item.mods.length; i < 3; i++) {
           let mod = item.getMod();
           if (mod) {
@@ -347,7 +347,7 @@ export function chaos(item: Item): { item: Item; result: boolean } {
       }
     } else {
       item.reset();
-      if (item.type === 'Jewel') {
+      if (item.type === 'Jewel' || item.type === 'AbyssJewel') {
         for (let i = 0; i < 3; i++) {
           let mod = item.getMod();
           if (mod) {
@@ -533,7 +533,7 @@ export function vaal(item: Item): { item: Item; result: boolean } {
         item.reset();
         item.rarity = Rarity.RARE;
         item.itemName = item.generateName();
-        if (item.type === 'Jewel') {
+        if (item.type === 'Jewel' || item.type === 'AbyssJewel') {
           for (let i = 0; i < 4; i++) {
             let mod = item.getMod();
             if (mod) {
@@ -581,7 +581,7 @@ export function vaal(item: Item): { item: Item; result: boolean } {
         item.reset();
         item.rarity = Rarity.RARE;
         item.itemName = item.generateName();
-        if (item.type === 'Jewel') {
+        if (item.type === 'Jewel' || item.type === 'AbyssJewel') {
           for (let i = 0; i < 4; i++) {
             let mod = item.getMod();
             if (mod) {
@@ -653,6 +653,7 @@ export function essence(
     (item.rarity === Rarity.NORMAL ||
       (tier > 5 && item.rarity === Rarity.RARE)) &&
     item.type !== 'Jewel' &&
+    item.type !== 'AbyssJewel' &&
     !item.corrupted
   ) {
     let oldItem = item;

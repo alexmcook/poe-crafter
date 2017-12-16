@@ -14,7 +14,9 @@ export enum Domain {
   MASTER,
   JEWEL,
   ATLAS,
-  LEAGUESTONE
+  LEAGUESTONE,
+  ABYSSJEWEL,
+  MAPFRAGIIQ
 }
 
 export enum GenerationType {

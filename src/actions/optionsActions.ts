@@ -13,6 +13,11 @@ export const setDisplayItemInfo = (value: boolean) => ({
   payload: value
 });
 
+export const setAtlasType = (value: string) => ({
+  type: 'SET_ATLAS_TYPE',
+  payload: value
+});
+
 export const reset = () => ({
   type: 'RESET',
   payload: {}

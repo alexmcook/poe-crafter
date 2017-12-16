@@ -65,11 +65,13 @@ export function filterGenerationTypeCorruption(mods: Mod[]): Mod[] {
   });
 }
 
-/* Filter mods to include only mods with a domain based on item category */
-export function filterDomain(mods: Mod[], category: string): Mod[] {
+/* Filter mods to include only mods with a domain based on item type */
+export function filterDomain(mods: Mod[], type: string): Mod[] {
   return _.filter(mods, mod => {
-    if (category === 'Other') {
+    if (type === 'Jewel') {
       return mod.domain === Domain.JEWEL;
+    } else if (type === 'AbyssJewel') {
+      return mod.domain === Domain.ABYSSJEWEL;
     } else {
       return mod.domain === Domain.ITEM;
     }
@@ -114,7 +116,7 @@ export function checkAffixCount(
 ): boolean {
   let maxCount = 3;
   if (item.rarity === Rarity.RARE) {
-    if (item.type === 'Jewel') {
+    if (item.type === 'Jewel' || item.type === 'AbyssJewel') {
       maxCount = 2;
     }
   } else if (item.rarity === Rarity.MAGIC) {

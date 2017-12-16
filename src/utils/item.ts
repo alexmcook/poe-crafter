@@ -77,6 +77,7 @@ export default class Item extends Base {
   suffixesLocked: boolean;
   leoLevelLocked: boolean;
   corrupted: boolean;
+  atlasType: string;
   constructor(item: Base | Item) {
     super(item);
     if (item instanceof Item) {
@@ -100,6 +101,7 @@ export default class Item extends Base {
       this.suffixesLocked = item.suffixesLocked;
       this.leoLevelLocked = item.leoLevelLocked;
       this.corrupted = item.corrupted;
+      this.atlasType = item.atlasType;
     } else {
       this.itemName = this.generateName();
       this.itemLevel = 100;
@@ -122,6 +124,7 @@ export default class Item extends Base {
       this.suffixesLocked = false;
       this.leoLevelLocked = false;
       this.corrupted = false;
+      this.atlasType = 'NONE';
     }
   }
 
@@ -379,12 +382,12 @@ export default class Item extends Base {
       this.currentTags
     );
     updatedModPool = _item.filterGenerationType(updatedModPool);
-    updatedModPool = _item.filterDomain(updatedModPool, this.category);
+    updatedModPool = _item.filterDomain(updatedModPool, this.type);
     updatedModPool = _item.filterGroup(updatedModPool, this.mods);
     updatedModPool = _item.filterLevel(updatedModPool, this.itemLevel);
     let maxCount = 3;
     if (this.rarity === Rarity.RARE) {
-      if (this.type === 'Jewel') {
+      if (this.type === 'Jewel' || this.type === 'AbyssJewel') {
         maxCount = 2;
       }
     } else if (this.rarity === Rarity.MAGIC) {
@@ -399,6 +402,55 @@ export default class Item extends Base {
       updatedModPool = _item.filterSuffix(updatedModPool);
     }
     this.currentModPool = updatedModPool;
+  }
+
+  setAtlasType(type: string) {
+    console.log(this.currentTags);
+    switch (type) {
+      case 'ELDER':
+        if (
+          !_.includes(this.tags[0].toLowerCase(), 'elder')
+        ) {
+          if (_.includes(this.tags[0].toLowerCase(), 'shaper')) {
+            this.tags.splice(0, 1);
+          }
+          this.tags.unshift(this.type.toLowerCase() + '_' + type.toLowerCase());
+          this.currentTags = this.tags;
+          this.atlasType = 'ELDER';
+          this.modPool = generateModPool(this);
+          this.updateModPool();
+        }
+        break;
+      case 'SHAPER':
+        if (
+          !_.includes(this.tags[0].toLowerCase(), 'shaper')
+        ) {
+          if (_.includes(this.tags[0].toLowerCase(), 'elder')) {
+            this.tags.splice(0, 1);
+          }
+          this.tags.unshift(this.type.toLowerCase() + '_' + type.toLowerCase());
+          this.currentTags = this.tags;
+          this.atlasType = 'SHAPER';
+          this.modPool = generateModPool(this);
+          this.updateModPool();
+        }
+        break;
+      case 'NONE':
+        if (
+          _.includes(this.tags[0].toLowerCase(), 'elder') || 
+          _.includes(this.tags[0].toLowerCase(), 'shaper')
+        ) {
+          this.tags.splice(0, 1);
+          this.currentTags = this.tags;
+          this.atlasType = 'NONE';
+          this.modPool = generateModPool(this);
+          this.updateModPool();
+        }
+        break;
+      default:
+        break;
+    }
+    console.log(this.currentTags);
   }
 
   calcLevel(): number {
@@ -688,7 +740,7 @@ function generateModPool(item: Item): Mod[] {
   let modPool = _item.filterSpawnWeightTagsMatch(mods, item.tags);
   modPool = _item.filterSpawnWeightAnyIsZero(modPool, item.tags);
   modPool = _item.filterGenerationType(modPool);
-  modPool = _item.filterDomain(modPool, item.category);
+  modPool = _item.filterDomain(modPool, item.type);
   modPool = _item.filterLevel(modPool, item.itemLevel);
   return modPool;
 }
@@ -697,7 +749,7 @@ function generateCorruptionPool(item: Item): Mod[] {
   let corruptionPool = _item.filterGenerationTypeCorruption(mods);
   corruptionPool = _item.filterSpawnWeightTagsMatch(corruptionPool, item.tags);
   corruptionPool = _item.filterSpawnWeightAnyIsZero(corruptionPool, item.tags);
-  corruptionPool = _item.filterDomain(corruptionPool, item.category);
+  corruptionPool = _item.filterDomain(corruptionPool, item.type);
   corruptionPool = _item.filterLevel(corruptionPool, item.itemLevel);
   return corruptionPool;
 }
